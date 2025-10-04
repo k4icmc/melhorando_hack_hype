@@ -1,0 +1,2394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACK HYPE - Por Onde Começar</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Partículas flutuantes de fundo */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #00ffff;
+            animation: slideInFromTop 0.8s ease-out;
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            width: 100px; /* Tamanho da logo (largura) - Ajuste conforme necessário */
+            height: 100px; /* Tamanho da logo (altura) - Ajuste conforme necessário */
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #000;
+            border: 4px solid #00ffff; /* Espessura da borda - Ajuste conforme necessário */
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        @keyframes logoGlow {
+            from {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+                transform: scale(1);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .back-btn {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInTitle 1.2s ease-out;
+        }
+
+        @keyframes fadeInTitle {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Seções do guia */
+        .guide-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: borderPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% {
+                border-color: rgba(0, 255, 255, 0.3);
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+            }
+            50% {
+                border-color: rgba(0, 255, 255, 0.6);
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            }
+        }
+
+        .guide-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00ffff;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .guide-section:hover .section-icon {
+            transform: rotateY(360deg);
+        }
+
+        .section-content {
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        /* Lista de passos */
+        .steps-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-item {
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #00ffff;
+            transition: all 0.3s ease;
+        }
+
+        .step-item:hover {
+            background: rgba(0, 255, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        .step-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: #cccccc;
+            line-height: 1.5;
+        }
+
+        /* Seção de recursos */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid #00ffff;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .resource-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .resource-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .resource-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 1rem;
+        }
+
+        .resource-description {
+            color: #cccccc;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Adicionando estilos para sites de aprendizado */
+        .learning-sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .site-card {
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid #00ffff;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.3);
+            border-color: #00ffff;
+        }
+
+        .site-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .site-card:hover::before {
+            left: 100%;
+        }
+
+        .site-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            margin: 0 auto 1rem;
+            object-fit: cover;
+            border: 2px solid #00ffff;
+        }
+
+        .site-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .site-category {
+            color: #888;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Popup Modal */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            /* Adicionando overflow para permitir scroll no overlay */
+            overflow-y: auto;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            /* Adicionando altura máxima e scroll interno */
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 2px solid #00ffff;
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.3);
+            position: relative;
+            animation: popupSlideIn 0.3s ease-out;
+            /* Garantindo que o popup não seja cortado em telas pequenas */
+            margin: auto;
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .popup-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .popup-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            border: 2px solid #00ffff;
+        }
+
+        .popup-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ffff;
+        }
+
+        .popup-description {
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .popup-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-access {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+        }
+
+        .btn-access:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-close {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid #666;
+        }
+
+        .btn-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00ffff;
+            transform: translateY(-2px);
+        }
+
+        /* Seção de links editáveis */
+        .editable-links {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border: 1px dashed rgba(0, 255, 255, 0.5);
+        }
+
+        .link-placeholder {
+            color: #888;
+            font-style: italic;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Adicionando estilos para o plano de estudos anual */
+        .study-plan-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .month-card {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 150, 255, 0.1));
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid #00ffff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .month-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.3);
+            border-color: #00ff88;
+        }
+
+        .month-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .month-card:hover::before {
+            left: 100%;
+        }
+
+        .month-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .month-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .month-topic {
+            color: #cccccc;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .month-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .month-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #00ff88);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        /* Estilos para popup do plano de estudos */
+        .study-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            /* Adicionando overflow para permitir scroll no overlay do plano de estudos */
+            overflow-y: auto;
+        }
+
+        .study-popup-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 800px;
+            /* Melhorando a altura máxima e scroll para diferentes telas */
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 2px solid #00ffff;
+            position: relative;
+            animation: popupSlideIn 0.3s ease;
+            /* Garantindo margem automática para centralização */
+            margin: auto;
+            /* Adicionando scrollbar customizada */
+            scrollbar-width: thin;
+            scrollbar-color: #00ffff #1a1a2e;
+        }
+
+        /* Adicionando estilos para scrollbar webkit (Chrome, Safari) */
+        .study-popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .study-popup-content::-webkit-scrollbar-track {
+            background: #1a1a2e;
+            border-radius: 4px;
+        }
+
+        .study-popup-content::-webkit-scrollbar-thumb {
+            background: #00ffff;
+            border-radius: 4px;
+        }
+
+        .study-popup-content::-webkit-scrollbar-thumb:hover {
+            background: #0080ff;
+        }
+
+        /* Aplicando scrollbar customizada também para popup-content */
+        .popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .popup-content::-webkit-scrollbar-track {
+            background: #1a1a2e;
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb {
+            background: #00ffff;
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb:hover {
+            background: #0080ff;
+        }
+
+        .study-popup-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+            padding-bottom: 1rem;
+        }
+
+        .study-popup-month {
+            font-size: 3rem;
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .study-popup-title {
+            font-size: 1.8rem;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .study-content {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .study-topics {
+            margin: 1.5rem 0;
+        }
+
+        .study-topics h4 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .study-topics ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .study-topics li {
+            background: rgba(0, 255, 255, 0.1);
+            margin: 0.5rem 0;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border-left: 3px solid #00ffff;
+        }
+
+        .resources-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(0, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .resources-section h4 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .resource-link {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            color: #00ffff;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .resource-link:hover {
+            background: rgba(0, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .study-popup-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .study-popup-close:hover {
+            background: #ff3742;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.8rem 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .logo {
+                width: 80px; /* Tamanho menor da logo para mobile (largura) - Ajuste conforme necessário */
+                height: 80px; /* Tamanho menor da logo para mobile (altura) - Ajuste conforme necessário */
+                border: 3px solid #00ffff; /* Espessura da borda mobile - Ajuste conforme necessário */
+            }
+            
+            .main-content {
+                margin-top: 140px;
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .resource-card {
+                padding: 1.5rem;
+            }
+
+            .step-item {
+                padding: 1rem;
+            }
+
+            .learning-sites-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .popup-content {
+                margin: 10px;
+                padding: 1.5rem;
+                /* Melhorando altura máxima para mobile */
+                max-height: 85vh;
+            }
+
+            .popup-buttons {
+                flex-direction: column;
+            }
+
+            .popup-btn {
+                width: 100%;
+            }
+
+            /* Responsive para o plano de estudos */
+            .months-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .study-popup-content {
+                margin: 10px;
+                /* Ajustando altura máxima para mobile */
+                max-height: 80vh;
+                padding: 1.5rem;
+            }
+            
+            .resource-links {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Adicionando media query para telas muito pequenas */
+        @media (max-width: 480px) {
+            .popup-content {
+                max-height: 90vh;
+                padding: 1rem;
+            }
+            
+            .study-popup-content {
+                max-height: 85vh;
+                padding: 1rem;
+            }
+            
+            .popup-overlay, .study-popup {
+                padding: 10px;
+            }
+        }
+
+        /* Animações de scroll */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas flutuantes -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom-QXpCCTyC7G3cJjKmgG8WsEOb8Nk3TR.png" alt="HACK HYPE Logo">
+                <!-- COMENTÁRIO: Para alterar a logo, substitua o link acima -->
+            </div>
+            <a href="https://hack-hype.vercel.app" class="back-btn">← Voltar ao Início</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">POR ONDE COMEÇAR</h1>
+        <p class="page-subtitle">Seu guia completo para iniciar na área de Sistemas de Informação</p>
+
+        <!-- Seção: Primeiros Passos -->
+        <section class="guide-section scroll-reveal">
+            <h2 class="section-title">
+                <span class="section-icon">🚀</span>
+                Primeiros Passos
+            </h2>
+            <div class="section-content">
+                <p>Começar na área de Sistemas de Informação pode parecer desafiador, mas com o caminho certo, você pode construir uma carreira sólida e gratificante. Aqui está seu roteiro inicial:</p>
+                
+                <ul class="steps-list">
+                    <li class="step-item">
+                        <div class="step-number">01</div>
+                        <div class="step-title">Entenda o que é Sistemas de Informação</div>
+                        <div class="step-description">
+                            Sistemas de Informação é a área que combina <span class="highlight">tecnologia, negócios e pessoas</span>. 
+                            Você aprenderá a desenvolver soluções tecnológicas que resolvem problemas reais das empresas.
+                        </div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-number">02</div>
+                        <div class="step-title">Desenvolva o Pensamento Lógico</div>
+                        <div class="step-description">
+                            Comece com <span class="highlight">algoritmos básicos</span> e lógica de programação. 
+                            Use ferramentas como Scratch, Portugol ou fluxogramas para entender como os computadores "pensam".
+                        </div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-number">03</div>
+                        <div class="step-title">Aprenda sua Primeira Linguagem</div>
+                        <div class="step-description">
+                            Recomendamos começar com <span class="highlight">Python</span> pela sua sintaxe simples, 
+                            ou <span class="highlight">JavaScript</span> se quiser ver resultados visuais rapidamente no navegador.
+                        </div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-number">04</div>
+                        <div class="step-title">Entenda Banco de Dados</div>
+                        <div class="step-description">
+                            Aprenda conceitos básicos de <span class="highlight">SQL</span> e como os dados são organizados e consultados. 
+                            Comece com MySQL ou PostgreSQL.
+                        </div>
+                    </li>
+                    
+                    <li class="step-item">
+                        <div class="step-number">05</div>
+                        <div class="step-title">Pratique com Projetos</div>
+                        <div class="step-description">
+                            Crie projetos simples como uma <span class="highlight">calculadora, lista de tarefas ou sistema de cadastro</span>. 
+                            A prática é fundamental para fixar o conhecimento.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Seção: Conhecimentos Fundamentais -->
+        <section class="guide-section scroll-reveal">
+            <h2 class="section-title">
+                <span class="section-icon">📚</span>
+                Conhecimentos Fundamentais
+            </h2>
+            <div class="section-content">
+                <p>Para ter sucesso em Sistemas de Informação, você precisa dominar algumas áreas-chave:</p>
+                
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <span class="resource-icon">💻</span>
+                        <h3 class="resource-title">Programação</h3>
+                        <p class="resource-description">
+                            Linguagens essenciais: Python, Java, JavaScript, C#. 
+                            Comece com uma e depois expanda seu repertório.
+                        </p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-icon">🗄️</span>
+                        <h3 class="resource-title">Banco de Dados</h3>
+                        <p class="resource-description">
+                            SQL, modelagem de dados, MySQL, PostgreSQL. 
+                            Aprenda a organizar e consultar informações eficientemente.
+                        </p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-icon">🌐</span>
+                        <h3 class="resource-title">Desenvolvimento Web</h3>
+                        <p class="resource-description">
+                            HTML, CSS, JavaScript, frameworks como React ou Vue.js. 
+                            Crie interfaces que os usuários vão amar usar.
+                        </p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-icon">📊</span>
+                        <h3 class="resource-title">Análise de Sistemas</h3>
+                        <p class="resource-description">
+                            UML, levantamento de requisitos, modelagem de processos. 
+                            Aprenda a entender e documentar necessidades de negócio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção: Sites para Começar -->
+        <section class="guide-section scroll-reveal">
+            <h2 class="section-title">
+                <span class="section-icon">🌐</span>
+                Sites Essenciais para Começar
+            </h2>
+            <div class="section-content">
+                <p>Aqui estão os melhores sites para iniciar sua jornada em Sistemas de Informação. Clique em qualquer um para saber mais:</p>
+                
+                <div class="learning-sites-grid">
+                    <!-- Codecademy -->
+                    <div class="site-card" onclick="openPopup('codecademy')">
+                        <!-- Atualizando logo do Codecademy -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Codecademy_icon.svg/2048px-Codecademy_icon.svg.png" alt="Codecademy" class="site-logo">
+                        <div class="site-name">Codecademy</div>
+                        <div class="site-category">Programação Interativa</div>
+                    </div>
+
+                    <!-- freeCodeCamp -->
+                    <div class="site-card" onclick="openPopup('freecodecamp')">
+                        <!-- substituindo logo do FreeCodeCamp pela nova URL -->
+                        <img src="https://img.icons8.com/?size=512&id=x8AiShN0BsFX&format=png" alt="freeCodeCamp" class="site-logo">
+                        <div class="site-name">freeCodeCamp</div>
+                        <div class="site-category">Cursos Gratuitos</div>
+                    </div>
+
+                    <!-- Khan Academy -->
+                    <div class="site-card" onclick="openPopup('khanacademy')">
+                        <!-- Atualizando logo da Khan Academy -->
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/067/941/700/small/khan-academy-logo-rounded-without-background-for-free-online-education-free-png.png" alt="Khan Academy" class="site-logo">
+                        <div class="site-name">Khan Academy</div>
+                        <div class="site-category">Fundamentos</div>
+                    </div>
+
+                    <!-- Coursera -->
+                    <div class="site-card" onclick="openPopup('coursera')">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/200px-Coursera-Logo_600x600.svg-lEnvVmCLsvn6rWsS9QxBjrhJ50vLVE.png" alt="Coursera" class="site-logo">
+                        <div class="site-name">Coursera</div>
+                        <div class="site-category">Cursos Universitários</div>
+                    </div>
+
+                    <!-- Udemy -->
+                    <div class="site-card" onclick="openPopup('udemy')">
+                        <!-- Atualizando logo da Udemy -->
+                        <img src="https://static.vecteezy.com/system/resources/previews/046/437/277/non_2x/udemy-transparent-logo-free-png.png" alt="Udemy" class="site-logo">
+                        <div class="site-name">Udemy</div>
+                        <div class="site-category">Cursos Práticos</div>
+                    </div>
+
+                    <!-- edX -->
+                    <div class="site-card" onclick="openPopup('edx')">
+                        <!-- Atualizando logo do edX -->
+                        <img src="https://images.credly.com/images/6222fdbc-e6ad-4deb-99f4-64b724fdeb03/blob.png" alt="edX" class="site-logo">
+                        <div class="site-name">edX</div>
+                        <div class="site-category">Educação Superior</div>
+                    </div>
+
+                    <!-- W3Schools -->
+                    <div class="site-card" onclick="openPopup('w3schools')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/W3Schools_logo.svg/200px-W3Schools_logo.svg.png" alt="W3Schools" class="site-logo">
+                        <div class="site-name">W3Schools</div>
+                        <div class="site-category">Web Development</div>
+                    </div>
+
+                    <!-- MDN Web Docs -->
+                    <div class="site-card" onclick="openPopup('mdn')">
+                        <!-- Atualizando logo do MDN Web Docs -->
+                        <img src="https://raw.githubusercontent.com/Fazendaaa/MDNSearch/HEAD/others/img/logo/logo.png" alt="MDN Web Docs" class="site-logo">
+                        <div class="site-name">MDN Web Docs</div>
+                        <div class="site-category">Documentação Web</div>
+                    </div>
+
+                    <!-- Stack Overflow -->
+                    <div class="site-card" onclick="openPopup('stackoverflow')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Stack_Overflow_icon.svg/200px-Stack_Overflow_icon.svg.png" alt="Stack Overflow" class="site-logo">
+                        <div class="site-name">Stack Overflow</div>
+                        <div class="site-category">Comunidade</div>
+                    </div>
+
+                    <!-- GitHub -->
+                    <div class="site-card" onclick="openPopup('github')">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/200px-Octicons-mark-github.svg-fE53mvnzCL3X59rAEAdoSBiJiZkKiv.png" alt="GitHub" class="site-logo">
+                        <div class="site-name">GitHub</div>
+                        <div class="site-category">Repositórios</div>
+                    </div>
+
+                    <!-- LeetCode -->
+                    <div class="site-card" onclick="openPopup('leetcode')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/LeetCode_logo_black.png/200px-LeetCode_logo_black.png" alt="LeetCode" class="site-logo">
+                        <div class="site-name">LeetCode</div>
+                        <div class="site-category">Algoritmos</div>
+                    </div>
+
+                    <!-- HackerRank -->
+                    <div class="site-card" onclick="openPopup('hackerrank')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/200px-HackerRank_logo.png" alt="HackerRank" class="site-logo">
+                        <div class="site-name">HackerRank</div>
+                        <div class="site-category">Desafios</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Substituindo a seção de cronograma por um plano anual completo -->
+        <section class="study-plan-section scroll-reveal">
+            <h2 class="section-title">
+                <span class="section-icon">📚</span>
+                Plano de Estudos Completo - 1 Ano
+            </h2>
+            <div class="section-content">
+                <p>Um roadmap completo e estruturado para se tornar um profissional de Sistemas de Informação em 12 meses. Clique em cada mês para ver o conteúdo detalhado:</p>
+                
+                <div class="months-grid">
+                    <!-- Mês 1 -->
+                    <div class="month-card" onclick="openStudyPopup('month1')">
+                        <div class="month-number">01</div>
+                        <div class="month-title">Fundamentos da Computação</div>
+                        <div class="month-topic">Lógica de Programação • Algoritmos • Introdução à TI</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 100%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 2 -->
+                    <div class="month-card" onclick="openStudyPopup('month2')">
+                        <div class="month-number">02</div>
+                        <div class="month-title">Primeira Linguagem</div>
+                        <div class="month-topic">Python • Estruturas de Dados • Programação Orientada a Objetos</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 3 -->
+                    <div class="month-card" onclick="openStudyPopup('month3')">
+                        <div class="month-number">03</div>
+                        <div class="month-title">Desenvolvimento Web Frontend</div>
+                        <div class="month-topic">HTML5 • CSS3 • JavaScript • Responsividade</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 70%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 4 -->
+                    <div class="month-card" onclick="openStudyPopup('month4')">
+                        <div class="month-number">04</div>
+                        <div class="month-title">Frameworks Frontend</div>
+                        <div class="month-topic">React.js • Vue.js • Bootstrap • Tailwind CSS</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 60%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 5 -->
+                    <div class="month-card" onclick="openStudyPopup('month5')">
+                        <div class="month-number">05</div>
+                        <div class="month-title">Banco de Dados</div>
+                        <div class="month-topic">SQL • MySQL • PostgreSQL • Modelagem de Dados</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 50%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 6 -->
+                    <div class="month-card" onclick="openStudyPopup('month6')">
+                        <div class="month-number">06</div>
+                        <div class="month-title">Desenvolvimento Backend</div>
+                        <div class="month-topic">Node.js • Express • APIs REST • Autenticação</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 40%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 7 -->
+                    <div class="month-card" onclick="openStudyPopup('month7')">
+                        <div class="month-number">07</div>
+                        <div class="month-title">Controle de Versão</div>
+                        <div class="month-topic">Git • GitHub • GitLab • Colaboração em Equipe</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 30%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 8 -->
+                    <div class="month-card" onclick="openStudyPopup('month8')">
+                        <div class="month-number">08</div>
+                        <div class="month-title">Cloud Computing</div>
+                        <div class="month-topic">AWS • Azure • Google Cloud • Docker • Kubernetes</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 25%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 9 -->
+                    <div class="month-card" onclick="openStudyPopup('month9')">
+                        <div class="month-number">09</div>
+                        <div class="month-title">Segurança da Informação</div>
+                        <div class="month-topic">Criptografia • HTTPS • Vulnerabilidades • Ethical Hacking</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 20%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 10 -->
+                    <div class="month-card" onclick="openStudyPopup('month10')">
+                        <div class="month-number">10</div>
+                        <div class="month-title">Metodologias Ágeis</div>
+                        <div class="month-topic">Scrum • Kanban • DevOps • CI/CD • Testes</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 15%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 11 -->
+                    <div class="month-card" onclick="openStudyPopup('month11')">
+                        <div class="month-number">11</div>
+                        <div class="month-title">Inteligência Artificial</div>
+                        <div class="month-topic">Machine Learning • Python AI • TensorFlow • Data Science</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 10%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mês 12 -->
+                    <div class="month-card" onclick="openStudyPopup('month12')">
+                        <div class="month-number">12</div>
+                        <div class="month-title">Projeto Final & Carreira</div>
+                        <div class="month-topic">Portfolio • LinkedIn • Entrevistas • Networking</div>
+                        <div class="month-progress">
+                            <div class="month-progress-bar" style="width: 5%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adicionando nova seção de áreas de especialização com popups informativos -->
+        <section class="guide-section scroll-reveal">
+            <h2 class="section-title">
+                <span class="section-icon">🎯</span>
+                Áreas de Especialização em SI
+            </h2>
+            <div class="section-content">
+                <p>Conheça as principais áreas onde você pode se especializar em Sistemas de Informação:</p>
+                
+                <div class="learning-sites-grid">
+                    <div class="site-card" onclick="openSpecializationPopup('desenvolvimento')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1005/1005141.png" alt="Desenvolvimento" class="site-logo">
+                        <div class="site-name">Desenvolvimento de Software</div>
+                        <div class="site-category">Frontend & Backend</div>
+                    </div>
+
+                    <div class="site-card" onclick="openSpecializationPopup('dados')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="Ciência de Dados" class="site-logo">
+                        <div class="site-name">Ciência de Dados</div>
+                        <div class="site-category">Analytics & BI</div>
+                    </div>
+
+                    <div class="site-card" onclick="openSpecializationPopup('seguranca')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2092/2092063.png" alt="Segurança" class="site-logo">
+                        <div class="site-name">Segurança da Informação</div>
+                        <div class="site-category">Cybersecurity</div>
+                    </div>
+
+                    <div class="site-card" onclick="openSpecializationPopup('redes')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1304/1304061.png" alt="Redes" class="site-logo">
+                        <div class="site-name">Redes e Infraestrutura</div>
+                        <div class="site-category">Cloud & DevOps</div>
+                    </div>
+
+                    <div class="site-card" onclick="openSpecializationPopup('mobile')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png" alt="Mobile" class="site-logo">
+                        <div class="site-name">Desenvolvimento Mobile</div>
+                        <div class="site-category">iOS & Android</div>
+                    </div>
+
+                    <div class="site-card" onclick="openSpecializationPopup('ia')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/8637/8637099.png" alt="IA" class="site-logo">
+                        <div class="site-name">Inteligência Artificial</div>
+                        <div class="site-category">Machine Learning</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adicionando seção de ferramentas essenciais com popups -->
+        <section class="guide-section scroll-reveal">
+            <h2 class="section-title">
+                <span class="section-icon">🛠️</span>
+                Ferramentas Essenciais
+            </h2>
+            <div class="section-content">
+                <p>Ferramentas que todo profissional de SI deve conhecer:</p>
+                
+                <div class="learning-sites-grid">
+                    <div class="site-card" onclick="openToolPopup('vscode')">
+                        <img src="https://code.visualstudio.com/assets/images/code-stable.png" alt="VS Code" class="site-logo">
+                        <div class="site-name">Visual Studio Code</div>
+                        <div class="site-category">Editor de Código</div>
+                    </div>
+
+                    <div class="site-card" onclick="openToolPopup('git')">
+                        <img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" alt="Git" class="site-logo">
+                        <div class="site-name">Git</div>
+                        <div class="site-category">Controle de Versão</div>
+                    </div>
+
+                    <div class="site-card" onclick="openToolPopup('docker')">
+                        <img src="https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png" alt="Docker" class="site-logo">
+                        <div class="site-name">Docker</div>
+                        <div class="site-category">Containerização</div>
+                    </div>
+
+                    <div class="site-card" onclick="openToolPopup('postman')">
+                        <!-- Atualizando logo do Postman -->
+                        <img src="https://res.cloudinary.com/postman/image/upload/t_team_logo/v1629869194/team/2893aede23f01bfcbd2319326bc96a6ed0524eba759745ed6d73405a3a8b67a8" alt="Postman" class="site-logo">
+                        <div class="site-name">Postman</div>
+                        <div class="site-category">API Testing</div>
+                    </div>
+
+                    <div class="site-card" onclick="openToolPopup('figma')">
+                        <!-- Atualizando logo do Figma -->
+                        <img src="https://images.icon-icons.com/3053/PNG/512/figma_alt_macos_bigsur_icon_190181.png" alt="Figma" class="site-logo">
+                        <div class="site-name">Figma</div>
+                        <div class="site-category">Design UI/UX</div>
+                    </div>
+
+                    <div class="site-card" onclick="openToolPopup('mysql')">
+                        <img src="https://www.mysql.com/common/logos/logo-mysql-170x115.png" alt="MySQL" class="site-logo">
+                        <div class="site-name">MySQL</div>
+                        <div class="site-category">Banco de Dados</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adicionando seção de certificações importantes -->
+        <section class="guide-section scroll-reveal">
+            <h2 class="section-title">
+                <span class="section-icon">🏆</span>
+                Certificações Importantes
+            </h2>
+            <div class="section-content">
+                <p>Certificações que podem impulsionar sua carreira:</p>
+                
+                <div class="learning-sites-grid">
+                    <div class="site-card" onclick="openCertPopup('aws')">
+                        <img src="https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Solutions-Architect-Associate_badge.3419559c682629072f1eb968d59dea0741772c0f.png" alt="AWS" class="site-logo">
+                        <div class="site-name">AWS Solutions Architect</div>
+                        <div class="site-category">Cloud Computing</div>
+                    </div>
+
+                    <div class="site-card" onclick="openCertPopup('google')">
+                        <img src="https://cloud.google.com/_static/cloud/images/social-icon-google-cloud-1200-630.png" alt="Google Cloud" class="site-logo">
+                        <div class="site-name">Google Cloud Professional</div>
+                        <div class="site-category">Cloud Platform</div>
+                    </div>
+
+                    <div class="site-card" onclick="openCertPopup('microsoft')">
+                        <!-- atualizando logo do Microsoft Azure -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Microsoft_Azure.svg/1200px-Microsoft_Azure.svg.png" alt="Azure" class="site-logo">
+                        <div class="site-name">Microsoft Azure</div>
+                        <div class="site-category">Cloud Services</div>
+                    </div>
+
+                    <div class="site-card" onclick="openCertPopup('cisco')">
+                        <!-- atualizando logo do Cisco CCNA -->
+                        <img src="https://cist.fmi.uni-sofia.bg/sites/default/files/cisco_logo_large.png" alt="Cisco" class="site-logo">
+                        <div class="site-name">Cisco CCNA</div>
+                        <div class="site-category">Networking</div>
+                    </div>
+
+                    <div class="site-card" onclick="openCertPopup('comptia')">
+                        <!-- atualizando logo do CompTIA Security+ -->
+                        <img src="https://images.credly.com/images/80d8a06a-c384-42bf-ad36-db81bce5adce/blob" alt="CompTIA" class="site-logo">
+                        <div class="site-name">CompTIA Security+</div>
+                        <div class="site-category">Cybersecurity</div>
+                    </div>
+
+                    <div class="site-card" onclick="openCertPopup('oracle')">
+                        <img src="https://education.oracle.com/file/general/p-80-java.png" alt="Oracle" class="site-logo">
+                        <div class="site-name">Oracle Java SE</div>
+                        <div class="site-category">Programming</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção: Dicas Importantes -->
+        <section class="guide-section scroll-reveal">
+            <h2 class="section-title">
+                <span class="section-icon">💡</span>
+                Dicas Importantes para Iniciantes
+            </h2>
+            <div class="section-content">
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <span class="resource-icon">🎯</span>
+                        <h3 class="resource-title">Seja Consistente</h3>
+                        <p class="resource-description">
+                            É melhor estudar 1 hora por dia todos os dias do que 7 horas apenas no domingo. 
+                            A consistência é a chave do sucesso.
+                        </p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-icon">🤝</span>
+                        <h3 class="resource-title">Participe de Comunidades</h3>
+                        <p class="resource-description">
+                            Entre em grupos no Discord, Reddit, Stack Overflow. 
+                            Fazer networking e tirar dúvidas acelera muito o aprendizado.
+                        </p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-icon">🔨</span>
+                        <h3 class="resource-title">Pratique Sempre</h3>
+                        <p class="resource-description">
+                            Teoria sem prática não funciona. Para cada conceito que aprender, 
+                            crie um pequeno projeto ou exercício para fixar o conhecimento.
+                        </p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <span class="resource-icon">📈</span>
+                        <h3 class="resource-title">Não Tenha Pressa</h3>
+                        <p class="resource-description">
+                            Programação é uma maratona, não uma corrida. 
+                            Foque em entender bem os conceitos antes de partir para o próximo tópico.
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0, 255, 255, 0.1); border-radius: 10px; border-left: 4px solid #00ffff;">
+                    <h3 class="highlight">🎉 Lembre-se:</h3>
+                    <p>Todo programador experiente já foi iniciante um dia. O importante é começar e não desistir. 
+                    Cada erro é uma oportunidade de aprendizado, e cada pequeno projeto é um passo em direção ao seu objetivo!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content" id="popupContent">
+            <!-- Conteúdo será inserido dinamicamente -->
+        </div>
+    </div>
+
+    <!-- Adicionando popup para o plano de estudos -->
+    <div id="studyPopupOverlay" class="study-popup">
+        <div class="study-popup-content">
+            <button class="study-popup-close" onclick="closeStudyPopup()">&times;</button>
+            <div id="studyPopupContent">
+                <!-- Conteúdo será inserido dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.scroll-reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        const sitesData = {
+            codecademy: {
+                name: 'Codecademy',
+                /* Atualizando logo do Codecademy no objeto */
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Codecademy_icon.svg/2048px-Codecademy_icon.svg.png',
+                description: 'Plataforma interativa para aprender programação com exercícios práticos. Oferece cursos de Python, JavaScript, HTML/CSS, SQL e muito mais. Ideal para iniciantes que preferem aprender fazendo.',
+                url: 'https://www.codecademy.com' // Link real do Codecademy
+            },
+            freecodecamp: {
+                name: 'freeCodeCamp',
+                logo: 'https://img.icons8.com/?size=512&id=x8AiShN0BsFX&format=png',
+                description: 'Organização sem fins lucrativos que oferece cursos gratuitos de programação. Inclui certificações em desenvolvimento web, ciência de dados, segurança da informação e muito mais.',
+                url: 'https://www.freecodecamp.org' // Link real do freeCodeCamp
+            },
+            khanacademy: {
+                name: 'Khan Academy',
+                /* Atualizando logo da Khan Academy no objeto */
+                logo: 'https://static.vecteezy.com/system/resources/thumbnails/067/941/700/small/khan-academy-logo-rounded-without-background-for-free-online-education-free-png.png',
+                description: 'Plataforma educacional gratuita com cursos de ciência da computação, matemática e lógica. Perfeita para construir uma base sólida antes de partir para programação avançada.',
+                url: 'https://www.khanacademy.org' // Link real da Khan Academy
+            },
+            coursera: {
+                name: 'Coursera',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Coursera-Logo_600x600.svg/200px-Coursera-Logo_600x600.svg.png',
+                description: 'Oferece cursos online de universidades renomadas como Stanford, MIT e Google. Inclui especializações em ciência da computação, análise de dados e desenvolvimento de software.',
+                url: 'https://www.coursera.org' // Link real do Coursera
+            },
+            udemy: {
+                name: 'Udemy',
+                /* Atualizando logo da Udemy no objeto */
+                logo: 'https://static.vecteezy.com/system/resources/previews/046/437/277/non_2x/udemy-transparent-logo-free-png.png',
+                description: 'Marketplace de cursos online com milhares de opções em programação, desenvolvimento web, mobile e banco de dados. Cursos práticos e atualizados com as últimas tecnologias.',
+                url: 'https://www.udemy.com' // Link real do Udemy
+            },
+            edx: {
+                name: 'edX',
+                /* Atualizando logo do edX no objeto */
+                logo: 'https://images.credly.com/images/6222fdbc-e6ad-4deb-99f4-64b724fdeb03/blob.png',
+                description: 'Plataforma de educação online fundada por Harvard e MIT. Oferece cursos gratuitos e pagos de ciência da computação, engenharia de software e análise de dados.',
+                url: 'https://www.edx.org' // Link real do edX
+            },
+            w3schools: {
+                name: 'W3Schools',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/W3Schools_logo.svg/200px-W3Schools_logo.svg.png',
+                description: 'Referência mundial para aprender tecnologias web. Tutoriais gratuitos de HTML, CSS, JavaScript, PHP, SQL e muito mais. Inclui editor online para praticar.',
+                url: 'https://www.w3schools.com' // Link real do W3Schools
+            },
+            mdn: {
+                name: 'MDN Web Docs',
+                /* Atualizando logo do MDN Web Docs no objeto */
+                logo: 'https://raw.githubusercontent.com/Fazendaaa/MDNSearch/HEAD/others/img/logo/logo.png',
+                description: 'Documentação oficial da Mozilla para tecnologias web. Recurso essencial para desenvolvedores web com guias detalhados, referências de API e melhores práticas.',
+                url: 'https://developer.mozilla.org' // Link real do MDN
+            },
+            stackoverflow: {
+                name: 'Stack Overflow',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Stack_Overflow_icon.svg/200px-Stack_Overflow_icon.svg.png',
+                description: 'Maior comunidade de programadores do mundo. Local para fazer perguntas, encontrar soluções e aprender com outros desenvolvedores. Essencial para resolver problemas de código.',
+                url: 'https://stackoverflow.com' // Link real do Stack Overflow
+            },
+            github: {
+                name: 'GitHub',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/200px-Octicons-mark-github.svg.png',
+                description: 'Plataforma de hospedagem de código e colaboração. Essencial para armazenar projetos, colaborar com outros desenvolvedores e construir um portfólio profissional.',
+                url: 'https://github.com' // Link real do GitHub
+            },
+            leetcode: {
+                name: 'LeetCode',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/LeetCode_logo_black.png/200px-LeetCode_logo_black.png',
+                description: 'Plataforma para praticar algoritmos e estruturas de dados. Muito usada para preparação de entrevistas técnicas em empresas de tecnologia como Google, Facebook e Amazon.',
+                url: 'https://leetcode.com' // Link real do LeetCode
+            },
+            hackerrank: {
+                name: 'HackerRank',
+                logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/200px-HackerRank_logo.png',
+                description: 'Plataforma de desafios de programação e competições. Oferece problemas em diversas linguagens e níveis de dificuldade. Ótima para melhorar habilidades de resolução de problemas.',
+                url: 'https://www.hackerrank.com' // Link real do HackerRank
+            }
+        };
+
+        function openPopup(siteKey) {
+            const site = sitesData[siteKey];
+            const popupContent = document.getElementById('popupContent');
+            
+            popupContent.innerHTML = `
+                <div class="popup-header">
+                    <img src="${site.logo}" alt="${site.name}" class="popup-logo">
+                    <div class="popup-title">${site.name}</div>
+                </div>
+                <div class="popup-description">${site.description}</div>
+                <div class="popup-buttons">
+                    <a href="${site.url}" target="_blank" class="popup-btn btn-access">Acessar Site</a>
+                    <button onclick="closePopup()" class="popup-btn btn-close">Fechar</button>
+                </div>
+            `;
+            
+            document.getElementById('popupOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePopup() {
+            document.getElementById('popupOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fechar popup clicando fora dele
+        document.getElementById('popupOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        // Fechar popup com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePopup();
+            }
+        });
+
+        const studyPlanData = {
+            month1: {
+                number: "01",
+                title: "Fundamentos da Computação",
+                description: "Neste primeiro mês, você construirá uma base sólida em conceitos fundamentais da computação e lógica de programação.",
+                topics: [
+                    "Introdução aos Sistemas de Informação",
+                    "História da Computação e Evolução Tecnológica",
+                    "Lógica de Programação e Algoritmos",
+                    "Estruturas de Controle (if, while, for)",
+                    "Variáveis, Tipos de Dados e Operadores",
+                    "Pseudocódigo e Fluxogramas",
+                    "Resolução de Problemas Computacionais"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "Curso de Lógica - Curso em Vídeo", url: "https://www.cursoemvideo.com/curso/curso-de-algoritmo/" },
+                        { name: "Introdução à Ciência da Computação - CS50", url: "https://cs50.harvard.edu/x/" },
+                        { name: "Algoritmos - Khan Academy", url: "https://www.khanacademy.org/computing/computer-science/algorithms" }
+                    ],
+                    "Livros Recomendados": [
+                        { name: "Algoritmos - Teoria e Prática", url: "https://www.amazon.com.br/dp/8535236996" },
+                        { name: "Lógica de Programação - Forbellone", url: "https://www.amazon.com.br/dp/8564574217" }
+                    ],
+                    "Ferramentas": [
+                        { name: "Scratch - Programação Visual", url: "https://scratch.mit.edu/" },
+                        { name: "Flowgorithm - Fluxogramas", url: "http://www.flowgorithm.org/" },
+                        { name: "VisuAlg - Pseudocódigo", url: "https://visualg3.com.br/" }
+                    ]
+                }
+            },
+            month2: {
+                number: "02",
+                title: "Primeira Linguagem - Python",
+                description: "Aprenda Python, uma das linguagens mais populares e versáteis do mercado, ideal para iniciantes.",
+                topics: [
+                    "Sintaxe Básica do Python",
+                    "Variáveis, Listas, Dicionários e Tuplas",
+                    "Estruturas de Controle em Python",
+                    "Funções e Módulos",
+                    "Programação Orientada a Objetos",
+                    "Tratamento de Exceções",
+                    "Manipulação de Arquivos",
+                    "Bibliotecas Essenciais (os, sys, datetime)"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "Python para Iniciantes - Curso em Vídeo", url: "https://www.cursoemvideo.com/curso/python-3-mundo-1/" },
+                        { name: "Python.org Tutorial Oficial", url: "https://docs.python.org/3/tutorial/" },
+                        { name: "Codecademy Python", url: "https://www.codecademy.com/learn/learn-python-3" }
+                    ],
+                    "Livros": [
+                        { name: "Automatize Tarefas Maçantes com Python", url: "https://automatetheboringstuff.com/" },
+                        { name: "Python Crash Course", url: "https://nostarch.com/pythoncrashcourse2e" }
+                    ],
+                    "Ferramentas": [
+                        { name: "PyCharm Community", url: "https://www.jetbrains.com/pycharm/" },
+                        { name: "Visual Studio Code", url: "https://code.visualstudio.com/" },
+                        { name: "Jupyter Notebook", url: "https://jupyter.org/" }
+                    ]
+                }
+            },
+            month3: {
+                number: "03",
+                title: "Desenvolvimento Web Frontend",
+                description: "Domine as tecnologias fundamentais para criar interfaces web modernas e responsivas.",
+                topics: [
+                    "HTML5 Semântico e Estrutura",
+                    "CSS3 Avançado e Flexbox/Grid",
+                    "JavaScript ES6+ Fundamentals",
+                    "DOM Manipulation e Eventos",
+                    "Responsive Web Design",
+                    "CSS Frameworks (Bootstrap)",
+                    "Debugging e Developer Tools",
+                    "Acessibilidade Web (WCAG)"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "HTML e CSS - Curso em Vídeo", url: "https://www.cursoemvideo.com/curso/html5-css3-modulo1/" },
+                        { name: "JavaScript - MDN Web Docs", url: "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript" },
+                        { name: "freeCodeCamp Web Development", url: "https://www.freecodecamp.org/learn/responsive-web-design/" }
+                    ],
+                    "Documentação": [
+                        { name: "MDN Web Docs", url: "https://developer.mozilla.org/" },
+                        { name: "W3Schools", url: "https://www.w3schools.com/" },
+                        { name: "Can I Use", url: "https://caniuse.com/" }
+                    ],
+                    "Ferramentas": [
+                        { name: "Visual Studio Code", url: "https://code.visualstudio.com/" },
+                        { name: "Chrome DevTools", url: "https://developers.google.com/web/tools/chrome-devtools" },
+                        { name: "Figma", url: "https://www.figma.com/" }
+                    ]
+                }
+            },
+            month4: {
+                number: "04",
+                title: "Frameworks Frontend",
+                description: "Aprenda frameworks modernos que aceleram o desenvolvimento de aplicações web complexas.",
+                topics: [
+                    "Introdução ao React.js",
+                    "Componentes e Props",
+                    "State Management e Hooks",
+                    "Roteamento com React Router",
+                    "Styled Components e CSS-in-JS",
+                    "Introdução ao Vue.js",
+                    "Tailwind CSS Framework",
+                    "Build Tools (Webpack, Vite)"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "React - Documentação Oficial", url: "https://react.dev/" },
+                        { name: "Vue.js Guide", url: "https://vuejs.org/guide/" },
+                        { name: "Tailwind CSS", url: "https://tailwindcss.com/docs" }
+                    ],
+                    "Projetos Práticos": [
+                        { name: "Todo App com React", url: "https://github.com/topics/todo-react" },
+                        { name: "Portfolio Pessoal", url: "https://github.com/topics/portfolio-website" }
+                    ],
+                    "Ferramentas": [
+                        { name: "Create React App", url: "https://create-react-app.dev/" },
+                        { name: "Vue CLI", url: "https://cli.vuejs.org/" },
+                        { name: "Storybook", url: "https://storybook.js.org/" }
+                    ]
+                }
+            },
+            month5: {
+                number: "05",
+                title: "Banco de Dados",
+                description: "Domine conceitos de banco de dados relacionais e aprenda SQL para gerenciar informações.",
+                topics: [
+                    "Conceitos de Banco de Dados",
+                    "Modelagem de Dados e ER",
+                    "SQL Básico (SELECT, INSERT, UPDATE, DELETE)",
+                    "Joins e Relacionamentos",
+                    "Índices e Otimização",
+                    "MySQL e PostgreSQL",
+                    "NoSQL Introdução (MongoDB)",
+                    "Backup e Segurança"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "MySQL - Curso em Vídeo", url: "https://www.cursoemvideo.com/curso/mysql/" },
+                        { name: "SQL Tutorial - W3Schools", url: "https://www.w3schools.com/sql/" },
+                        { name: "PostgreSQL Tutorial", url: "https://www.postgresqltutorial.com/" }
+                    ],
+                    "Ferramentas": [
+                        { name: "MySQL Workbench", url: "https://www.mysql.com/products/workbench/" },
+                        { name: "pgAdmin", url: "https://www.pgadmin.org/" },
+                        { name: "DBeaver", url: "https://dbeaver.io/" }
+                    ],
+                    "Prática": [
+                        { name: "SQLBolt", url: "https://sqlbolt.com/" },
+                        { name: "HackerRank SQL", url: "https://www.hackerrank.com/domains/sql" }
+                    ]
+                }
+            },
+            month6: {
+                number: "06",
+                title: "Desenvolvimento Backend",
+                description: "Construa APIs robustas e aprenda sobre arquitetura de sistemas backend.",
+                topics: [
+                    "Introdução ao Node.js",
+                    "Express.js Framework",
+                    "APIs REST e RESTful",
+                    "Autenticação e Autorização (JWT)",
+                    "Middleware e Error Handling",
+                    "Integração com Banco de Dados",
+                    "Testes Unitários e de Integração",
+                    "Documentação de APIs (Swagger)"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "Node.js - Documentação Oficial", url: "https://nodejs.org/en/docs/" },
+                        { name: "Express.js Guide", url: "https://expressjs.com/" },
+                        { name: "REST API Tutorial", url: "https://restfulapi.net/" }
+                    ],
+                    "Ferramentas": [
+                        { name: "Postman", url: "https://www.postman.com/" },
+                        { name: "Insomnia", url: "https://insomnia.rest/" },
+                        { name: "MongoDB Compass", url: "https://www.mongodb.com/products/compass" }
+                    ],
+                    "Projetos": [
+                        { name: "API de Blog", url: "https://github.com/topics/blog-api" },
+                        { name: "Sistema de Autenticação", url: "https://github.com/topics/authentication-api" }
+                    ]
+                }
+            },
+            month7: {
+                number: "07",
+                title: "Controle de Versão",
+                description: "Aprenda Git e GitHub para colaborar em projetos e gerenciar código de forma profissional.",
+                topics: [
+                    "Conceitos de Controle de Versão",
+                    "Git Básico (init, add, commit, push, pull)",
+                    "Branches e Merging",
+                    "Resolução de Conflitos",
+                    "GitHub e Colaboração",
+                    "Pull Requests e Code Review",
+                    "Git Flow e Estratégias de Branch",
+                    "GitHub Actions (CI/CD Básico)"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "Git e GitHub - Curso em Vídeo", url: "https://www.cursoemvideo.com/curso/curso-de-git-e-github/" },
+                        { name: "Pro Git Book", url: "https://git-scm.com/book" },
+                        { name: "GitHub Learning Lab", url: "https://lab.github.com/" }
+                    ],
+                    "Ferramentas": [
+                        { name: "Git", url: "https://git-scm.com/" },
+                        { name: "GitHub Desktop", url: "https://desktop.github.com/" },
+                        { name: "GitKraken", url: "https://www.gitkraken.com/" }
+                    ],
+                    "Prática": [
+                        { name: "Learn Git Branching", url: "https://learngitbranching.js.org/" },
+                        { name: "GitHub Skills", url: "https://skills.github.com/" }
+                    ]
+                }
+            },
+            month8: {
+                number: "08",
+                title: "Cloud Computing",
+                description: "Explore tecnologias de nuvem e containerização para deploy e escalabilidade.",
+                topics: [
+                    "Conceitos de Cloud Computing",
+                    "Amazon Web Services (AWS) Básico",
+                    "Microsoft Azure Fundamentals",
+                    "Google Cloud Platform Intro",
+                    "Docker e Containerização",
+                    "Kubernetes Básico",
+                    "Serverless Computing",
+                    "Monitoramento e Logs"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "AWS Free Tier", url: "https://aws.amazon.com/free/" },
+                        { name: "Azure Fundamentals", url: "https://docs.microsoft.com/learn/paths/azure-fundamentals/" },
+                        { name: "Docker Tutorial", url: "https://www.docker.com/101-tutorial" }
+                    ],
+                    "Certificações": [
+                        { name: "AWS Cloud Practitioner", url: "https://aws.amazon.com/certification/certified-cloud-practitioner/" },
+                        { name: "Azure Fundamentals AZ-900", url: "https://docs.microsoft.com/learn/certifications/azure-fundamentals/" }
+                    ],
+                    "Ferramentas": [
+                        { name: "Docker Desktop", url: "https://www.docker.com/products/docker-desktop" },
+                        { name: "AWS CLI", url: "https://aws.amazon.com/cli/" },
+                        { name: "Terraform", url: "https://www.terraform.io/" }
+                    ]
+                }
+            },
+            month9: {
+                number: "09",
+                title: "Segurança da Informação",
+                description: "Aprenda sobre segurança cibernética e como proteger sistemas e dados.",
+                topics: [
+                    "Fundamentos de Segurança",
+                    "Criptografia e Hashing",
+                    "HTTPS e Certificados SSL",
+                    "Vulnerabilidades Web (OWASP Top 10)",
+                    "Autenticação Multifator",
+                    "Ethical Hacking Básico",
+                    "Segurança em APIs",
+                    "Compliance e Regulamentações (LGPD)"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "OWASP Web Security", url: "https://owasp.org/www-project-web-security-testing-guide/" },
+                        { name: "Cybrary", url: "https://www.cybrary.it/" },
+                        { name: "Coursera Cybersecurity", url: "https://www.coursera.org/specializations/cyber-security" }
+                    ],
+                    "Ferramentas": [
+                        { name: "Burp Suite", url: "https://portswigger.net/burp" },
+                        { name: "OWASP ZAP", url: "https://owasp.org/www-project-zap/" },
+                        { name: "Wireshark", url: "https://www.wireshark.org/" }
+                    ],
+                    "Prática": [
+                        { name: "TryHackMe", url: "https://tryhackme.com/" },
+                        { name: "HackTheBox", url: "https://www.hackthebox.com/" }
+                    ]
+                }
+            },
+            month10: {
+                number: "10",
+                title: "Metodologias Ágeis",
+                description: "Domine metodologias ágeis e práticas de DevOps para trabalhar em equipes modernas.",
+                topics: [
+                    "Manifesto Ágil e Princípios",
+                    "Scrum Framework",
+                    "Kanban e Lean",
+                    "DevOps Culture",
+                    "Continuous Integration/Deployment",
+                    "Testes Automatizados",
+                    "Monitoring e Alertas",
+                    "Gestão de Projetos Ágeis"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "Scrum.org", url: "https://www.scrum.org/" },
+                        { name: "Atlassian Agile Coach", url: "https://www.atlassian.com/agile" },
+                        { name: "DevOps Institute", url: "https://devopsinstitute.com/" }
+                    ],
+                    "Ferramentas": [
+                        { name: "Jira", url: "https://www.atlassian.com/software/jira" },
+                        { name: "Trello", url: "https://trello.com/" },
+                        { name: "Jenkins", url: "https://www.jenkins.io/" }
+                    ],
+                    "Certificações": [
+                        { name: "Scrum Master", url: "https://www.scrum.org/professional-scrum-certifications" },
+                        { name: "DevOps Foundation", url: "https://devopsinstitute.com/certifications/" }
+                    ]
+                }
+            },
+            month11: {
+                number: "11",
+                title: "Inteligência Artificial",
+                description: "Explore o mundo da IA, Machine Learning e Data Science.",
+                topics: [
+                    "Introdução à Inteligência Artificial",
+                    "Machine Learning Fundamentals",
+                    "Python para Data Science",
+                    "Bibliotecas (NumPy, Pandas, Scikit-learn)",
+                    "Deep Learning Básico",
+                    "TensorFlow e Keras",
+                    "Processamento de Linguagem Natural",
+                    "Ética em IA"
+                ],
+                resources: {
+                    "Cursos Online": [
+                        { name: "Machine Learning - Andrew Ng", url: "https://www.coursera.org/learn/machine-learning" },
+                        { name: "TensorFlow", url: "https://www.tensorflow.org/learn" },
+                        { name: "Kaggle Learn", url: "https://www.kaggle.com/learn" }
+                    ],
+                    "Ferramentas": [
+                        { name: "Jupyter Notebook", url: "https://jupyter.org/" },
+                        { name: "Google Colab", url: "https://colab.research.google.com/" },
+                        { name: "Anaconda", url: "https://www.anaconda.com/" }
+                    ],
+                    "Datasets": [
+                        { name: "Kaggle Datasets", url: "https://www.kaggle.com/datasets" },
+                        { name: "UCI ML Repository", url: "https://archive.ics.uci.edu/ml/" }
+                    ]
+                }
+            },
+            month12: {
+                number: "12",
+                title: "Projeto Final & Carreira",
+                description: "Finalize seu portfólio e prepare-se para o mercado de trabalho.",
+                topics: [
+                    "Desenvolvimento de Portfolio",
+                    "Projeto Full-Stack Completo",
+                    "LinkedIn e Networking",
+                    "Preparação para Entrevistas",
+                    "Soft Skills para TI",
+                    "Freelancing vs CLT",
+                    "Negociação Salarial",
+                    "Plano de Carreira em TI"
+                ],
+                resources: {
+                    "Portfolio": [
+                        { name: "GitHub Pages", url: "https://pages.github.com/" },
+                        { name: "Netlify", url: "https://www.netlify.com/" },
+                        { name: "Vercel", url: "https://vercel.com/" }
+                    ],
+                    "Preparação": [
+                        { name: "LeetCode", url: "https://leetcode.com/" },
+                        { name: "HackerRank", url: "https://www.hackerrank.com/" },
+                        { name: "Pramp", url: "https://www.pramp.com/" }
+                    ],
+                    "Networking": [
+                        { name: "LinkedIn", url: "https://www.linkedin.com/" },
+                        { name: "Dev.to", url: "https://dev.to/" },
+                        { name: "Stack Overflow", url: "https://stackoverflow.com/" }
+                    ]
+                }
+            }
+        };
+
+        function openStudyPopup(monthKey) {
+            const month = studyPlanData[monthKey];
+            const popupContent = document.getElementById('studyPopupContent');
+            
+            let resourcesHtml = '';
+            for (const [category, resources] of Object.entries(month.resources)) {
+                resourcesHtml += `
+                    <div class="resources-section">
+                        <h4>${category}</h4>
+                        <div class="resource-links">
+                            ${resources.map(resource => 
+                                `<a href="${resource.url}" target="_blank" class="resource-link">${resource.name}</a>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            popupContent.innerHTML = `
+                <div class="study-popup-header">
+                    <div class="study-popup-month">MÊS ${month.number}</div>
+                    <div class="study-popup-title">${month.title}</div>
+                </div>
+                
+                <div class="study-content">
+                    <p>${month.description}</p>
+                    
+                    <div class="study-topics">
+                        <h4>📚 Tópicos a Estudar:</h4>
+                        <ul>
+                            ${month.topics.map(topic => `<li>${topic}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    ${resourcesHtml}
+                </div>
+            `;
+            
+            document.getElementById('studyPopupOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeStudyPopup() {
+            document.getElementById('studyPopupOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fechar popup clicando fora dele
+        document.getElementById('studyPopupOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeStudyPopup();
+            }
+        });
+
+        // Fechar popup com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeStudyPopup();
+            }
+        });
+
+        const specializationData = {
+            desenvolvimento: {
+                name: 'Desenvolvimento de Software',
+                description: 'Área focada na criação de aplicações web, desktop e sistemas. Envolve programação frontend (interface do usuário) e backend (lógica do servidor e banco de dados).',
+                skills: ['HTML/CSS/JavaScript', 'React/Angular/Vue', 'Node.js/Python/Java', 'Banco de Dados', 'APIs REST', 'Git/GitHub'],
+                salary: 'R$ 4.000 - R$ 15.000',
+                companies: ['Google', 'Microsoft', 'Amazon', 'Nubank', 'iFood', 'Stone'],
+                resources: [
+                    { name: 'The Odin Project', url: 'https://www.theodinproject.com/' },
+                    { name: 'Full Stack Open', url: 'https://fullstackopen.com/' },
+                    { name: 'MDN Web Docs', url: 'https://developer.mozilla.org/' }
+                ]
+            },
+            dados: {
+                name: 'Ciência de Dados',
+                description: 'Área que combina estatística, programação e conhecimento de negócios para extrair insights de dados. Inclui análise, visualização e machine learning.',
+                skills: ['Python/R', 'SQL', 'Pandas/NumPy', 'Matplotlib/Seaborn', 'Machine Learning', 'Power BI/Tableau'],
+                salary: 'R$ 5.000 - R$ 20.000',
+                companies: ['Netflix', 'Uber', 'Spotify', 'Magazine Luiza', 'Banco Inter', 'Mercado Livre'],
+                resources: [
+                    { name: 'Kaggle Learn', url: 'https://www.kaggle.com/learn' },
+                    { name: 'Coursera Data Science', url: 'https://www.coursera.org/specializations/jhu-data-science' },
+                    { name: 'DataCamp', url: 'https://www.datacamp.com/' }
+                ]
+            },
+            seguranca: {
+                name: 'Segurança da Informação',
+                description: 'Área responsável por proteger sistemas, redes e dados contra ameaças cibernéticas. Inclui análise de vulnerabilidades, resposta a incidentes e compliance.',
+                skills: ['Ethical Hacking', 'Firewall/IDS/IPS', 'Criptografia', 'Análise de Malware', 'Compliance', 'Forensics'],
+                salary: 'R$ 6.000 - R$ 25.000',
+                companies: ['IBM', 'Deloitte', 'PwC', 'Tempest', 'Módulo Security', 'Clavis'],
+                resources: [
+                    { name: 'Cybrary', url: 'https://www.cybrary.it/' },
+                    { name: 'SANS Training', url: 'https://www.sans.org/' },
+                    { name: 'TryHackMe', url: 'https://tryhackme.com/' }
+                ]
+            },
+            redes: {
+                name: 'Redes e Infraestrutura',
+                description: 'Área focada em projetar, implementar e manter redes de computadores e infraestrutura de TI. Inclui cloud computing e DevOps.',
+                skills: ['TCP/IP', 'Roteamento/Switching', 'AWS/Azure/GCP', 'Docker/Kubernetes', 'Linux', 'Monitoramento'],
+                salary: 'R$ 4.500 - R$ 18.000',
+                companies: ['AWS', 'Microsoft', 'Cisco', 'VMware', 'Red Hat', 'Locaweb'],
+                resources: [
+                    { name: 'AWS Training', url: 'https://aws.amazon.com/training/' },
+                    { name: 'Cisco Networking Academy', url: 'https://www.netacad.com/' },
+                    { name: 'Linux Academy', url: 'https://linuxacademy.com/' }
+                ]
+            },
+            mobile: {
+                name: 'Desenvolvimento Mobile',
+                description: 'Área especializada no desenvolvimento de aplicativos para dispositivos móveis (smartphones e tablets) usando tecnologias nativas ou híbridas.',
+                skills: ['Swift/Kotlin', 'React Native/Flutter', 'UI/UX Mobile', 'APIs REST', 'App Store/Play Store', 'Firebase'],
+                salary: 'R$ 4.500 - R$ 16.000',
+                companies: ['Apple', 'Google', '99', 'iFood', 'Nubank', 'PicPay'],
+                resources: [
+                    { name: 'React Native Docs', url: 'https://reactnative.dev/' },
+                    { name: 'Flutter Documentation', url: 'https://flutter.dev/' },
+                    { name: 'iOS Developer', url: 'https://developer.apple.com/' }
+                ]
+            },
+            ia: {
+                name: 'Inteligência Artificial',
+                description: 'Área que desenvolve sistemas capazes de realizar tarefas que normalmente requerem inteligência humana, incluindo machine learning e deep learning.',
+                skills: ['Python', 'TensorFlow/PyTorch', 'Machine Learning', 'Deep Learning', 'NLP', 'Computer Vision'],
+                salary: 'R$ 7.000 - R$ 30.000',
+                companies: ['OpenAI', 'Google DeepMind', 'NVIDIA', 'C6 Bank', 'Itaú', 'Petrobras'],
+                resources: [
+                    { name: 'Fast.ai', url: 'https://www.fast.ai/' },
+                    { name: 'Coursera ML Course', url: 'https://www.coursera.org/learn/machine-learning' },
+                    { name: 'Papers With Code', url: 'https://paperswithcode.com/' }
+                ]
+            }
+        };
+
+        function openSpecializationPopup(specKey) {
+            const spec = specializationData[specKey];
+            const popupContent = document.getElementById('popupContent');
+            
+            popupContent.innerHTML = `
+                <div class="popup-header">
+                    <div class="popup-title">${spec.name}</div>
+                </div>
+                <div class="popup-description">
+                    <p>${spec.description}</p>
+                    
+                    <h4 style="color: #00ffff; margin: 1.5rem 0 1rem 0;">🛠️ Habilidades Necessárias:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+                        ${spec.skills.map(skill => `<span style="background: rgba(0,255,255,0.2); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.9rem;">${skill}</span>`).join('')}
+                    </div>
+                    
+                    <h4 style="color: #00ff88; margin: 1rem 0;">💰 Faixa Salarial: ${spec.salary}</h4>
+                    
+                    <h4 style="color: #ff6b6b; margin: 1rem 0;">🏢 Empresas que Contratam:</h4>
+                    <p>${spec.companies.join(', ')}</p>
+                    
+                    <h4 style="color: #ffd93d; margin: 1.5rem 0 1rem 0;">📚 Recursos Recomendados:</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        ${spec.resources.map(resource => `<a href="${resource.url}" target="_blank" style="color: #00ffff; text-decoration: none; padding: 0.5rem; background: rgba(0,255,255,0.1); border-radius: 5px;">→ ${resource.name}</a>`).join('')}
+                    </div>
+                </div>
+                <div class="popup-buttons">
+                    <button onclick="closePopup()" class="popup-btn btn-close">Fechar</button>
+                </div>
+            `;
+            
+            document.getElementById('popupOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        const toolsData = {
+            vscode: {
+                name: 'Visual Studio Code',
+                description: 'Um editor de código-fonte leve, mas poderoso, desenvolvido pela Microsoft. Suporta uma vasta gama de linguagens de programação e possui um ecossistema rico de extensões.',
+                features: ['Suporte a diversas linguagens', 'Extensões personalizáveis', 'Depurador integrado', 'Terminal integrado', 'Controle de versão Git'],
+                alternatives: ['Sublime Text', 'Atom', 'Vim', 'Notepad++'],
+                url: 'https://code.visualstudio.com/'
+            },
+            git: {
+                name: 'Git',
+                description: 'Sistema de controle de versão distribuído, essencial para gerenciar o histórico de alterações em projetos de software e facilitar a colaboração em equipe.',
+                features: ['Controle de versão', 'Branching e Merging', 'Colaboração em equipe', 'Histórico de alterações', 'Descentralizado'],
+                alternatives: ['Subversion (SVN)', 'Mercurial', 'Perforce'],
+                url: 'https://git-scm.com/'
+            },
+            docker: {
+                name: 'Docker',
+                description: 'Plataforma de containerização que permite empacotar aplicações e suas dependências em contêineres isolados, garantindo consistência entre ambientes de desenvolvimento, teste e produção.',
+                features: ['Containerização', 'Ambientes isolados', 'Portabilidade', 'Orquestração (com Kubernetes)', 'DevOps'],
+                alternatives: ['LXC', 'Podman', 'rkt'],
+                url: 'https://www.docker.com/'
+            },
+            postman: {
+                name: 'Postman',
+                description: 'Uma plataforma colaborativa para desenvolvimento de APIs. Permite testar, documentar e compartilhar APIs de forma eficiente.',
+                features: ['Testes de API', 'Criação de requisições HTTP', 'Autenticação', 'Documentação de API', 'Colaboração'],
+                alternatives: ['Insomnia', 'Hoppscotch', 'curl'],
+                url: 'https://www.postman.com/'
+            },
+            figma: {
+                name: 'Figma',
+                description: 'Ferramenta de design de interface de usuário (UI) e prototipagem baseada na web, conhecida por sua colaboração em tempo real e facilidade de uso.',
+                features: ['Design UI/UX', 'Prototipagem interativa', 'Colaboração em tempo real', 'Componentes reutilizáveis', 'Design system'],
+                alternatives: ['Sketch', 'Adobe XD', 'InVision Studio'],
+                url: 'https://www.figma.com/'
+            },
+            mysql: {
+                name: 'MySQL',
+                description: 'Um sistema de gerenciamento de banco de dados relacional (RDBMS) de código aberto, amplamente utilizado em aplicações web.',
+                features: ['Banco de dados relacional', 'SQL', 'Alta performance', 'Escalabilidade', 'Comunidade ativa'],
+                alternatives: ['PostgreSQL', 'SQLite', 'MariaDB', 'MongoDB (NoSQL)'],
+                url: 'https://www.mysql.com/'
+            }
+        };
+
+        function openToolPopup(toolKey) {
+            const tool = toolsData[toolKey];
+            const popupContent = document.getElementById('popupContent');
+            
+            popupContent.innerHTML = `
+                <div class="popup-header">
+                    <div class="popup-title">${tool.name}</div>
+                </div>
+                <div class="popup-description">
+                    <p>${tool.description}</p>
+                    
+                    <h4 style="color: #00ffff; margin: 1.5rem 0 1rem 0;">✨ Principais Recursos:</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        ${tool.features.map(feature => `<li style="background: rgba(0,255,255,0.1); margin: 0.3rem 0; padding: 0.5rem; border-radius: 5px; border-left: 3px solid #00ffff;">• ${feature}</li>`).join('')}
+                    </ul>
+                    
+                    <h4 style="color: #ffd93d; margin: 1.5rem 0 1rem 0;">🔄 Alternativas:</h4>
+                    <p>${tool.alternatives.join(', ')}</p>
+                </div>
+                <div class="popup-buttons">
+                    <a href="${tool.url}" target="_blank" class="popup-btn btn-access">Acessar Site</a>
+                    <button onclick="closePopup()" class="popup-btn btn-close">Fechar</button>
+                </div>
+            `;
+            
+            document.getElementById('popupOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        const certificationData = {
+            aws: {
+                name: 'AWS Certified Solutions Architect – Associate',
+                description: 'Valida a capacidade de projetar e implantar soluções escaláveis, de alta disponibilidade e tolerantes a falhas na Amazon Web Services (AWS).',
+                cost: 'US$ 150 (aproximadamente R$ 750)',
+                validity: '2 anos',
+                requirements: ['Experiência com arquitetura de sistemas na AWS', 'Conhecimento dos serviços AWS'],
+                preparation: [
+                    { name: 'AWS Training and Certification', url: 'https://aws.amazon.com/training/' },
+                    { name: 'AWS Certified Solutions Architect - Associate Official Study Guide', url: 'https://www.amazon.com.br/AWS-Certified-Solutions-Architect-Associate-Official/dp/1119740071' }
+                ],
+                url: 'https://aws.amazon.com/certification/certified-solutions-architect-associate/'
+            },
+            google: {
+                name: 'Google Cloud Certified - Professional Cloud Architect',
+                description: 'Demonstra proficiência em projetar, desenvolver e gerenciar soluções robustas, seguras e escaláveis na Google Cloud Platform (GCP).',
+                cost: 'US$ 200 (aproximadamente R$ 1000)',
+                validity: '2 anos',
+                requirements: ['Experiência em projetar e gerenciar arquiteturas GCP', 'Conhecimento dos serviços GCP'],
+                preparation: [
+                    { name: 'Google Cloud Training', url: 'https://cloud.google.com/training' },
+                    { name: 'Professional Cloud Architect Study Guide', url: 'https://www.amazon.com.br/Google-Cloud-Certified-Professional-Architect/dp/1119740071' }
+                ],
+                url: 'https://cloud.google.com/certification/cloud-architect'
+            },
+            microsoft: {
+                name: 'Microsoft Certified: Azure Fundamentals',
+                description: 'Valida o conhecimento fundamental sobre serviços de nuvem e como eles são oferecidos na Microsoft Azure. É um pré-requisito para muitas outras certificações Azure.',
+                cost: 'US$ 99 (aproximadamente R$ 500)',
+                validity: 'Permanente',
+                requirements: ['Conhecimento básico de computação em nuvem', 'Familiaridade com serviços Azure'],
+                preparation: [
+                    { name: 'Microsoft Learn - Azure Fundamentals', url: 'https://docs.microsoft.com/learn/paths/azure-fundamentals/' },
+                    { name: 'AZ-900 Exam Prep', url: 'https://www.microsoft.com/en-us/learning/exam-az-900.aspx' }
+                ],
+                url: 'https://docs.microsoft.com/en-us/learn/certifications/azure-fundamentals/'
+            },
+            cisco: {
+                name: 'Cisco Certified Network Associate (CCNA)',
+                description: 'Abrange uma ampla gama de conceitos fundamentais de TI, redes, segurança e automação. Essencial para quem deseja trabalhar com infraestrutura de redes.',
+                cost: 'Aproximadamente US$ 300 (exame)',
+                validity: '3 anos',
+                requirements: ['Conhecimento básico de redes', 'Familiaridade com equipamentos Cisco'],
+                preparation: [
+                    { name: 'Cisco Networking Academy', url: 'https://www.netacad.com/' },
+                    { name: 'CCNA 200-301 Official Cert Guide', url: 'https://www.amazon.com.br/CCNA-200-301-Official-Cert-Guide/dp/1119657759' }
+                ],
+                url: 'https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/ccna.html'
+            },
+            comptia: {
+                name: 'CompTIA Security+',
+                description: 'Certificação líder em cibersegurança, validando habilidades essenciais para realizar funções de segurança cibernética e buscar uma carreira na área.',
+                cost: 'Aproximadamente US$ 370 (exame)',
+                validity: '3 anos',
+                requirements: ['Experiência em segurança de TI', 'Conhecimento de ameaças e vulnerabilidades'],
+                preparation: [
+                    { name: 'CompTIA Security+ Training', url: 'https://www.comptia.org/training/security-plus' },
+                    { name: 'Professor Messer Security+ Course', url: 'https://www.professormesser.com/security-plus/sy0-601/sy0-601-course/' }
+                ],
+                url: 'https://www.comptia.org/certifications/security'
+            },
+            oracle: {
+                name: 'Oracle Certified Professional, Java SE Programmer',
+                description: 'Valida o conhecimento em programação Java, desde os fundamentos até conceitos avançados, sendo uma certificação respeitada no mercado de desenvolvimento Java.',
+                cost: 'Aproximadamente US$ 245 (exame)',
+                validity: 'Permanente',
+                requirements: ['Conhecimento sólido de Java', 'Experiência em desenvolvimento Java'],
+                preparation: [
+                    { name: 'Oracle Java SE Certification', url: 'https://education.oracle.com/oracle-certified-professional-java-se-programmer-certification' },
+                    { name: 'Java SE Programmer I & II Study Guide', url: 'https://www.amazon.com.br/Oracle-Certified-Professional-Programmer-Certification/dp/1119700707' }
+                ],
+                url: 'https://education.oracle.com/oracle-certified-professional-java-se-programmer'
+            }
+        };
+
+        function openCertPopup(certKey) {
+            const cert = certificationData[certKey];
+            const popupContent = document.getElementById('popupContent');
+            
+            popupContent.innerHTML = `
+                <div class="popup-header">
+                    <div class="popup-title">${cert.name}</div>
+                </div>
+                <div class="popup-description">
+                    <p>${cert.description}</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0;">
+                        <div style="background: rgba(0,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                            <h4 style="color: #00ff88; margin: 0 0 0.5rem 0;">💰 Custo</h4>
+                            <p style="margin: 0;">${cert.cost}</p>
+                        </div>
+                        <div style="background: rgba(0,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                            <h4 style="color: #ff6b6b; margin: 0 0 0.5rem 0;">⏰ Validade</h4>
+                            <p style="margin: 0;">${cert.validity}</p>
+                        </div>
+                    </div>
+                    
+                    <h4 style="color: #00ffff; margin: 1.5rem 0 1rem 0;">📋 Requisitos:</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        ${cert.requirements.map(req => `<li style="background: rgba(0,255,255,0.1); margin: 0.3rem 0; padding: 0.5rem; border-radius: 5px;">• ${req}</li>`).join('')}
+                    </ul>
+                    
+                    <h4 style="color: #ffd93d; margin: 1.5rem 0 1rem 0;">📚 Materiais de Estudo:</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        ${cert.preparation.map(prep => `<a href="${prep.url}" target="_blank" style="color: #00ffff; text-decoration: none; padding: 0.5rem; background: rgba(0,255,255,0.1); border-radius: 5px;">→ ${prep.name}</a>`).join('')}
+                    </div>
+                </div>
+                <div class="popup-buttons">
+                    <a href="${cert.url}" target="_blank" class="popup-btn btn-access">Ver Certificação</a>
+                    <button onclick="closePopup()" class="popup-btn btn-close">Fechar</button>
+                </div>
+            `;
+            
+            document.getElementById('popupOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initScrollAnimations();
+        });
+    </script>
+</body>
+</html>

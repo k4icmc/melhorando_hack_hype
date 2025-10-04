@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Financeiro - Sistemas de Informação</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Adicionando plano de fundo com partículas animadas */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: #00ffff;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(odd) {
+            animation-delay: -2s;
+        }
+
+        .particle:nth-child(even) {
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+
+        /* Adicionando estilos para símbolos $ como estrelas cadentes */
+        .shooting-star {
+            position: fixed;
+            font-size: 2rem;
+            /* alterando cor de azul neon para amarelo dourado brilhante */
+            color: #ffd700;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            /* alterando text-shadow para amarelo dourado brilhante */
+            text-shadow: 0 0 10px #ffd700, 0 0 20px #ffed4e, 0 0 30px #ffd700;
+            animation: shootingStar 3s linear forwards;
+        }
+
+        @keyframes shootingStar {
+            0% {
+                opacity: 1;
+                transform: translateX(-100px) translateY(-100px) rotate(0deg);
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(calc(100vw + 100px)) translateY(calc(100vh + 100px)) rotate(360deg);
+            }
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #00ffff;
+            z-index: 1000;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            border: 4px solid #00ffff;
+            animation: logoGlow 2s ease-in-out infinite alternate;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes logoGlow {
+            from { box-shadow: 0 0 20px #00ffff; }
+            to { box-shadow: 0 0 30px #00ffff, 0 0 40px #00ffff; }
+        }
+
+        .back-button {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 180px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ffff, #0080ff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .status-item {
+            text-align: center;
+        }
+
+        .status-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00ffff;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .live-dot {
+            width: 12px;
+            height: 12px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Currency Grid */
+        .currency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .currency-card {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .currency-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .currency-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .currency-card:hover::before {
+            left: 100%;
+        }
+
+        .currency-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .currency-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .currency-symbol {
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        .currency-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .currency-change {
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .positive {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+        }
+
+        .negative {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+        }
+
+        /* Adicionando estilos para pop-ups informativos */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 3px solid #00ffff;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff4757;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .popup-close:hover {
+            background: #ff3742;
+            transform: scale(1.1);
+        }
+
+        .popup-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .popup-info {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .popup-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00ffff;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #333;
+            border-top: 4px solid #00ffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Adicionando estilos para novas seções atrativas */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        .trending-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .trending-card {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .trending-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .trending-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            background: rgba(0, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .trending-item:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .news-section {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .news-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(0, 255, 255, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid #00ffff;
+            transition: all 0.3s ease;
+        }
+
+        .news-item:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .news-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #00ffff;
+        }
+
+        .news-content {
+            flex: 1;
+        }
+
+        .news-title {
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+        }
+
+        .news-time {
+            font-size: 0.8rem;
+            color: #cccccc;
+        }
+
+        .calculator-section {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .calc-input {
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            color: #ffffff;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .calc-input:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .calc-result {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .alerts-section {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 2px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .alert-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #ff6b6b;
+        }
+
+        .market-sentiment {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .sentiment-card {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .sentiment-emoji {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .sentiment-label {
+            color: #cccccc;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sentiment-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ffff;
+        }
+
+        /* Responsividade para novas seções */
+        @media (max-width: 768px) {
+            .trending-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-overview {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+
+            .main-content {
+                margin-top: 140px;
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .currency-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .status-item {
+                width: 100%;
+            }
+
+            .popup-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .main-content {
+                margin-top: 120px;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .popup-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Adicionando partículas animadas de fundo  -->
+    <div class="particles" id="particles"></div>
+
+     <!-- Header  -->
+    <header class="header">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%287%29-gEEYHBEXbbNFeCeAykECGXYFFgpYMK.png" alt="Logo Hack Hype" class="logo">
+        <a href="index.html" class="back-button">← Voltar ao Início</a>
+    </header>
+
+     <!-- Adicionando overlay para pop-ups  -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup()">×</button>
+            <h3 class="popup-title" id="popupTitle"></h3>
+            <div class="popup-info" id="popupInfo"></div>
+            <div class="popup-stats" id="popupStats"></div>
+        </div>
+    </div>
+
+     <!-- Main Content  -->
+    <main class="main-content">
+        <h1 class="page-title">DASHBOARD FINANCEIRO</h1>
+        <p class="page-subtitle">Acompanhamento em tempo real de moedas e criptomoedas</p>
+
+         <!-- Status Bar  -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-label">Status do Sistema</div>
+                <div class="status-value live-indicator">
+                    <span class="live-dot"></span>
+                    <!-- AO VIVO -->
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-label">Última Atualização</div>
+                <div class="status-value" id="lastUpdate">Carregando...</div>
+            </div>
+            <div class="status-item">
+                <div class="status-label">Fonte de Dados</div>
+                <div class="status-value">APIs Oficiais</div>
+            </div>
+        </div>
+
+         <!-- Nova seção de estatísticas gerais  -->
+        <section class="section">
+            <h2 class="section-title">📊 ESTATÍSTICAS GLOBAIS</h2>
+            <div class="stats-overview">
+                <div class="stat-card" onclick="showStatsPopup('marketCap')">
+                    <span class="stat-icon">🌍</span>
+                    <div class="stat-number" id="totalMarketCap">$2.1T</div>
+                    <div class="stat-label">Market Cap Global</div>
+                </div>
+                <div class="stat-card" onclick="showStatsPopup('volume')">
+                    <span class="stat-icon">📈</span>
+                    <div class="stat-number" id="totalVolume">$89.2B</div>
+                    <div class="stat-label">Volume 24h</div>
+                </div>
+                <div class="stat-card" onclick="showStatsPopup('btcDominance')">
+                    <span class="stat-icon">₿</span>
+                    <div class="stat-number" id="btcDominance">42.3%</div>
+                    <div class="stat-label">Dominância BTC</div>
+                </div>
+                <div class="stat-card" onclick="showStatsPopup('activeCoins')">
+                    <span class="stat-icon">🔥</span>
+                    <div class="stat-number" id="activeCoins">13,247</div>
+                    <div class="stat-label">Moedas Ativas</div>
+                </div>
+            </div>
+        </section>
+
+         <!-- Nova seção de análise de sentimento  -->
+        <section class="section">
+            <h2 class="section-title">🧠 ANÁLISE DE SENTIMENTO DO MERCADO</h2>
+            <div class="market-sentiment">
+                <div class="sentiment-card" onclick="showSentimentPopup('fear')">
+                    <span class="sentiment-emoji">😨</span>
+                    <div class="sentiment-label">Índice de Medo</div>
+                    <div class="sentiment-value">23</div>
+                </div>
+                <div class="sentiment-card" onclick="showSentimentPopup('greed')">
+                    <span class="sentiment-emoji">🤑</span>
+                    <div class="sentiment-label">Índice de Ganância</div>
+                    <div class="sentiment-value">77</div>
+                </div>
+                <div class="sentiment-card" onclick="showSentimentPopup('volatility')">
+                    <span class="sentiment-emoji">📊</span>
+                    <div class="sentiment-label">Volatilidade</div>
+                    <div class="sentiment-value">Alta</div>
+                </div>
+                <div class="sentiment-card" onclick="showSentimentPopup('trend')">
+                    <span class="sentiment-emoji">🎯</span>
+                    <div class="sentiment-label">Tendência</div>
+                    <div class="sentiment-value">Bullish</div>
+                </div>
+            </div>
+        </section>
+
+         <!-- Traditional Currencies Section  -->
+        <section class="section">
+            <h2 class="section-title">💰 MOEDAS TRADICIONAIS</h2>
+            <div class="currency-grid" id="traditionalCurrencies">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Carregando cotações...</p>
+                </div>
+            </div>
+        </section>
+
+         <!-- Chart Section  -->
+        <section class="section">
+            <div class="chart-container">
+                <h3 class="chart-title">Gráfico de Variação - USD/BRL (24h)</h3>
+                <canvas id="currencyChart" width="400" height="200"></canvas>
+            </div>
+        </section>
+
+         <!-- Nova seção de trending  -->
+        <section class="section">
+            <h2 class="section-title">🔥 TENDÊNCIAS DO MERCADO</h2>
+            <div class="trending-section">
+                <div class="trending-card">
+                    <h3 class="trending-title">🚀 Maiores Altas (24h)</h3>
+                    <div class="trending-item">
+                        <span>Solana (SOL)</span>
+                        <span class="positive">+12.4%</span>
+                    </div>
+                    <div class="trending-item">
+                        <span>Chainlink (LINK)</span>
+                        <span class="positive">+8.7%</span>
+                    </div>
+                    <div class="trending-item">
+                        <span>Polygon (MATIC)</span>
+                        <span class="positive">+6.2%</span>
+                    </div>
+                </div>
+                <div class="trending-card">
+                    <h3 class="trending-title">📉 Maiores Baixas (24h)</h3>
+                    <div class="trending-item">
+                        <span>Terra (LUNA)</span>
+                        <span class="negative">-15.3%</span>
+                    </div>
+                    <div class="trending-item">
+                        <span>Shiba Inu (SHIB)</span>
+                        <span class="negative">-9.1%</span>
+                    </div>
+                    <div class="trending-item">
+                        <span>Dogecoin (DOGE)</span>
+                        <span class="negative">-7.8%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- 
+         Cryptocurrencies Section  -->
+        <section class="section">
+            <h2 class="section-title">₿ CRIPTOMOEDAS</h2>
+            <div class="currency-grid" id="cryptocurrencies">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Carregando criptomoedas...</p>
+                </div>
+            </div>
+        </section>
+<!-- 
+         Crypto Chart Section  -->
+        <section class="section">
+            <div class="chart-container">
+                <h3 class="chart-title">Gráfico de Variação - Bitcoin (24h)</h3>
+                <canvas id="cryptoChart" width="400" height="200"></canvas>
+            </div>
+        </section>
+<!-- 
+         Nova seção de calculadora  -->
+        <section class="section">
+            <h2 class="section-title">🧮 CALCULADORA DE CONVERSÃO</h2>
+            <div class="calculator-section">
+                <div class="calculator-grid">
+                    <input type="number" class="calc-input" id="calcAmount" placeholder="Valor" value="1">
+                    <select class="calc-input" id="calcFrom">
+                        <option value="USD">USD</option>
+                        <option value="BRL">BRL</option>
+                        <option value="EUR">EUR</option>
+                        <option value="BTC">Bitcoin</option>
+                        <option value="ETH">Ethereum</option>
+                    </select>
+                    <select class="calc-input" id="calcTo">
+                        <option value="BRL">BRL</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="BTC">Bitcoin</option>
+                        <option value="ETH">Ethereum</option>
+                    </select>
+                </div>
+                <div class="calc-result" id="calcResult">
+                    Resultado: R$ 5.25
+                </div>
+            </div>
+        </section>
+
+         <!-- Nova seção de notícias  -->
+        <section class="section">
+            <h2 class="section-title">📰 NOTÍCIAS FINANCEIRAS</h2>
+            <div class="news-section">
+                <div class="news-item">
+                    <span class="news-icon">🚀</span>
+                    <div class="news-content">
+                        <div class="news-title">Bitcoin atinge nova máxima histórica</div>
+                        <div class="news-time">Há 2 horas</div>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">💰</span>
+                    <div class="news-content">
+                        <div class="news-title">Ethereum 2.0 mostra crescimento sustentável</div>
+                        <div class="news-time">Há 4 horas</div>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">📈</span>
+                    <div class="news-content">
+                        <div class="news-title">Mercado de DeFi supera $100 bilhões</div>
+                        <div class="news-time">Há 6 horas</div>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <span class="news-icon">🏦</span>
+                    <div class="news-content">
+                        <div class="news-title">Banco Central anuncia nova política monetária</div>
+                        <div class="news-time">Há 8 horas</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!-- Nova seção de alertas  -->
+        <section class="section">
+            <h2 class="section-title">🚨 ALERTAS DE MERCADO</h2>
+            <div class="alerts-section">
+                <div class="alert-item">
+                    <span class="alert-icon">⚠️</span>
+                    <div>
+                        <div class="news-title">Alta volatilidade detectada no Bitcoin</div>
+                        <div class="news-time">Variação de 8% nas últimas 2 horas</div>
+                    </div>
+                </div>
+                <div class="alert-item">
+                    <span class="alert-icon">📊</span>
+                    <div>
+                        <div class="news-title">Volume de negociação acima da média</div>
+                        <div class="news-time">Ethereum com 150% do volume normal</div>
+                    </div>
+                </div>
+                <div class="alert-item">
+                    <span class="alert-icon">🎯</span>
+                    <div>
+                        <div class="news-title">Resistência técnica rompida</div>
+                        <div class="news-time">BTC ultrapassou $48,000 com volume alto</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Global variables
+        let currencyChart = null;
+        let cryptoChart = null;
+        let updateInterval = null;
+        let shootingStarInterval = null; // Adicionando variável para controlar estrelas cadentes
+
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            star.textContent = '$';
+            
+            // Posição inicial aleatória na parte superior esquerda
+            const startX = Math.random() * -200 - 100; // Começa fora da tela à esquerda
+            const startY = Math.random() * window.innerHeight * 0.3; // Parte superior da tela
+            
+            star.style.left = startX + 'px';
+            star.style.top = startY + 'px';
+            
+            document.body.appendChild(star);
+            
+            // Remove o elemento após a animação
+            setTimeout(() => {
+                if (star.parentNode) {
+                    star.parentNode.removeChild(star);
+                }
+            }, 3000);
+        }
+
+        function startShootingStars() {
+            function scheduleNextStar() {
+                // Intervalo aleatório entre 15 a 45 segundos (raro)
+                const randomInterval = Math.random() * 30000 + 15000;
+                
+                setTimeout(() => {
+                    createShootingStar();
+                    scheduleNextStar(); // Agenda a próxima estrela
+                }, randomInterval);
+            }
+            
+            scheduleNextStar();
+        }
+
+        function closePopup() {
+            const overlay = document.getElementById('popupOverlay');
+            overlay.classList.remove('active');
+        }
+
+        const statsInfo = {
+            'marketCap': {
+                title: 'Market Cap Global',
+                description: 'O Market Cap (Capitalização de Mercado) representa o valor total de todas as criptomoedas em circulação no mercado.',
+                details: 'É calculado multiplicando o preço atual de cada criptomoeda pela quantidade total de moedas em circulação. Este indicador mostra o tamanho total do mercado de criptomoedas.',
+                importance: 'Indica a saúde geral do mercado cripto',
+                calculation: 'Preço × Quantidade em Circulação'
+            },
+            'volume': {
+                title: 'Volume de Negociação 24h',
+                description: 'Representa o valor total de todas as transações de criptomoedas realizadas nas últimas 24 horas.',
+                details: 'Um volume alto indica maior atividade de trading e liquidez no mercado. Volume baixo pode indicar menor interesse ou consolidação.',
+                importance: 'Mostra a atividade e liquidez do mercado',
+                calculation: 'Soma de todas as transações em 24h'
+            },
+            'btcDominance': {
+                title: 'Dominância do Bitcoin',
+                description: 'Percentual que o Bitcoin representa em relação ao market cap total de todas as criptomoedas.',
+                details: 'Quando a dominância do Bitcoin aumenta, geralmente indica que os investidores estão preferindo Bitcoin às altcoins. Quando diminui, pode indicar uma "alt season".',
+                importance: 'Indica preferência entre Bitcoin e altcoins',
+                calculation: 'Market Cap BTC ÷ Market Cap Total × 100'
+            },
+            'activeCoins': {
+                title: 'Moedas Ativas',
+                description: 'Número total de criptomoedas que estão sendo negociadas ativamente no mercado.',
+                details: 'Este número inclui todas as criptomoedas com volume de negociação significativo. Moedas inativas ou com volume muito baixo não são contabilizadas.',
+                importance: 'Mostra a diversidade do ecossistema cripto',
+                calculation: 'Contagem de moedas com volume > $1000/dia'
+            }
+        };
+
+        const sentimentInfo = {
+            'fear': {
+                title: 'Índice de Medo',
+                description: 'Mede o nível de medo dos investidores no mercado de criptomoedas em uma escala de 0 a 100.',
+                details: 'Valores baixos (0-25) indicam "Medo Extremo", quando os investidores estão muito cautelosos. Paradoxalmente, pode ser um bom momento para comprar.',
+                scale: '0-25: Medo Extremo | 26-45: Medo | 46-54: Neutro',
+                current: 'Atualmente em nível de Medo (23/100)'
+            },
+            'greed': {
+                title: 'Índice de Ganância',
+                description: 'Mede o nível de ganância dos investidores no mercado de criptomoedas em uma escala de 0 a 100.',
+                details: 'Valores altos (75-100) indicam "Ganância Extrema", quando os investidores estão muito otimistas. Pode indicar uma possível correção.',
+                scale: '55-75: Ganância | 76-100: Ganância Extrema',
+                current: 'Atualmente em nível de Ganância (77/100)'
+            },
+            'volatility': {
+                title: 'Volatilidade do Mercado',
+                description: 'Mede a intensidade das variações de preço no mercado de criptomoedas.',
+                details: 'Alta volatilidade significa grandes variações de preço em curtos períodos. Pode representar tanto oportunidades quanto riscos maiores.',
+                levels: 'Baixa: <2% | Média: 2-5% | Alta: >5% variação diária',
+                current: 'Atualmente em nível Alto (>5% variação)'
+            },
+            'trend': {
+                title: 'Tendência do Mercado',
+                description: 'Indica a direção geral do mercado baseada em análise técnica e fundamentalista.',
+                details: 'Bullish (Alta): Tendência de crescimento. Bearish (Baixa): Tendência de queda. Sideways: Mercado lateral sem direção clara.',
+                types: 'Bullish: Crescimento | Bearish: Queda | Sideways: Lateral',
+                current: 'Atualmente em tendência Bullish (Alta)'
+            }
+        };
+
+        const currencyInfo = {
+            'BRL': {
+                name: 'Real Brasileiro',
+                description: 'O Real é a moeda oficial do Brasil desde 1994. Foi criado durante o Plano Real para combater a hiperinflação.',
+                country: 'Brasil',
+                code: 'BRL',
+                symbol: 'R$',
+                bank: 'Banco Central do Brasil'
+            },
+            'EUR': {
+                name: 'Euro',
+                description: 'O Euro é a moeda oficial de 19 países da União Europeia. É a segunda moeda mais negociada no mundo.',
+                country: 'União Europeia',
+                code: 'EUR',
+                symbol: '€',
+                bank: 'Banco Central Europeu'
+            },
+            'GBP': {
+                name: 'Libra Esterlina',
+                description: 'A Libra Esterlina é uma das moedas mais antigas ainda em uso. É a moeda oficial do Reino Unido.',
+                country: 'Reino Unido',
+                code: 'GBP',
+                symbol: '£',
+                bank: 'Banco da Inglaterra'
+            },
+            'JPY': {
+                name: 'Iene Japonês',
+                description: 'O Iene é a terceira moeda mais negociada no mercado de câmbio, após o dólar americano e o euro.',
+                country: 'Japão',
+                code: 'JPY',
+                symbol: '¥',
+                bank: 'Banco do Japão'
+            },
+            'CAD': {
+                name: 'Dólar Canadense',
+                description: 'O Dólar Canadense é conhecido como "Loonie" devido ao mergulhão comum em sua moeda de um dólar.',
+                country: 'Canadá',
+                code: 'CAD',
+                symbol: 'C$',
+                bank: 'Banco do Canadá'
+            },
+            'AUD': {
+                name: 'Dólar Australiano',
+                description: 'O Dólar Australiano é a quinta moeda mais negociada no mundo e é popular entre traders de forex.',
+                country: 'Austrália',
+                code: 'AUD',
+                symbol: 'A$',
+                bank: 'Reserve Bank of Australia'
+            }
+        };
+
+        const cryptoInfo = {
+            'bitcoin': {
+                name: 'Bitcoin',
+                description: 'Bitcoin é a primeira e mais conhecida criptomoeda, criada em 2009 por Satoshi Nakamoto. É descentralizada e baseada em blockchain.',
+                symbol: '₿',
+                created: '2009',
+                creator: 'Satoshi Nakamoto',
+                maxSupply: '21 milhões'
+            },
+            'ethereum': {
+                name: 'Ethereum',
+                description: 'Ethereum é uma plataforma descentralizada que permite contratos inteligentes e aplicações descentralizadas (DApps).',
+                symbol: 'Ξ',
+                created: '2015',
+                creator: 'Vitalik Buterin',
+                maxSupply: 'Sem limite fixo'
+            },
+            'cardano': {
+                name: 'Cardano',
+                description: 'Cardano é uma blockchain de terceira geração que foca em sustentabilidade, escalabilidade e transparência.',
+                symbol: 'ADA',
+                created: '2017',
+                creator: 'Charles Hoskinson',
+                maxSupply: '45 bilhões'
+            },
+            'polkadot': {
+                name: 'Polkadot',
+                description: 'Polkadot permite que diferentes blockchains se comuniquem e compartilhem informações de forma segura.',
+                symbol: 'DOT',
+                created: '2020',
+                creator: 'Gavin Wood',
+                maxSupply: 'Sem limite fixo'
+            },
+            'chainlink': {
+                name: 'Chainlink',
+                description: 'Chainlink é uma rede oracle descentralizada que conecta contratos inteligentes com dados do mundo real.',
+                symbol: 'LINK',
+                created: '2017',
+                creator: 'Sergey Nazarov',
+                maxSupply: '1 bilhão'
+            },
+            'litecoin': {
+                name: 'Litecoin',
+                description: 'Litecoin é uma das primeiras altcoins, criada como uma versão "mais leve" do Bitcoin com transações mais rápidas.',
+                symbol: 'Ł',
+                created: '2011',
+                creator: 'Charlie Lee',
+                maxSupply: '84 milhões'
+            }
+        };
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            loadTraditionalCurrencies();
+            loadCryptocurrencies();
+            initializeCharts();
+            updateLastUpdateTime();
+            setupCalculator();
+            updateGlobalStats();
+            startShootingStars(); // Iniciando as estrelas cadentes
+            
+            // Auto-update every 30 seconds
+            updateInterval = setInterval(() => {
+                loadTraditionalCurrencies();
+                loadCryptocurrencies();
+                updateLastUpdateTime();
+                updateGlobalStats();
+            }, 30000);
+        });
+
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random size between 2px and 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // Random animation duration
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function showPopup(type, id) {
+            const overlay = document.getElementById('popupOverlay');
+            const title = document.getElementById('popupTitle');
+            const info = document.getElementById('popupInfo');
+            const stats = document.getElementById('popupStats');
+            
+            // Limpa o conteúdo anterior do popup-content para evitar duplicação
+            const popupContent = document.querySelector('.popup-content');
+            popupContent.querySelectorAll('div:not(.popup-close, .popup-title, .popup-info, .popup-stats)').forEach(el => el.remove());
+
+
+            let data;
+            if (type === 'currency') {
+                data = currencyInfo[id];
+                title.textContent = data.name;
+                info.innerHTML = `
+                    <p><strong>Descrição:</strong> ${data.description}</p>
+                    <p><strong>País/Região:</strong> ${data.country}</p>
+                `;
+                stats.innerHTML = `
+                    <div class="stat-item">
+                        <div class="stat-label">Código</div>
+                        <div class="stat-value">${data.code}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Símbolo</div>
+                        <div class="stat-value">${data.symbol}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Banco Central</div>
+                        <div class="stat-value">${data.bank}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Tipo</div>
+                        <div class="stat-value">Moeda Fiat</div>
+                    </div>
+                `;
+            } else {
+                data = cryptoInfo[id];
+                title.textContent = data.name;
+                info.innerHTML = `
+                    <p><strong>Descrição:</strong> ${data.description}</p>
+                `;
+                stats.innerHTML = `
+                    <div class="stat-item">
+                        <div class="stat-label">Símbolo</div>
+                        <div class="stat-value">${data.symbol}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Criado em</div>
+                        <div class="stat-value">${data.created}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Criador</div>
+                        <div class="stat-value">${data.creator}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Suprimento Máximo</div>
+                        <div class="stat-value">${data.maxSupply}</div>
+                    </div>
+                `;
+                
+                const buyButtonsSection = document.createElement('div');
+                buyButtonsSection.style.cssText = `
+                    margin-top: 2rem;
+                    padding-top: 1.5rem;
+                    border-top: 2px solid rgba(0, 255, 255, 0.3);
+                `;
+                
+                buyButtonsSection.innerHTML = `
+                    <h4 style="color: #00ffff; text-align: center; margin-bottom: 1rem; font-size: 1.2rem;">
+                        💰 Comprar ${data.name}
+                    </h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <a href="https://www.binance.com/pt-BR/trade/${id.toUpperCase()}_USDT" 
+                           target="_blank" 
+                           style="background: linear-gradient(45deg, #f0b90b, #f8d12f); 
+                                  color: #000; 
+                                  padding: 0.8rem 1rem; 
+                                  border-radius: 10px; 
+                                  text-decoration: none; 
+                                  text-align: center; 
+                                  font-weight: bold; 
+                                  transition: all 0.3s ease;
+                                  box-shadow: 0 4px 15px rgba(240, 185, 11, 0.3);
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  gap: 0.5rem;"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(240, 185, 11, 0.5)'"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(240, 185, 11, 0.3)'">
+                            🟡 Binance
+                        </a>
+                        <a href="https://www.coinbase.com/pt-br/price/${id}" 
+                           target="_blank" 
+                           style="background: linear-gradient(45deg, #0052ff, #1652f0); 
+                                  color: #fff; 
+                                  padding: 0.8rem 1rem; 
+                                  border-radius: 10px; 
+                                  text-decoration: none; 
+                                  text-align: center; 
+                                  font-weight: bold; 
+                                  transition: all 0.3s ease;
+                                  box-shadow: 0 4px 15px rgba(0, 82, 255, 0.3);
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  gap: 0.5rem;"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 82, 255, 0.5)'"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 82, 255, 0.3)'">
+                            🔵 Coinbase
+                        </a>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                        <a href="https://www.kraken.com/pt-br/prices/${id}" 
+                           target="_blank" 
+                           style="background: linear-gradient(45deg, #5741d9, #7c4dff); 
+                                  color: #fff; 
+                                  padding: 0.8rem 1rem; 
+                                  border-radius: 10px; 
+                                  text-decoration: none; 
+                                  text-align: center; 
+                                  font-weight: bold; 
+                                  transition: all 0.3s ease;
+                                  box-shadow: 0 4px 15px rgba(87, 65, 217, 0.3);
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  gap: 0.5rem;"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(87, 65, 217, 0.5)'"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(87, 65, 217, 0.3)'">
+                            🟣 Kraken
+                        </a>
+                        <a href="https://www.kucoin.com/pt/trade/${id.toUpperCase()}-USDT" 
+                           target="_blank" 
+                           style="background: linear-gradient(45deg, #24ae8f, #2dd4bf); 
+                                  color: #fff; 
+                                  padding: 0.8rem 1rem; 
+                                  border-radius: 10px; 
+                                  text-decoration: none; 
+                                  text-align: center; 
+                                  font-weight: bold; 
+                                  transition: all 0.3s ease;
+                                  box-shadow: 0 4px 15px rgba(36, 174, 143, 0.3);
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  gap: 0.5rem;"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(36, 174, 143, 0.5)'"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(36, 174, 143, 0.3)'">
+                            🟢 KuCoin
+                        </a>
+                    </div>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: #cccccc;">
+                        ⚠️ Sempre faça sua própria pesquisa antes de investir. Criptomoedas são investimentos de alto risco.
+                    </p>
+                `;
+                
+                document.querySelector('.popup-content').appendChild(buyButtonsSection);
+            }
+            
+            overlay.classList.add('active');
+        }
+
+        // Close popup when clicking outside
+        document.getElementById('popupOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePopup();
+            }
+        });
+
+        // Update last update time
+        function updateLastUpdateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('pt-BR');
+            document.getElementById('lastUpdate').textContent = timeString;
+        }
+
+        // Load traditional currencies
+        async function loadTraditionalCurrencies() {
+            try {
+                // Using exchangerate-api.com (free tier)
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                const data = await response.json();
+                
+                const currencies = [
+                    { code: 'BRL', name: 'Real Brasileiro', symbol: 'R$', rate: data.rates.BRL },
+                    { code: 'EUR', name: 'Euro', symbol: '€', rate: data.rates.EUR },
+                    { code: 'GBP', name: 'Libra Esterlina', symbol: '£', rate: data.rates.GBP },
+                    { code: 'JPY', name: 'Iene Japonês', symbol: '¥', rate: data.rates.JPY },
+                    { code: 'CAD', name: 'Dólar Canadense', symbol: 'C$', rate: data.rates.CAD },
+                    { code: 'AUD', name: 'Dólar Australiano', symbol: 'A$', rate: data.rates.AUD }
+                ];
+
+                displayTraditionalCurrencies(currencies);
+            } catch (error) {
+                console.error('Erro ao carregar moedas tradicionais:', error);
+                displayErrorMessage('traditionalCurrencies', 'Erro ao carregar cotações das moedas');
+            }
+        }
+
+        // Load cryptocurrencies
+        async function loadCryptocurrencies() {
+            try {
+                // Using CoinGecko API (free tier)
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,cardano,polkadot,chainlink,litecoin&vs_currencies=usd&include_24hr_change=true');
+                const data = await response.json();
+                
+                const cryptos = [
+                    { 
+                        id: 'bitcoin', 
+                        name: 'Bitcoin', 
+                        symbol: '₿', 
+                        price: data.bitcoin.usd,
+                        change: data.bitcoin.usd_24h_change 
+                    },
+                    { 
+                        id: 'ethereum', 
+                        name: 'Ethereum', 
+                        symbol: 'Ξ', 
+                        price: data.ethereum.usd,
+                        change: data.ethereum.usd_24h_change 
+                    },
+                    { 
+                        id: 'cardano', 
+                        name: 'Cardano', 
+                        symbol: 'ADA', 
+                        price: data.cardano.usd,
+                        change: data.cardano.usd_24h_change 
+                    },
+                    { 
+                        id: 'polkadot', 
+                        name: 'Polkadot', 
+                        symbol: 'DOT', 
+                        price: data.polkadot.usd,
+                        change: data.polkadot.usd_24h_change 
+                    },
+                    { 
+                        id: 'chainlink', 
+                        name: 'Chainlink', 
+                        symbol: 'LINK', 
+                        price: data.chainlink.usd,
+                        change: data.chainlink.usd_24h_change 
+                    },
+                    { 
+                        id: 'litecoin', 
+                        name: 'Litecoin', 
+                        symbol: 'Ł', 
+                        price: data.litecoin.usd,
+                        change: data.litecoin.usd_24h_change 
+                    }
+                ];
+
+                displayCryptocurrencies(cryptos);
+            } catch (error) {
+                console.error('Erro ao carregar criptomoedas:', error);
+                displayErrorMessage('cryptocurrencies', 'Erro ao carregar cotações das criptomoedas');
+            }
+        }
+
+        // Display traditional currencies
+        function displayTraditionalCurrencies(currencies) {
+            const container = document.getElementById('traditionalCurrencies');
+            container.innerHTML = '';
+
+            currencies.forEach(currency => {
+                const change = (Math.random() - 0.5) * 4; // Simulated change for demo
+                const changeClass = change >= 0 ? 'positive' : 'negative';
+                const changeSymbol = change >= 0 ? '+' : '';
+                
+                const card = document.createElement('div');
+                card.className = 'currency-card';
+                card.onclick = () => showPopup('currency', currency.code);
+                card.innerHTML = `
+                    <div class="currency-header">
+                        <div class="currency-name">${currency.name}</div>
+                        <div class="currency-symbol">${currency.symbol}</div>
+                    </div>
+                    <div class="currency-price">$${currency.rate.toFixed(4)}</div>
+                    <div class="currency-change ${changeClass}">
+                        ${changeSymbol}${change.toFixed(2)}%
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Display cryptocurrencies
+        function displayCryptocurrencies(cryptos) {
+            const container = document.getElementById('cryptocurrencies');
+            container.innerHTML = '';
+
+            cryptos.forEach(crypto => {
+                const changeClass = crypto.change >= 0 ? 'positive' : 'negative';
+                const changeSymbol = crypto.change >= 0 ? '+' : '';
+                
+                const card = document.createElement('div');
+                card.className = 'currency-card';
+                card.onclick = () => showPopup('crypto', crypto.id);
+                card.innerHTML = `
+                    <div class="currency-header">
+                        <div class="currency-name">${crypto.name}</div>
+                        <div class="currency-symbol">${crypto.symbol}</div>
+                    </div>
+                    <div class="currency-price">$${crypto.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
+                    <div class="currency-change ${changeClass}">
+                        ${changeSymbol}${crypto.change.toFixed(2)}%
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Display error message
+        function displayErrorMessage(containerId, message) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `
+                <div class="loading">
+                    <p style="color: #ff6b6b;">${message}</p>
+                    <p style="color: #cccccc; font-size: 0.9rem;">Tentando reconectar...</p>
+                </div>
+            `;
+        }
+
+        // Initialize charts
+        function initializeCharts() {
+            // Currency Chart (USD/BRL)
+            const currencyCtx = document.getElementById('currencyChart').getContext('2d');
+            const currencyData = generateMockData(24);
+            
+            currencyChart = new Chart(currencyCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                    datasets: [{
+                        label: 'USD/BRL',
+                        data: currencyData,
+                        borderColor: '#00ffff',
+                        backgroundColor: 'rgba(0, 255, 255, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#cccccc'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#cccccc'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Crypto Chart (Bitcoin)
+            const cryptoCtx = document.getElementById('cryptoChart').getContext('2d');
+            const cryptoData = generateMockData(24, 45000, 50000);
+            
+            cryptoChart = new Chart(cryptoCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                    datasets: [{
+                        label: 'Bitcoin (USD)',
+                        data: cryptoData,
+                        borderColor: '#f7931a',
+                        backgroundColor: 'rgba(247, 147, 26, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#cccccc'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#cccccc',
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generate mock data for charts
+        function generateMockData(points, min = 5, max = 6) {
+            const data = [];
+            let current = (min + max) / 2;
+            
+            for (let i = 0; i < points; i++) {
+                const change = (Math.random() - 0.5) * 0.2;
+                current += change;
+                current = Math.max(min, Math.min(max, current));
+                data.push(parseFloat(current.toFixed(4)));
+            }
+            
+            return data;
+        }
+
+        function setupCalculator() {
+            const calcAmount = document.getElementById('calcAmount');
+            const calcFrom = document.getElementById('calcFrom');
+            const calcTo = document.getElementById('calcTo');
+            const calcResult = document.getElementById('calcResult');
+
+            function updateCalculation() {
+                const amount = parseFloat(calcAmount.value) || 0;
+                const from = calcFrom.value;
+                const to = calcTo.value;
+                
+                // Taxas simuladas para demonstração
+                const rates = {
+                    'USD': 1,
+                    'BRL': 5.25,
+                    'EUR': 0.85,
+                    'BTC': 0.000021,
+                    'ETH': 0.00032
+                };
+                
+                const fromRate = rates[from] || 1;
+                const toRate = rates[to] || 1;
+                const result = (amount / fromRate) * toRate;
+                
+                calcResult.innerHTML = `Resultado: ${result.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: to === 'BRL' ? 'BRL' : 'USD',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 6
+                })}`;
+            }
+
+            calcAmount.addEventListener('input', updateCalculation);
+            calcFrom.addEventListener('change', updateCalculation);
+            calcTo.addEventListener('change', updateCalculation);
+            
+            updateCalculation();
+        }
+
+        function updateGlobalStats() {
+            // Simulando dados dinâmicos
+            const stats = {
+                marketCap: (2.1 + (Math.random() - 0.5) * 0.2).toFixed(1) + 'T',
+                volume: (89.2 + (Math.random() - 0.5) * 10).toFixed(1) + 'B',
+                btcDominance: (42.3 + (Math.random() - 0.5) * 2).toFixed(1) + '%',
+                activeCoins: (13247 + Math.floor((Math.random() - 0.5) * 100)).toLocaleString()
+            };
+
+            document.getElementById('totalMarketCap').textContent = '$' + stats.marketCap;
+            document.getElementById('totalVolume').textContent = '$' + stats.volume;
+            document.getElementById('btcDominance').textContent = stats.btcDominance;
+            document.getElementById('activeCoins').textContent = stats.activeCoins;
+        }
+
+        function showStatsPopup(statType) {
+            const overlay = document.getElementById('popupOverlay');
+            const title = document.getElementById('popupTitle');
+            const info = document.getElementById('popupInfo');
+            const stats = document.getElementById('popupStats');
+            
+            const data = statsInfo[statType];
+            title.textContent = data.title;
+            info.innerHTML = `
+                <p><strong>Descrição:</strong> ${data.description}</p>
+                <p><strong>Detalhes:</strong> ${data.details}</p>
+            `;
+            stats.innerHTML = `
+                <div class="stat-item">
+                    <div class="stat-label">Importância</div>
+                    <div class="stat-value">${data.importance}</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Cálculo</div>
+                    <div class="stat-value">${data.calculation}</div>
+                </div>
+            `;
+            
+            overlay.classList.add('active');
+        }
+
+        function showSentimentPopup(sentimentType) {
+            const overlay = document.getElementById('popupOverlay');
+            const title = document.getElementById('popupTitle');
+            const info = document.getElementById('popupInfo');
+            const stats = document.getElementById('popupStats');
+            
+            const data = sentimentInfo[sentimentType];
+            title.textContent = data.title;
+            info.innerHTML = `
+                <p><strong>Descrição:</strong> ${data.description}</p>
+                <p><strong>Detalhes:</strong> ${data.details}</p>
+            `;
+            
+            if (data.scale) {
+                stats.innerHTML = `
+                    <div class="stat-item">
+                        <div class="stat-label">Escala</div>
+                        <div class="stat-value">${data.scale}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Status Atual</div>
+                        <div class="stat-value">${data.current}</div>
+                    </div>
+                `;
+            } else if (data.levels) {
+                stats.innerHTML = `
+                    <div class="stat-item">
+                        <div class="stat-label">Níveis</div>
+                        <div class="stat-value">${data.levels}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Status Atual</div>
+                        <div class="stat-value">${data.current}</div>
+                    </div>
+                `;
+            } else {
+                stats.innerHTML = `
+                    <div class="stat-item">
+                        <div class="stat-label">Tipos</div>
+                        <div class="stat-value">${data.types}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Status Atual</div>
+                        <div class="stat-value">${data.current}</div>
+                    </div>
+                `;
+            }
+            
+            overlay.classList.add('active');
+        }
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+            if (updateInterval) {
+                clearInterval(updateInterval);
+            }
+        });
+    </script>
+</body>
+</html>

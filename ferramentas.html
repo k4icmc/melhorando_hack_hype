@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACK HYPE - Ferramentas</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Partículas flutuantes de fundo */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #00ffff;
+            animation: slideInFromTop 0.8s ease-out;
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #000;
+            border: 4px solid #00ffff;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        @keyframes logoGlow {
+            from {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+                transform: scale(1);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .back-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1.1rem;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 140px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInTitle 1.2s ease-out;
+        }
+
+        @keyframes fadeInTitle {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Seções de categorias */
+        .category-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: borderPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% {
+                border-color: rgba(0, 255, 255, 0.3);
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+            }
+            50% {
+                border-color: rgba(0, 255, 255, 0.6);
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            }
+        }
+
+        .category-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.2);
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: #00ffff;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .category-section:hover .category-icon {
+            transform: rotateY(360deg);
+        }
+
+        /* Grid de ferramentas */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+
+        .tool-card:hover::before {
+            transform: scale(1);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+            border-color: #00ffff;
+            background: rgba(0, 255, 255, 0.15);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-logo {
+            width: 50px; /* COMENTÁRIO: Tamanho do logo da ferramenta - ajustável aqui */
+            height: 50px; /* COMENTÁRIO: Tamanho do logo da ferramenta - ajustável aqui */
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #00ffff;
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover .tool-logo {
+            transform: scale(1.1);
+        }
+
+        .tool-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ffff;
+            flex: 1;
+        }
+
+        .tool-description {
+            color: #e0e0e0;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .tool-areas {
+            margin-bottom: 1rem;
+        }
+
+        .tool-areas-title {
+            font-size: 0.9rem;
+            color: #00ffff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .areas-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .area-tag {
+            background: rgba(0, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+        }
+
+        .tool-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tool-link:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.8rem 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .back-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .main-content {
+                margin-top: 120px;
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .category-section {
+                padding: 1.5rem;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .tool-card {
+                padding: 1rem;
+            }
+
+            .tool-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .tool-logo {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Animações de scroll */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas flutuantes -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%282%29-vc1HA65D8XLfpPYsX23Ii3UFKDXPaD.png" alt="HACK HYPE Logo">
+                <!-- COMENTÁRIO: Para alterar a logo, substitua o link acima -->
+            </div>
+            <a href="https://hack-hype.vercel.app" class="back-btn">← Voltar ao Início</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">FERRAMENTAS ESSENCIAIS</h1>
+        <p class="page-subtitle">Software e recursos recomendados para Sistemas de Informação</p>
+
+        <!-- Categoria: Desenvolvimento -->
+        <section class="category-section scroll-reveal">
+            <h2 class="category-title">
+                <span class="category-icon">💻</span>
+                Desenvolvimento
+            </h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/vscode-icon%282%29-V4A6lUdgMHIVXhu1mSV54aDxjQKNXp.webp" alt="VS Code" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do VS Code -->
+                        <h3 class="tool-name">Visual Studio Code</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Editor de código gratuito e poderoso da Microsoft com suporte a extensões, debugging integrado e controle de versão Git.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">Front-end</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Back-end</span>
+                            <span class="area-tag">Full Stack</span>
+                        </div>
+                    </div>
+                    <a href="https://code.visualstudio.com/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/1%282%29-ZuHe0gjrA14VkOdfHLHeZOtPrWFFmc.png" alt="IntelliJ" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do IntelliJ -->
+                        <h3 class="tool-name">IntelliJ IDEA</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">IDE profissional para desenvolvimento Java com recursos avançados de refatoração, debugging e integração com frameworks.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">Java</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Spring Boot</span>
+                            <span class="area-tag">Back-end</span>
+                        </div>
+                    </div>
+                    <a href="https://www.jetbrains.com/idea/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://img.icons8.com/?size=512&id=20906&format=png" alt="Git" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do Git -->
+                        <h3 class="tool-name">Git</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Sistema de controle de versão distribuído essencial para gerenciar código fonte e colaboração em equipe.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">Controle de Versão</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Colaboração</span>
+                            <span class="area-tag">DevOps</span>
+                        </div>
+                    </div>
+                    <a href="https://git-scm.com/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/docker%282%29-S5Vc139aSATdv3o5uOZA7AfWLXHzvl.png" alt="Docker" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do Docker -->
+                        <h3 class="tool-name">Docker</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Plataforma de containerização que facilita o desenvolvimento, deploy e execução de aplicações em qualquer ambiente.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">DevOps</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Deploy</span>
+                            <span class="area-tag">Microserviços</span>
+                        </div>
+                    </div>
+                    <a href="https://www.docker.com/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categoria: Banco de Dados -->
+        <section class="category-section scroll-reveal">
+            <h2 class="category-title">
+                <span class="category-icon">🗄️</span>
+                Banco de Dados
+            </h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/mysqlworkbench_93532%282%29-YuXl41OL65FJWG0QLXulVfiUA3ta7A.png" alt="MySQL" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do MySQL -->
+                        <h3 class="tool-name">MySQL</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Sistema de gerenciamento de banco de dados relacional open-source, amplamente usado em aplicações web.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">Web Development</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">E-commerce</span>
+                            <span class="area-tag">Aplicações Corporativas</span>
+                        </div>
+                    </div>
+                    <a href="https://www.mysql.com/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/PostgreSQL-Logo.wine%282%29-7oTFNmyyWBtMWE0IMn8twHPQ3eVoJF.png" alt="PostgreSQL" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do PostgreSQL -->
+                        <h3 class="tool-name">PostgreSQL</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Banco de dados relacional avançado com recursos robustos, extensibilidade e conformidade com padrões SQL.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">Aplicações Complexas</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Data Analytics</span>
+                            <span class="area-tag">Sistemas Críticos</span>
+                        </div>
+                    </div>
+                    <a href="https://www.postgresql.org/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/mongodb%282%29-Bq54h8i4mH9U1CpfpjAJMmkZxklTTO.png" alt="MongoDB" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do MongoDB -->
+                        <h3 class="tool-name">MongoDB</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Banco de dados NoSQL orientado a documentos, ideal para aplicações modernas que precisam de flexibilidade.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">APIs REST</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Big Data</span>
+                            <span class="area-tag">Aplicações Mobile</span>
+                        </div>
+                    </div>
+                    <a href="https://www.mongodb.com/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categoria: Design e Prototipagem -->
+        <section class="category-section scroll-reveal">
+            <h2 class="category-title">
+                <span class="category-icon">🎨</span>
+                Design e Prototipagem
+            </h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/figma_alt_macos_bigsur_icon_190181%282%29-SoY6OD5Zy9KktxonTTo6CNc6Lx6Ep9.png" alt="Figma" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do Figma -->
+                        <h3 class="tool-name">Figma</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Ferramenta de design colaborativo baseada na web para criação de interfaces, protótipos e sistemas de design.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">UI/UX Design</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Prototipagem</span>
+                            <span class="area-tag">Design System</span>
+                        </div>
+                    </div>
+                    <a href="https://www.figma.com/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/Adobe-Emblem%282%29-WiC4RD53N7ErPBcgJ7QKzkQQZpNvb0.png" alt="Adobe XD" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do Adobe XD -->
+                        <h3 class="tool-name">Adobe XD</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Solução da Adobe para design de experiência do usuário com recursos de prototipagem e colaboração.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">UX Design</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Wireframes</span>
+                            <span class="area-tag">Protótipos Interativos</span>
+                        </div>
+                    </div>
+                    <a href="https://www.adobe.com/products/xd.html" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categoria: Gestão de Projetos -->
+        <section class="category-section scroll-reveal">
+            <h2 class="category-title">
+                <span class="category-icon">📊</span>
+                Gestão de Projetos
+            </h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/jira-1%282%29-mutDZV4HIDQ3vBWck3cN1x47v7SBHD.svg" alt="Jira" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do Jira -->
+                        <h3 class="tool-name">Jira</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Ferramenta de gestão de projetos ágeis da Atlassian, ideal para equipes de desenvolvimento de software.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">Scrum</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Kanban</span>
+                            <span class="area-tag">Bug Tracking</span>
+                        </div>
+                    </div>
+                    <a href="https://www.atlassian.com/software/jira" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://img.icons8.com/?size=512&id=21049&format=png" alt="Trello" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do Trello -->
+                        <h3 class="tool-name">Trello</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Ferramenta visual de gestão de projetos baseada em quadros Kanban, simples e intuitiva para equipes.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">Organização</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Colaboração</span>
+                            <span class="area-tag">Projetos Pequenos</span>
+                        </div>
+                    </div>
+                    <a href="https://trello.com/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/notion-fill-3qzmejevdigg5ud28aeoos%282%29-TXrIEF0Vq5CZQrlyN3Cq4bcoPw9qXh.png" alt="Notion" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do Notion -->
+                        <h3 class="tool-name">Notion</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Workspace all-in-one que combina notas, documentos, bases de dados e gestão de projetos em uma plataforma.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">Documentação</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Knowledge Base</span>
+                            <span class="area-tag">Planejamento</span>
+                        </div>
+                    </div>
+                    <a href="https://www.notion.so/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categoria: Cloud e DevOps -->
+        <section class="category-section scroll-reveal">
+            <h2 class="category-title">
+                <span class="category-icon">☁️</span>
+                Cloud e DevOps
+            </h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/Amazon-Web-Services-AWS-Logo%282%29-CtMQcbTH607N53PEur1thnUsb4S9yH.png" alt="AWS" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo da AWS -->
+                        <h3 class="tool-name">Amazon Web Services</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Plataforma de cloud computing mais completa do mundo, oferecendo centenas de serviços para todas as necessidades.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">Cloud Computing</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">Infraestrutura</span>
+                            <span class="area-tag">Machine Learning</span>
+                        </div>
+                    </div>
+                    <a href="https://aws.amazon.com/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <img src="https://pipedream.com/s.v0/app_XaLh2x/logo/orig" alt="Vercel" class="tool-logo"> <!-- COMENTÁRIO: Substitua pela logo do Vercel -->
+                        <h3 class="tool-name">Vercel</h3> <!-- COMENTÁRIO: Nome da ferramenta editável aqui -->
+                    </div>
+                    <p class="tool-description">Plataforma de deploy e hosting otimizada para frameworks front-end modernos como Next.js, React e Vue.</p> <!-- COMENTÁRIO: Descrição da ferramenta editável aqui -->
+                    <div class="tool-areas">
+                        <div class="tool-areas-title">Áreas de uso:</div>
+                        <div class="areas-tags">
+                            <span class="area-tag">Deploy Front-end</span> <!-- COMENTÁRIO: Tags de área editáveis aqui -->
+                            <span class="area-tag">JAMstack</span>
+                            <span class="area-tag">Edge Computing</span>
+                        </div>
+                    </div>
+                    <a href="https://vercel.com/" class="tool-link" target="_blank">Acessar Site</a> <!-- COMENTÁRIO: Link da ferramenta editável aqui -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.scroll-reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initScrollAnimations();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Inteligências Artificiais - HACK HYPE</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Partículas de fundo */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ffff;
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header */
+        .header {
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .nav-container {
+            /* Alterando layout para centralizar logo e posicionar botão embaixo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .logo {
+            /* Ajustando tamanho da logo para melhor visualização */
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #00ffff;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        .back-btn {
+            /* Padronizando estilo do botão de voltar */
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1.1rem;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        @keyframes logoGlow {
+            from {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            /* Aumentando margin-top para acomodar o novo layout do header */
+            margin-top: 140px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff, #8000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(0, 255, 255, 0.8)); }
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+        }
+
+        /* Filtros de Categoria */
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            color: #00ffff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: #00ffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Grid de IAs */
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .ai-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+
+        .ai-card:hover::before {
+            transform: scale(1);
+        }
+
+        .ai-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .ai-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .ai-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .ai-category {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ai-description {
+            font-size: 0.95rem;
+            color: #cccccc;
+            line-height: 1.4;
+        }
+
+        /* Modal/Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            margin: 5% auto;
+            padding: 2rem;
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #ff6666;
+            transform: rotate(90deg);
+        }
+
+        .modal-category {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .modal-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #cccccc;
+            margin-bottom: 2rem;
+        }
+
+        .modal-features {
+            margin-bottom: 2rem;
+        }
+
+        .modal-features h4 {
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .modal-features li {
+            padding: 0.3rem 0;
+            color: #cccccc;
+        }
+
+        .modal-features li::before {
+            content: "✓ ";
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .access-btn {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .access-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .nav-container {
+                /* Mantendo layout vertical centralizado no mobile */
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .logo {
+                /* Tamanho otimizado da logo para mobile */
+                width: 60px;
+                height: 60px;
+            }
+            
+            .back-btn {
+                /* Ajustando botão para mobile */
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .main-content {
+                /* Ajustando espaçamento do conteúdo principal para mobile */
+                margin-top: 120px;
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .ai-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                padding: 1.5rem;
+                width: 95%;
+            }
+            
+            .category-filters {
+                gap: 0.5rem;
+            }
+            
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Contador de IAs */
+        .ai-counter {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            color: #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas de fundo -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%282%29-vc1HA65D8XLfpPYsX23Ii3UFKDXPaD.png" alt="HACK HYPE Logo">
+            </div>
+            <a href="index.html" class="back-btn">← Voltar ao Início</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">Centro de Inteligências Artificiais</h1>
+        <p class="page-subtitle">Descubra as melhores ferramentas de IA para revolucionar seu trabalho e estudos</p>
+        
+        <div class="ai-counter">
+            <span id="aiCount">65</span> Inteligências Artificiais Disponíveis
+        </div>
+
+        <!-- Filtros de Categoria -->
+        <div class="category-filters">
+            <button class="filter-btn active" data-category="all">Todas</button>
+            <button class="filter-btn" data-category="texto">Texto & Escrita</button>
+            <button class="filter-btn" data-category="imagem">Imagem & Design</button>
+            <button class="filter-btn" data-category="codigo">Programação</button>
+            <button class="filter-btn" data-category="video">Vídeo & Audio</button>
+            <button class="filter-btn" data-category="produtividade">Produtividade</button>
+            <button class="filter-btn" data-category="pesquisa">Pesquisa & Análise</button>
+        </div>
+
+        <!-- Grid de IAs -->
+        <div class="ai-grid" id="aiGrid">
+            <!-- As IAs serão inseridas aqui via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="aiModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-category" id="modalCategory"></div>
+            <div class="modal-description" id="modalDescription"></div>
+            <div class="modal-features" id="modalFeatures"></div>
+            <a id="modalLink" class="access-btn" target="_blank">Acessar IA</a>
+        </div>
+    </div>
+
+    <script>
+        // Base de dados das IAs
+        const aiDatabase = [
+            // TEXTO & ESCRITA
+            {
+                name: "ChatGPT",
+                category: "texto",
+                icon: "🤖",
+                description: "IA conversacional avançada para texto, código e análises",
+                fullDescription: "ChatGPT é uma IA conversacional desenvolvida pela OpenAI que pode ajudar com uma ampla variedade de tarefas, desde escrever textos até resolver problemas complexos.",
+                features: ["Conversação natural", "Geração de texto", "Análise de dados", "Programação", "Tradução"],
+                link: "https://chat.openai.com" // Link oficial do ChatGPT
+            },
+            {
+                name: "Claude",
+                category: "texto",
+                icon: "🧠",
+                description: "IA da Anthropic focada em conversas seguras e úteis",
+                fullDescription: "Claude é uma IA desenvolvida pela Anthropic, conhecida por suas respostas thoughtful e capacidade de análise profunda de textos longos.",
+                features: ["Análise de documentos longos", "Conversação ética", "Raciocínio complexo", "Escrita criativa"],
+                link: "https://claude.ai" // Link oficial do Claude
+            },
+            {
+                name: "Gemini",
+                category: "texto",
+                icon: "💎",
+                description: "IA do Google para texto, código e análise multimodal",
+                fullDescription: "Gemini é a IA mais avançada do Google, capaz de processar texto, imagens e código simultaneamente.",
+                features: ["Multimodal", "Integração Google", "Análise de imagens", "Programação avançada"],
+                link: "https://gemini.google.com" // Link oficial do Gemini
+            },
+            {
+                name: "Jasper",
+                category: "texto",
+                icon: "✍️",
+                description: "IA especializada em copywriting e marketing",
+                fullDescription: "Jasper é uma ferramenta de IA focada em criar conteúdo de marketing, blogs e copy persuasivo para empresas.",
+                features: ["Templates de marketing", "SEO otimizado", "Múltiplos idiomas", "Integração com ferramentas"],
+                link: "https://www.jasper.ai" // Link oficial do Jasper
+            },
+            {
+                name: "Copy.ai",
+                category: "texto",
+                icon: "📝",
+                description: "Gerador de conteúdo para marketing e vendas",
+                fullDescription: "Copy.ai ajuda a criar textos persuasivos para anúncios, emails, posts de redes sociais e muito mais.",
+                features: ["Templates variados", "Geração rápida", "Otimização para conversão", "Múltiplas variações"],
+                link: "https://www.copy.ai" // Link oficial do Copy.ai
+            },
+            {
+                name: "Writesonic",
+                category: "texto",
+                icon: "🚀",
+                description: "Plataforma completa de escrita com IA",
+                fullDescription: "Writesonic oferece ferramentas de IA para criar artigos, anúncios, emails e conteúdo otimizado para SEO.",
+                features: ["Artigos longos", "SEO integrado", "Chatbot personalizado", "Análise de concorrentes"],
+                link: "https://writesonic.com" // Link oficial do Writesonic
+            },
+            {
+                name: "Grammarly",
+                category: "texto",
+                icon: "📚",
+                description: "Assistente de escrita com correção avançada",
+                fullDescription: "Grammarly usa IA para corrigir gramática, melhorar clareza e sugerir melhorias no estilo de escrita.",
+                features: ["Correção gramatical", "Sugestões de estilo", "Detector de plágio", "Integração em navegadores"],
+                link: "https://www.grammarly.com" // Link oficial do Grammarly
+            },
+            {
+                name: "QuillBot",
+                category: "texto",
+                icon: "🪶",
+                description: "Ferramenta de paráfrase e melhoria de texto",
+                fullDescription: "QuillBot ajuda a reescrever e melhorar textos, oferecendo diferentes modos de paráfrase e correção.",
+                features: ["Paráfrase inteligente", "Resumidor de texto", "Verificador gramatical", "Citações automáticas"],
+                link: "https://quillbot.com" // Link oficial do QuillBot
+            },
+            {
+                name: "Notion AI",
+                category: "texto",
+                icon: "📋",
+                description: "IA integrada ao Notion para produtividade",
+                fullDescription: "Notion AI está integrada ao workspace do Notion, ajudando a escrever, resumir e organizar informações.",
+                features: ["Integração nativa", "Resumos automáticos", "Geração de conteúdo", "Organização inteligente"],
+                link: "https://www.notion.so/product/ai" // Link oficial do Notion AI
+            },
+            {
+                name: "Rytr",
+                category: "texto",
+                icon: "✨",
+                description: "Assistente de escrita para diversos formatos",
+                fullDescription: "Rytr é uma ferramenta de IA que ajuda a criar conteúdo para blogs, emails, anúncios e redes sociais.",
+                features: ["40+ casos de uso", "25+ idiomas", "Verificador de plágio", "Formatação rica"],
+                link: "https://rytr.me" // Link oficial do Rytr
+            },
+
+            // IMAGEM & DESIGN
+            {
+                name: "DALL-E 3",
+                category: "imagem",
+                icon: "🎨",
+                description: "Gerador de imagens da OpenAI com alta qualidade",
+                fullDescription: "DALL-E 3 é o mais avançado gerador de imagens da OpenAI, capaz de criar imagens fotorrealistas a partir de descrições textuais.",
+                features: ["Imagens fotorrealistas", "Controle preciso", "Integração ChatGPT", "Múltiplos estilos"],
+                link: "https://openai.com/dall-e-3" // Link oficial do D-E 3
+            },
+            {
+                name: "Midjourney",
+                category: "imagem",
+                icon: "🌟",
+                description: "IA artística para criação de imagens impressionantes",
+                fullDescription: "Midjourney é conhecida por criar imagens artísticas e impressionantes, muito popular entre designers e artistas.",
+                features: ["Estilo artístico único", "Comunidade ativa", "Controles avançados", "Alta resolução"],
+                link: "https://www.midjourney.com" // Link oficial do Midjourney
+            },
+            {
+                name: "Stable Diffusion",
+                category: "imagem",
+                icon: "🔮",
+                description: "Gerador de imagens open-source e personalizável",
+                fullDescription: "Stable Diffusion é um modelo open-source que permite gerar imagens com controle total e personalização avançada.",
+                features: ["Open-source", "Altamente personalizável", "Modelos especializados", "Controle fino"],
+                link: "https://stability.ai/stable-diffusion" // Link oficial do Stable Diffusion
+            },
+            {
+                name: "Adobe Firefly",
+                category: "imagem",
+                icon: "🔥",
+                description: "IA criativa da Adobe integrada aos produtos Creative Cloud",
+                fullDescription: "Adobe Firefly é a IA generativa da Adobe, integrada ao Photoshop, Illustrator e outras ferramentas Creative Cloud.",
+                features: ["Integração Adobe", "Comercialmente seguro", "Múltiplas modalidades", "Controle profissional"],
+                link: "https://www.adobe.com/products/firefly.html" // Link oficial do Adobe Firefly
+            },
+            {
+                name: "Canva AI",
+                category: "imagem",
+                icon: "🎭",
+                description: "Ferramentas de IA integradas ao Canva para design",
+                fullDescription: "Canva AI oferece várias ferramentas de IA para criar designs, remover fundos, gerar imagens e muito mais.",
+                features: ["Design automático", "Remoção de fundo", "Geração de imagens", "Templates inteligentes"],
+                link: "https://www.canva.com/ai-image-generator/" // Link oficial do Canva AI
+            },
+            {
+                name: "Leonardo AI",
+                category: "imagem",
+                icon: "🎪",
+                description: "Plataforma completa para geração de imagens com IA",
+                fullDescription: "Leonardo AI oferece ferramentas avançadas para geração de imagens, com foco em qualidade e controle criativo.",
+                features: ["Modelos especializados", "Controle fino", "Geração em lote", "API disponível"],
+                link: "https://leonardo.ai" // Link oficial do Leonardo AI
+            },
+            {
+                name: "Playground AI",
+                category: "imagem",
+                icon: "🎮",
+                description: "Editor de imagens com IA fácil de usar",
+                fullDescription: "Playground AI combina geração de imagens com ferramentas de edição, oferecendo uma experiência completa de design.",
+                features: ["Editor integrado", "Múltiplos modelos", "Interface intuitiva", "Colaboração em equipe"],
+                link: "https://playgroundai.com" // Link oficial do Playground AI
+            },
+            {
+                name: "Artbreeder",
+                category: "imagem",
+                icon: "🧬",
+                description: "Plataforma colaborativa para criação de imagens",
+                fullDescription: "Artbreeder permite criar e modificar imagens através de 'breeding' e colaboração com outros usuários.",
+                features: ["Breeding de imagens", "Comunidade colaborativa", "Controles intuitivos", "Galeria pública"],
+                link: "https://www.artbreeder.com" // Link oficial do Artbreeder
+            },
+            {
+                name: "RunwayML",
+                category: "imagem",
+                icon: "🛸",
+                description: "Suite completa de ferramentas criativas com IA",
+                fullDescription: "RunwayML oferece mais de 30 ferramentas de IA para criação de conteúdo, incluindo geração de imagens e vídeos.",
+                features: ["30+ ferramentas IA", "Geração de vídeo", "Edição avançada", "Colaboração em tempo real"],
+                link: "https://runwayml.com" // Link oficial do RunwayML
+            },
+            {
+                name: "Photosonic",
+                category: "imagem",
+                icon: "📸",
+                description: "Gerador de imagens da Writesonic",
+                fullDescription: "Photosonic é o gerador de imagens da Writesonic, focado em criar imagens de alta qualidade para uso comercial.",
+                features: ["Imagens comerciais", "Múltiplos estilos", "Alta resolução", "Integração Writesonic"],
+                link: "https://photosonic.writesonic.com" // Link oficial do Photosonic
+            },
+
+            // PROGRAMAÇÃO
+            {
+                name: "GitHub Copilot",
+                category: "programacao",
+                icon: "👨‍💻",
+                description: "Assistente de programação da Microsoft e GitHub",
+                fullDescription: "GitHub Copilot é um assistente de IA que ajuda desenvolvedores a escrever código mais rapidamente, sugerindo linhas e funções completas.",
+                features: ["Autocompletar código", "Múltiplas linguagens", "Integração IDEs", "Sugestões contextuais"],
+                link: "https://github.com/features/copilot" // Link oficial do GitHub Copilot
+            },
+            {
+                name: "Cursor",
+                category: "programacao",
+                icon: "⚡",
+                description: "Editor de código com IA integrada",
+                fullDescription: "Cursor é um editor de código que integra IA diretamente no ambiente de desenvolvimento, oferecendo assistência em tempo real.",
+                features: ["IA integrada", "Chat com código", "Refatoração automática", "Múltiplas linguagens"],
+                link: "https://cursor.sh" // Link oficial do Cursor
+            },
+            {
+                name: "Tabnine",
+                category: "programacao",
+                icon: "🔧",
+                description: "Assistente de código com IA para desenvolvedores",
+                fullDescription: "Tabnine oferece autocompletar inteligente e sugestões de código baseadas em IA para aumentar a produtividade dos desenvolvedores.",
+                features: ["Autocompletar IA", "Privacidade local", "Múltiplas linguagens", "Integração universal"],
+                link: "https://www.tabnine.com" // Link oficial do Tabnine
+            },
+            {
+                name: "Replit Ghostwriter",
+                category: "programacao",
+                icon: "👻",
+                description: "IA de programação integrada ao Replit",
+                fullDescription: "Ghostwriter é a IA do Replit que ajuda a escrever, completar e debugar código diretamente no ambiente online.",
+                features: ["Programação colaborativa", "Debugging IA", "Explicação de código", "Múltiplas linguagens"],
+                link: "https://replit.com/site/ghostwriter" // Link oficial do Replit Ghostwriter
+            },
+            {
+                name: "CodeT5",
+                category: "programacao",
+                icon: "🤖",
+                description: "Modelo de IA para compreensão e geração de código",
+                fullDescription: "CodeT5 é um modelo de IA especializado em tarefas de programação, incluindo geração, tradução e resumo de código.",
+                features: ["Geração de código", "Tradução entre linguagens", "Resumo de código", "Open-source"],
+                link: "https://github.com/salesforce/CodeT5" // Link oficial do CodeT5
+            },
+            {
+                name: "Amazon CodeWhisperer",
+                category: "programacao",
+                icon: "🌩️",
+                description: "Assistente de código da Amazon com foco em segurança",
+                fullDescription: "CodeWhisperer é o assistente de IA da Amazon que oferece sugestões de código com verificações de segurança integradas.",
+                features: ["Verificação de segurança", "Sugestões contextuais", "Múltiplas linguagens", "Integração AWS"],
+                link: "https://aws.amazon.com/codewhisperer/" // Link oficial do Amazon CodeWhisperer
+            },
+            {
+                name: "Codeium",
+                category: "programacao",
+                icon: "🚀",
+                description: "Assistente de código gratuito com IA",
+                fullDescription: "Codeium oferece autocompletar de código gratuito com IA, suportando mais de 70 linguagens de programação.",
+                features: ["Gratuito", "70+ linguagens", "Chat integrado", "Múltiplas IDEs"],
+                link: "https://codeium.com" // Link oficial do Codeium
+            },
+            {
+                name: "Sourcegraph Cody",
+                category: "programacao",
+                icon: "🔍",
+                description: "Assistente de IA para compreensão de código",
+                fullDescription: "Cody é um assistente de IA que ajuda a entender, navegar e escrever código em bases de código grandes e complexas.",
+                features: ["Compreensão de código", "Busca semântica", "Explicações contextuais", "Integração enterprise"],
+                link: "https://sourcegraph.com/cody" // Link oficial do Sourcegraph Cody
+            },
+            {
+                name: "Mintlify Writer",
+                category: "programacao",
+                icon: "📖",
+                description: "IA para geração automática de documentação",
+                fullDescription: "Mintlify Writer gera automaticamente documentação para código, criando comentários e docs claros e úteis.",
+                features: ["Documentação automática", "Múltiplas linguagens", "Integração Git", "Comentários inteligentes"],
+                link: "https://mintlify.com/writer" // Link oficial do Mintlify Writer
+            },
+            {
+                name: "Blackbox AI",
+                category: "programacao",
+                icon: "⚫",
+                description: "Assistente de IA para desenvolvedores",
+                fullDescription: "Blackbox AI oferece busca de código, autocompletar e assistência para desenvolvedores em múltiplas linguagens.",
+                features: ["Busca de código", "Autocompletar", "Chat com IA", "Extensões para IDEs"],
+                link: "https://www.blackbox.ai" // Link oficial do Blackbox AI
+            },
+
+            // VÍDEO & ÁUDIO
+            {
+                name: "Runway Gen-2",
+                category: "video",
+                icon: "🎬",
+                description: "Gerador de vídeos com IA de última geração",
+                fullDescription: "Runway Gen-2 permite criar vídeos realistas a partir de texto, imagens ou outros vídeos usando IA avançada.",
+                features: ["Texto para vídeo", "Imagem para vídeo", "Edição avançada", "Múltiplos estilos"],
+                link: "https://runwayml.com/ai-tools/gen-2/" // Link oficial do Runway Gen-2
+            },
+            {
+                name: "Pika Labs",
+                category: "video",
+                icon: "🎭",
+                description: "Plataforma de geração de vídeos com IA",
+                fullDescription: "Pika Labs oferece ferramentas para criar vídeos curtos e animações usando inteligência artificial.",
+                features: ["Vídeos curtos", "Animações", "Interface simples", "Comunidade ativa"],
+                link: "https://pika.art" // Link oficial do Pika Labs
+            },
+            {
+                name: "Synthesia",
+                category: "video",
+                icon: "🎤",
+                description: "Criação de vídeos com avatares IA",
+                fullDescription: "Synthesia permite criar vídeos profissionais com avatares IA que falam em múltiplos idiomas.",
+                features: ["Avatares realistas", "Múltiplos idiomas", "Templates profissionais", "API disponível"],
+                link: "https://www.synthesia.io" // Link oficial do Synthesia
+            },
+            {
+                name: "D-ID",
+                category: "video",
+                icon: "🗣️",
+                description: "Vídeos com rostos falantes usando IA",
+                fullDescription: "D-ID transforma fotos em vídeos com rostos falantes, ideal para apresentações e conteúdo personalizado.",
+                features: ["Rostos falantes", "Múltiplas vozes", "API robusta", "Integração fácil"],
+                link: "https://www.d-id.com" // Link oficial do D-ID
+            },
+            {
+                name: "Murf AI",
+                category: "video",
+                icon: "🎙️",
+                description: "Gerador de voz sintética realista",
+                fullDescription: "Murf AI cria vozes sintéticas naturais para vídeos, podcasts e apresentações em múltiplos idiomas.",
+                features: ["Vozes naturais", "120+ vozes", "Múltiplos idiomas", "Sincronização labial"],
+                link: "https://murf.ai" // Link oficial do Murf AI
+            },
+            {
+                name: "ElevenLabs",
+                category: "video",
+                icon: "🔊",
+                description: "IA de síntese de voz de alta qualidade",
+                fullDescription: "ElevenLabs oferece a mais avançada tecnologia de síntese de voz, capaz de clonar vozes e criar narrações realistas.",
+                features: ["Clonagem de voz", "Múltiplos idiomas", "API poderosa", "Qualidade premium"],
+                link: "https://elevenlabs.io" // Link oficial do ElevenLabs
+            },
+            {
+                name: "Descript",
+                category: "video",
+                icon: "✂️",
+                description: "Editor de vídeo e áudio com IA",
+                fullDescription: "Descript permite editar vídeo e áudio como texto, com recursos de IA para remoção de ruído e geração de voz.",
+                features: ["Edição como texto", "Remoção de ruído", "Overdub IA", "Transcrição automática"],
+                link: "https://www.descript.com" // Link oficial do Descript
+            },
+            {
+                name: "Loom AI",
+                category: "video",
+                icon: "🎯",
+                description: "Gravação de tela com recursos de IA",
+                fullDescription: "Loom AI adiciona recursos inteligentes à gravação de tela, incluindo resumos automáticos e edição assistida.",
+                features: ["Gravação de tela", "Resumos IA", "Edição automática", "Compartilhamento fácil"],
+                link: "https://www.loom.com/ai" // Link oficial do Loom AI
+            },
+            {
+                name: "Pictory",
+                category: "video",
+                icon: "📹",
+                description: "Criação de vídeos a partir de texto",
+                fullDescription: "Pictory transforma artigos e scripts em vídeos envolventes automaticamente, ideal para marketing de conteúdo.",
+                features: ["Texto para vídeo", "Biblioteca de mídia", "Voiceover IA", "Templates profissionais"],
+                link: "https://pictory.ai" // Link oficial do Pictory
+            },
+            {
+                name: "InVideo AI",
+                category: "video",
+                icon: "🎨",
+                description: "Editor de vídeo online com IA",
+                fullDescription: "InVideo AI oferece edição de vídeo assistida por IA com templates, música e efeitos automáticos.",
+                features: ["Templates IA", "Música automática", "Texto para vídeo", "Múltiplos formatos"],
+                link: "https://invideo.io/ai/" // Link oficial do InVideo AI
+            },
+
+            // PRODUTIVIDADE
+            {
+                name: "Otter.ai",
+                category: "produtividade",
+                icon: "🦦",
+                description: "Transcrição automática de reuniões e conversas",
+                fullDescription: "Otter.ai transcreve automaticamente reuniões, entrevistas e conversas, oferecendo busca e resumos inteligentes.",
+                features: ["Transcrição em tempo real", "Resumos automáticos", "Integração calendário", "Colaboração em equipe"],
+                link: "https://otter.ai" // Link oficial do Otter.ai
+            },
+            {
+                name: "Calendly AI",
+                category: "produtividade",
+                icon: "📅",
+                description: "Agendamento inteligente com IA",
+                fullDescription: "Calendly AI otimiza agendamentos usando inteligência artificial para encontrar os melhores horários para todos.",
+                features: ["Agendamento otimizado", "Integração calendários", "Lembretes automáticos", "Analytics avançado"],
+                link: "https://calendly.com/ai-scheduling" // Link oficial do Calendly AI
+            },
+            {
+                name: "Zapier AI",
+                category: "produtividade",
+                icon: "⚡",
+                description: "Automação de tarefas com inteligência artificial",
+                fullDescription: "Zapier AI cria automatizações inteligentes entre aplicativos, aprendendo padrões e otimizando fluxos de trabalho.",
+                features: ["Automação inteligente", "5000+ integrações", "Workflows adaptativos", "Análise de padrões"],
+                link: "https://zapier.com/ai" // Link oficial do Zapier AI
+            },
+            {
+                name: "Monday.com AI",
+                category: "produtividade",
+                icon: "📊",
+                description: "Gerenciamento de projetos com IA",
+                fullDescription: "Monday.com AI oferece insights inteligentes e automações para gerenciamento de projetos e equipes.",
+                features: ["Insights automáticos", "Previsões de projeto", "Automação de tarefas", "Relatórios IA"],
+                link: "https://monday.com/ai" // Link oficial do Monday.com AI
+            },
+            {
+                name: "Superhuman AI",
+                category: "produtividade",
+                icon: "⚡",
+                description: "Cliente de email com recursos de IA",
+                fullDescription: "Superhuman AI acelera o gerenciamento de emails com recursos inteligentes de triagem, resposta e organização.",
+                features: ["Triagem inteligente", "Respostas sugeridas", "Agendamento otimizado", "Analytics de email"],
+                link: "https://superhuman.com" // Link oficial do Superhuman AI
+            },
+            {
+                name: "Reclaim AI",
+                category: "produtividade",
+                icon: "🕐",
+                description: "Gerenciamento inteligente de tempo e calendário",
+                fullDescription: "Reclaim AI otimiza automaticamente seu calendário, protegendo tempo para trabalho focado e equilibrando prioridades.",
+                features: ["Otimização de calendário", "Proteção de tempo focado", "Integração com tarefas", "Analytics de produtividade"],
+                link: "https://reclaim.ai" // Link oficial do Reclaim AI
+            },
+            {
+                name: "Clockify AI",
+                category: "produtividade",
+                icon: "⏰",
+                description: "Rastreamento de tempo com insights de IA",
+                fullDescription: "Clockify AI oferece rastreamento de tempo inteligente com análises automáticas e sugestões de otimização.",
+                features: ["Rastreamento automático", "Insights de produtividade", "Relatórios IA", "Integração com projetos"],
+                link: "https://clockify.me/ai-time-tracking" // Link oficial do Clockify AI
+            },
+            {
+                name: "Motion",
+                category: "produtividade",
+                icon: "🎯",
+                description: "Planejamento automático de tarefas e calendário",
+                fullDescription: "Motion usa IA para planejar automaticamente seu dia, organizando tarefas e reuniões de forma otimizada.",
+                features: ["Planejamento automático", "Otimização de calendário", "Gerenciamento de tarefas", "Adaptação em tempo real"],
+                link: "https://www.usemotion.com" // Link oficial do Motion
+            },
+            {
+                name: "Todoist AI",
+                category: "produtividade",
+                icon: "✅",
+                description: "Gerenciador de tarefas com assistente IA",
+                fullDescription: "Todoist AI adiciona recursos inteligentes ao gerenciamento de tarefas, incluindo sugestões e organização automática.",
+                features: ["Sugestões inteligentes", "Organização automática", "Lembretes contextuais", "Análise de produtividade"],
+                link: "https://todoist.com/ai" // Link oficial do Todoist AI
+            },
+            {
+                name: "Mem",
+                category: "produtividade",
+                icon: "🧠",
+                description: "Workspace inteligente para conhecimento",
+                fullDescription: "Mem é um workspace que usa IA para organizar automaticamente notas, ideias e conhecimento de forma inteligente.",
+                features: ["Organização automática", "Busca semântica", "Conexões inteligentes", "Captura rápida"],
+                link: "https://mem.ai" // Link oficial do Mem
+            },
+
+            // PESQUISA & ANÁLISE
+            {
+                name: "Perplexity",
+                category: "pesquisa",
+                icon: "🔍",
+                description: "Motor de busca com IA que fornece respostas com fontes",
+                fullDescription: "Perplexity combina busca na web com IA para fornecer respostas precisas e atualizadas com citações de fontes.",
+                features: ["Busca em tempo real", "Citações de fontes", "Respostas atualizadas", "Interface limpa"],
+                link: "https://www.perplexity.ai" // Link oficial do Perplexity
+            },
+            {
+                name: "You.com",
+                category: "pesquisa",
+                icon: "🌐",
+                description: "Motor de busca personalizado com IA",
+                fullDescription: "You.com oferece busca personalizada com IA, permitindo criar experiências de pesquisa customizadas.",
+                features: ["Busca personalizada", "Apps integrados", "Privacidade focada", "Resultados IA"],
+                link: "https://you.com" // Link oficial do You.com
+            },
+            {
+                name: "Consensus",
+                category: "pesquisa",
+                icon: "📊",
+                description: "Motor de busca para pesquisa científica",
+                fullDescription: "Consensus usa IA para buscar e resumir papers científicos, oferecendo insights baseados em evidências.",
+                features: ["Papers científicos", "Resumos automáticos", "Análise de consenso", "Citações acadêmicas"],
+                link: "https://consensus.app" // Link oficial do Consensus
+            },
+            {
+                name: "Elicit",
+                category: "pesquisa",
+                icon: "🔬",
+                description: "Assistente de IA para pesquisa acadêmica",
+                fullDescription: "Elicit ajuda pesquisadores a encontrar papers relevantes, extrair insights e acelerar revisões de literatura.",
+                features: ["Busca de papers", "Extração de dados", "Resumos automáticos", "Análise comparativa"],
+                link: "https://elicit.org" // Link oficial do Elicit
+            },
+            {
+                name: "Semantic Scholar",
+                category: "pesquisa",
+                icon: "🎓",
+                description: "Motor de busca acadêmica com IA",
+                fullDescription: "Semantic Scholar usa IA para organizar e analisar literatura científica, oferecendo insights sobre impacto e relevância.",
+                features: ["Literatura científica", "Análise de impacto", "Gráficos de citação", "Recomendações IA"],
+                link: "https://www.semanticscholar.org" // Link oficial do Semantic Scholar
+            },
+            {
+                name: "Research Rabbit",
+                category: "pesquisa",
+                icon: "🐰",
+                description: "Plataforma de descoberta de pesquisa acadêmica",
+                fullDescription: "Research Rabbit ajuda pesquisadores a descobrir papers relevantes através de visualizações e recomendações inteligentes.",
+                features: ["Visualização de redes", "Recomendações personalizadas", "Colaboração em equipe", "Timeline de pesquisa"],
+                link: "https://www.researchrabbit.ai" // Link oficial do Research Rabbit
+            },
+            {
+                name: "Wolfram Alpha",
+                category: "pesquisa",
+                icon: "🧮",
+                description: "Motor de conhecimento computacional",
+                fullDescription: "Wolfram Alpha computa respostas usando conhecimento estruturado, ideal para matemática, ciência e análise de dados.",
+                features: ["Computação simbólica", "Dados estruturados", "Visualizações", "API poderosa"],
+                link: "https://www.wolframalpha.com" // Link oficial do Wolfram Alpha
+            },
+            {
+                name: "Scite",
+                category: "pesquisa",
+                icon: "📝",
+                description: "Plataforma de citações inteligentes",
+                fullDescription: "Scite analisa como papers científicos são citados, classificando citações como suporte, contraste ou menção.",
+                features: ["Análise de citações", "Classificação inteligente", "Alertas de pesquisa", "Métricas avançadas"],
+                link: "https://scite.ai" // Link oficial do Scite
+            },
+            {
+                name: "Connected Papers",
+                category: "pesquisa",
+                icon: "🕸️",
+                description: "Visualização de conexões entre papers acadêmicos",
+                fullDescription: "Connected Papers cria mapas visuais de papers relacionados, ajudando a descobrir trabalhos relevantes e tendências.",
+                features: ["Mapas visuais", "Descoberta de papers", "Análise de tendências", "Interface intuitiva"],
+                link: "https://www.connectedpapers.com" // Link oficial do Connected Papers
+            },
+            {
+                name: "Iris.ai",
+                category: "pesquisa",
+                icon: "👁️",
+                description: "Assistente de IA para revisão de literatura",
+                fullDescription: "Iris.ai acelera revisões de literatura científica usando IA para encontrar, analisar e resumir papers relevantes.",
+                features: ["Revisão automática", "Análise de relevância", "Resumos inteligentes", "Exportação de dados"],
+                link: "https://iris.ai" // Link oficial do Iris.ai
+            }
+        ];
+
+        // Função para criar partículas
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // Função para renderizar as IAs
+        function renderAIs(ais = aiDatabase) {
+            const grid = document.getElementById('aiGrid');
+            grid.innerHTML = '';
+            
+            ais.forEach(ai => {
+                const card = document.createElement('div');
+                card.className = 'ai-card';
+                card.innerHTML = `
+                    <div class="ai-icon">${ai.icon}</div>
+                    <div class="ai-name">${ai.name}</div>
+                    <div class="ai-category">${getCategoryName(ai.category)}</div>
+                    <div class="ai-description">${ai.description}</div>
+                `;
+                card.onclick = () => openModal(ai);
+                grid.appendChild(card);
+            });
+            
+            // Atualizar contador
+            document.getElementById('aiCount').textContent = ais.length;
+        }
+
+        // Função para obter nome da categoria
+        function getCategoryName(category) {
+            const names = {
+                'texto': 'Texto & Escrita',
+                'imagem': 'Imagem & Design',
+                'codigo': 'Programação',
+                'video': 'Vídeo & Audio',
+                'produtividade': 'Produtividade',
+                'pesquisa': 'Pesquisa & Análise'
+            };
+            return names[category] || category;
+        }
+
+        // Função para filtrar por categoria
+        function filterByCategory(category) {
+            const filtered = category === 'all' ? aiDatabase : aiDatabase.filter(ai => ai.category === category);
+            renderAIs(filtered);
+            
+            // Atualizar botões ativos
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+        }
+
+        // Função para abrir modal
+        function openModal(ai) {
+            document.getElementById('modalTitle').textContent = ai.name;
+            document.getElementById('modalCategory').textContent = getCategoryName(ai.category);
+            document.getElementById('modalDescription').textContent = ai.fullDescription;
+            
+            const featuresHtml = `
+                <h4>Principais Recursos:</h4>
+                <ul>
+                    ${ai.features.map(feature => `<li>${feature}</li>`).join('')}
+                </ul>
+            `;
+            document.getElementById('modalFeatures').innerHTML = featuresHtml;
+            document.getElementById('modalLink').href = ai.link;
+            
+            document.getElementById('aiModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Função para fechar modal
+        function closeModal() {
+            document.getElementById('aiModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            renderAIs();
+            
+            // Filtros de categoria
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterByCategory(btn.dataset.category);
+                });
+            });
+            
+            // Fechar modal clicando fora
+            window.onclick = function(event) {
+                const modal = document.getElementById('aiModal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            };
+            
+            // Fechar modal com ESC
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

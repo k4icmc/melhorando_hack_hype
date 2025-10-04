@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Códigos para Ajuda - HACK HYPE</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            /* Alterado para layout vertical centralizado */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Removido header-content pois não é mais necessário */
+
+        .logo {
+            /* Padronizado tamanho da logo */
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            border: 4px solid #00ffff;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 11px;
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        /* Adicionada animação de brilho neon */
+        @keyframes logoGlow {
+            from {
+                box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
+            }
+            to {
+                box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+            }
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+            border-radius: 12px;
+        }
+
+        /* Main Content */
+        .main-content {
+            /* Aumentado margin-top para acomodar header vertical */
+            margin-top: 140px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 2rem;
+            text-align: center;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Code Cards Grid */
+        .codes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .code-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease both;
+        }
+
+        .code-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+
+        .code-card:hover::before {
+            transform: scale(1);
+        }
+
+        .code-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
+            border-color: #00ffff;
+        }
+
+        .code-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #00ffff;
+        }
+
+        .code-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .code-category {
+            position: absolute;
+            top: 16px;
+            right: 70px;
+            background: rgba(0, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26, 26, 46, 0.95);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            width: 800px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ff4757;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 71, 87, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            color: #00ffff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(45deg, #2ed573, #1e90ff);
+        }
+
+        .code-explanation {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid #00ffff;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Added red X close button styling */
+        .close-x {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .close-x:hover {
+            background: #ff3742;
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.8rem;
+                /* Reduzido gap para mobile */
+                gap: 0.8rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+                /* Ajustado margin-top para mobile */
+                margin-top: 120px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .codes-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
+
+            .code-block {
+                padding: 1rem;
+            }
+
+            .code-block pre {
+                font-size: 0.8rem;
+            }
+
+            .logo {
+                /* Tamanho otimizado para mobile */
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .page-subtitle {
+                font-size: 1rem;
+            }
+
+            .search-input {
+                padding: 0.8rem 1rem;
+            }
+
+            .logo {
+                /* Tamanho ainda menor para telas muito pequenas */
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <!-- Logo centralizada no topo -->
+        <div class="logo">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%282%29%281%29-ZsJKSz7sugK4ePPFjoOdyvenULHlOj.png" alt="HACK HYPE Logo">
+        </div>
+        <!-- Botão de retorno posicionado embaixo da logo -->
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            ← Voltar ao Painel
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">CÓDIGOS PARA AJUDA</h1>
+        <p class="page-subtitle">Exemplos práticos e soluções para desenvolvimento web</p>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Pesquisar códigos..." id="searchInput">
+        </div>
+
+        <!-- Codes Grid -->
+        <div class="codes-grid" id="codesGrid">
+            <!-- HTML/CSS Codes -->
+            <div class="code-card" onclick="openModal('center-div')">
+                <div class="code-category">CSS</div>
+                <div class="code-title">Centralizar uma Div</div>
+                <div class="code-description">Como centralizar elementos horizontal e verticalmente</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('flexbox-layout')">
+                <div class="code-category">CSS</div>
+                <div class="code-title">Layout com Flexbox</div>
+                <div class="code-description">Criar layouts responsivos usando Flexbox</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('responsive-grid')">
+                <div class="code-category">CSS</div>
+                <div class="code-title">CSS Grid Layout</div>
+                <div class="code-description">Sistema de grid para layouts complexos</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('media-queries')">
+                <div class="code-category">CSS</div>
+                <div class="code-title">Design Responsivo</div>
+                <div class="code-description">Media queries para diferentes dispositivos</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('css-animations')">
+                <div class="code-category">CSS</div>
+                <div class="code-title">Efeitos Hover</div>
+                <div class="code-description">Animações e transições no hover</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('gradient-background')">
+                <div class="code-category">CSS</div>
+                <div class="code-title">Gradientes</div>
+                <div class="code-description">Backgrounds com gradientes lineares e radiais</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('box-shadow')">
+                <div class="code-category">CSS</div>
+                <div class="code-title">Sombras</div>
+                <div class="code-description">Efeitos de sombra em elementos</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('border-radius')">
+                <div class="code-category">CSS</div>
+                <div class="code-title">Bordas Arredondadas</div>
+                <div class="code-description">Criar elementos com cantos arredondados</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('text-effects')">
+                <div class="code-category">CSS</div>
+                <div class="code-title">Efeitos de Texto</div>
+                <div class="code-description">Estilização avançada de textos</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('animations')">
+                <div class="code-category">CSS</div>
+                <div class="code-title">Animações CSS</div>
+                <div class="code-description">Keyframes e animações personalizadas</div>
+            </div>
+
+            <!-- JavaScript Codes -->
+            <div class="code-card" onclick="openModal('dom-manipulation')">
+                <div class="code-category">JavaScript</div>
+                <div class="code-title">Manipular DOM</div>
+                <div class="code-description">Selecionar e modificar elementos HTML</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('event-handling')">
+                <div class="code-category">JavaScript</div>
+                <div class="code-title">Event Listeners</div>
+                <div class="code-description">Capturar eventos de clique, hover, etc.</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('fetch-api')">
+                <div class="code-category">JavaScript</div>
+                <div class="code-title">Fetch API</div>
+                <div class="code-description">Fazer requisições HTTP assíncronas</div>
+            </div>
+
+            <div class="code-card" onclick="openModal('local-storage')">
+                <div class="code-category">JavaScript</div>
+                <div class="code-title">Local Storage</div>
+                <div class="code-description">Armazenar dados no navegador</div>
+            </div>
+
+            <!-- Removed all content from notifications container onwards -->
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="codeModal" class="modal">
+        <div class="modal-content">
+            <!-- Added red X close button -->
+            <button class="close-x" onclick="closeModal()">×</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openModal(codeId) {
+            const modal = document.getElementById('codeModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            const codes = {
+                'center-div': {
+                    title: 'Centralizar uma Div',
+                    category: 'CSS',
+                    code: `/* Método 1: Flexbox (Recomendado) */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.centered-div {
+    width: 200px;
+    height: 200px;
+    background-color: #00ffff;
+}
+
+/* Método 2: Grid */
+.container-grid {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+
+/* Método 3: Position + Transform */
+.container-absolute {
+    position: relative;
+    height: 100vh;
+}
+
+.centered-absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}`
+                },
+                'flexbox-layout': {
+                    title: 'Layout com Flexbox',
+                    category: 'CSS',
+                    code: `/* Layout básico com Flexbox */
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Layout responsivo */
+.responsive-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.flex-item {
+    flex: 1 1 300px; /* grow, shrink, basis */
+    min-width: 0; /* Permite que o item encolha */
+}
+
+/* Navbar com Flexbox */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}`
+                },
+                'responsive-grid': {
+                    title: 'CSS Grid Layout',
+                    category: 'CSS',
+                    code: `/* Grid básico */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+}
+
+/* Grid responsivo */
+.responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+/* Grid com áreas nomeadas */
+.layout-grid {
+    display: grid;
+    grid-template-areas: 
+        "header header header"
+        "sidebar main main"
+        "footer footer footer";
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }`
+                },
+                'media-queries': {
+                    title: 'Design Responsivo',
+                    category: 'CSS',
+                    code: `/* Mobile First Approach */
+.container {
+    width: 100%;
+    padding: 1rem;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .container {
+        max-width: 750px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1200px;
+        padding: 3rem;
+    }
+}
+
+/* Imagens responsivas */
+.responsive-img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Typography responsiva */
+.responsive-text {
+    font-size: clamp(1rem, 2.5vw, 2rem);
+}`
+                },
+                'css-animations': {
+                    title: 'Efeitos Hover',
+                    category: 'CSS',
+                    code: `/* Hover básico */
+.hover-effect {
+    transition: all 0.3s ease;
+}
+
+.hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Hover com escala */
+.scale-hover {
+    transition: transform 0.3s ease;
+}
+
+.scale-hover:hover {
+    transform: scale(1.05);
+}
+
+/* Hover com rotação */
+.rotate-hover {
+    transition: transform 0.3s ease;
+}
+
+.rotate-hover:hover {
+    transform: rotate(5deg);
+}
+
+/* Hover com mudança de cor */
+.color-hover {
+    background: #00ffff;
+    transition: background 0.3s ease;
+}
+
+.color-hover:hover {
+    background: #0080ff;
+}`
+                },
+                'gradient-background': {
+                    title: 'Gradientes',
+                    category: 'CSS',
+                    code: `/* Gradiente linear */
+.linear-gradient {
+    background: linear-gradient(45deg, #00ffff, #0080ff);
+}
+
+/* Gradiente radial */
+.radial-gradient {
+    background: radial-gradient(circle, #00ffff 0%, #0080ff 100%);
+}
+
+/* Gradiente com múltiplas cores */
+.multi-gradient {
+    background: linear-gradient(135deg, 
+        #ff6b6b 0%, 
+        #4ecdc4 25%, 
+        #45b7d1 50%, 
+        #96ceb4 75%, 
+        #feca57 100%);
+}
+
+/* Gradiente animado */
+.animated-gradient {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}`
+                },
+                'box-shadow': {
+                    title: 'Sombras',
+                    category: 'CSS',
+                    code: `/* Sombra básica */
+.basic-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sombra elevada */
+.elevated-shadow {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Sombra colorida */
+.colored-shadow {
+    box-shadow: 0 8px 32px rgba(0, 255, 255, 0.3);
+}
+
+/* Sombra interna */
+.inset-shadow {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Múltiplas sombras */
+.multiple-shadows {
+    box-shadow: 
+        0 1px 3px rgba(0,0,0,0.12),
+        0 1px 2px rgba(0,0,0,0.24);
+}
+
+/* Sombra no hover */
+.hover-shadow {
+    transition: box-shadow 0.3s ease;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}`
+                },
+                'border-radius': {
+                    title: 'Bordas Arredondadas',
+                    category: 'CSS',
+                    code: `/* Bordas básicas */
+.rounded {
+    border-radius: 8px;
+}
+
+.rounded-full {
+    border-radius: 50%;
+}
+
+/* Bordas específicas */
+.rounded-top {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.rounded-left {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+/* Bordas assimétricas */
+.asymmetric {
+    border-radius: 20px 5px 20px 5px;
+}
+
+/* Formas especiais */
+.pill {
+    border-radius: 50px;
+}
+
+.organic {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}`
+                },
+                'text-effects': {
+                    title: 'Efeitos de Texto',
+                    category: 'CSS',
+                    code: `/* Texto com gradiente */
+.gradient-text {
+    background: linear-gradient(45deg, #00ffff, #0080ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Texto com sombra */
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Texto neon */
+.neon-text {
+    color: #00ffff;
+    text-shadow: 
+        0 0 5px #00ffff,
+        0 0 10px #00ffff,
+        0 0 15px #00ffff,
+        0 0 20px #00ffff;
+}
+
+/* Texto 3D */
+.text-3d {
+    color: #fff;
+    text-shadow: 
+        1px 1px 0px #ccc,
+        2px 2px 0px #c9c9c9,
+        3px 3px 0px #bbb,
+        4px 4px 0px #b9b9b9,
+        5px 5px 0px #aaa;
+}`
+                },
+                'animations': {
+                    title: 'Animações CSS',
+                    category: 'CSS',
+                    code: `/* Fade In */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+/* Slide In */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-in {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+/* Bounce */
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0,0,0);
+    }
+    40%, 43% {
+        transform: translate3d(0, -30px, 0);
+    }
+    70% {
+        transform: translate3d(0, -15px, 0);
+    }
+    90% {
+        transform: translate3d(0, -4px, 0);
+    }
+}
+
+.bounce {
+    animation: bounce 1s ease infinite;
+}`
+                },
+                'dom-manipulation': {
+                    title: 'Manipular DOM',
+                    category: 'JavaScript',
+                    code: `// Selecionar elementos
+const element = document.getElementById('myId');
+const elements = document.querySelectorAll('.myClass');
+const firstElement = document.querySelector('.myClass');
+
+// Criar elementos
+const newDiv = document.createElement('div');
+newDiv.textContent = 'Novo elemento';
+newDiv.className = 'nova-classe';
+
+// Adicionar ao DOM
+document.body.appendChild(newDiv);
+
+// Modificar conteúdo
+element.innerHTML = '<strong>Novo conteúdo</strong>';
+element.textContent = 'Texto simples';
+
+// Modificar atributos
+element.setAttribute('data-id', '123');
+element.classList.add('nova-classe');
+element.classList.remove('classe-antiga');
+element.classList.toggle('ativo');
+
+// Event listeners
+element.addEventListener('click', function(e) {
+    console.log('Elemento clicado!');
+    e.preventDefault(); // Previne comportamento padrão
+});`
+                },
+                'event-handling': {
+                    title: 'Event Listeners',
+                    category: 'JavaScript',
+                    code: `// Click event
+document.getElementById('botao').addEventListener('click', function() {
+    alert('Botão clicado!');
+});
+
+// Mouse events
+element.addEventListener('mouseenter', function() {
+    this.style.backgroundColor = '#00ffff';
+});
+
+element.addEventListener('mouseleave', function() {
+    this.style.backgroundColor = '';
+});
+
+// Keyboard events
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        console.log('Enter pressionado');
+    }
+});
+
+// Form events
+const form = document.getElementById('meuForm');
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    console.log('Dados do formulário:', Object.fromEntries(formData));
+});
+
+// Window events
+window.addEventListener('resize', function() {
+    console.log('Janela redimensionada');
+});`
+                },
+                'fetch-api': {
+                    title: 'Fetch API',
+                    category: 'JavaScript',
+                    code: `// GET request básico
+fetch('https://api.exemplo.com/dados')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro na requisição');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
+
+// POST request
+const dados = {
+    nome: 'João',
+    email: 'joao@email.com'
+};
+
+fetch('https://api.exemplo.com/usuarios', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dados)
+})
+.then(response => response.json())
+.then(data => console.log(data));
+
+// Async/Await
+async function buscarDados() {
+    try {
+        const response = await fetch('https://api.exemplo.com/dados');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+}`
+                },
+                'local-storage': {
+                    title: 'Local Storage',
+                    category: 'JavaScript',
+                    code: `// Salvar dados
+localStorage.setItem('usuario', 'João');
+localStorage.setItem('configuracoes', JSON.stringify({
+    tema: 'escuro',
+    idioma: 'pt-br'
+}));
+
+// Recuperar dados
+const usuario = localStorage.getItem('usuario');
+const configuracoes = JSON.parse(localStorage.getItem('configuracoes'));
+
+// Verificar se existe
+if (localStorage.getItem('usuario')) {
+    console.log('Usuário logado:', usuario);
+}
+
+// Remover item
+localStorage.removeItem('usuario');
+
+// Limpar tudo
+localStorage.clear();
+
+// Exemplo prático: Salvar tema
+function salvarTema(tema) {
+    localStorage.setItem('tema', tema);
+    aplicarTema(tema);
+}
+
+function carregarTema() {
+    const tema = localStorage.getItem('tema') || 'claro';
+    aplicarTema(tema);
+}
+
+function aplicarTema(tema) {
+    document.body.className = tema;
+}
+
+// Carregar tema ao iniciar
+window.addEventListener('load', carregarTema);`
+                }
+            };
+
+            if (codes[codeId]) {
+                modalContent.innerHTML = `
+                    <div class="modal-header">
+                        <h2 class="modal-title">${codes[codeId].title}</h2>
+                        <span class="code-category" style="background: rgba(0, 255, 255, 0.2); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; color: #00ffff;">${codes[codeId].category}</span>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('${codeId}')">📋 Copiar</button>
+                        <pre><code id="code-${codeId}">${codes[codeId].code}</code></pre>
+                    </div>
+                `;
+                modal.style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('codeModal').style.display = 'none';
+        }
+
+        function copyCode(codeId) {
+            const codeElement = document.getElementById(`code-${codeId}`);
+            const text = codeElement.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // Feedback visual
+                const copyBtn = event.target;
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = '✅ Copiado!';
+                copyBtn.style.background = '#00ff00';
+                
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.code-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('.code-title').textContent.toLowerCase();
+                const description = card.querySelector('.code-description').textContent.toLowerCase();
+                const category = card.querySelector('.code-category').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm) || category.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('codeModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

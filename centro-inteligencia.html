@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACK HYPE - Centro de Inteligência de Mercado TI</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0e4b99 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Partículas de dados flutuantes */
+        .data-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .data-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(0, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: dataFloat 8s infinite linear;
+        }
+
+        @keyframes dataFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header revolucionário */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 3px solid #00ffff;
+            box-shadow: 0 5px 30px rgba(0, 255, 255, 0.3);
+            animation: headerSlideIn 0.8s ease-out;
+        }
+
+        @keyframes headerSlideIn {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #00ffff;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        .header-title {
+            display: none;
+        }
+
+        .back-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1.1rem;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 140px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff, #00ff80, #ff0080);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titlePulse 2s ease-in-out infinite alternate;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 900;
+        }
+
+        @keyframes titlePulse {
+            from {
+                text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+                transform: scale(1);
+            }
+            to {
+                text-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
+                transform: scale(1.02);
+            }
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.4rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        /* Status Bar em tempo real */
+        .status-bar {
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: statusPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% {
+                border-color: rgba(0, 255, 255, 0.5);
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+            }
+            50% {
+                border-color: rgba(0, 255, 255, 0.8);
+                box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+            }
+        }
+
+        .status-item {
+            text-align: center;
+        }
+
+        .status-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ffff;
+            display: block;
+        }
+
+        .status-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+
+        .dashboard-card:hover::before {
+            transform: scale(1);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+            border-color: #00ffff;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            animation: iconRotate 4s ease-in-out infinite;
+        }
+
+        @keyframes iconRotate {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); }
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #00ffff;
+            text-align: center;
+            margin: 1rem 0;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            animation: valueGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes valueGlow {
+            from {
+                text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            }
+        }
+
+        .metric-label {
+            text-align: center;
+            color: #cccccc;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Gráficos */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 1rem 0;
+        }
+
+        /* Tabela de tecnologias */
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .tech-table th,
+        .tech-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .tech-table th {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tech-table tr:hover {
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .tech-rank {
+            font-weight: bold;
+            color: #00ffff;
+            font-size: 1.2rem;
+        }
+
+        .tech-growth {
+            color: #00ff80;
+            font-weight: bold;
+        }
+
+        .tech-growth.negative {
+            color: #ff4444;
+        }
+
+        /* Seção de notícias */
+        .news-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            margin-top: 2rem;
+        }
+
+        .news-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .news-item:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        .news-title {
+            color: #00ffff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-source {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        /* Animações de entrada */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .back-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .main-content {
+                margin-top: 120px;
+                padding: 1rem;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .status-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+
+        /* Efeitos especiais */
+        .glitch {
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        .neon-border {
+            box-shadow: 
+                0 0 5px #00ffff,
+                0 0 10px #00ffff,
+                0 0 15px #00ffff,
+                0 0 20px #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas de dados -->
+    <div class="data-particles" id="dataParticles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%282%29-vc1HA65D8XLfpPYsX23Ii3UFKDXPaD.png" alt="HACK HYPE Logo">
+            </div>
+            <a href="index.html" class="back-btn">← Voltar ao Início</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title glitch">Centro de Inteligência de Mercado TI</h1>
+        <p class="page-subtitle">Dados em tempo real sobre o mercado de tecnologia da informação</p>
+
+        <!-- Status Bar -->
+        <div class="status-bar fade-in-up">
+            <div class="status-item">
+                <span class="status-value" id="liveJobs">12,847</span>
+                <span class="status-label">Vagas Abertas</span>
+            </div>
+            <div class="status-item">
+                <span class="status-value" id="avgSalary">R$ 8.500</span>
+                <span class="status-label">Salário Médio</span>
+            </div>
+            <div class="status-item">
+                <span class="status-value" id="growthRate">+15.3%</span>
+                <span class="status-label">Crescimento Anual</span>
+            </div>
+            <div class="status-item">
+                <span class="status-value" id="lastUpdate">Agora</span>
+                <span class="status-label">Última Atualização</span>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Empregabilidade -->
+            <div class="dashboard-card fade-in-up neon-border">
+                <div class="card-header">
+                    <span class="card-icon">📊</span>
+                    <h2 class="card-title">Empregabilidade SI</h2>
+                </div>
+                <div class="metric-value" id="employabilityRate">94.2%</div>
+                <div class="metric-label">Taxa de Empregabilidade</div>
+                <div class="chart-container">
+                    <canvas id="employabilityChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Salários por Área -->
+            <div class="dashboard-card fade-in-up">
+                <div class="card-header">
+                    <span class="card-icon">💰</span>
+                    <h2 class="card-title">Salários por Área</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="salaryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Tecnologias em Alta -->
+            <div class="dashboard-card fade-in-up">
+                <div class="card-header">
+                    <span class="card-icon">🚀</span>
+                    <h2 class="card-title">Tecnologias em Alta</h2>
+                </div>
+                <table class="tech-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tecnologia</th>
+                            <th>Demanda</th>
+                            <th>Crescimento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="techTable">
+                        <tr>
+                            <td class="tech-rank">1</td>
+                            <td>JavaScript</td>
+                            <td>Alta</td>
+                            <td class="tech-growth">+12.5%</td>
+                        </tr>
+                        <tr>
+                            <td class="tech-rank">2</td>
+                            <td>Python</td>
+                            <td>Muito Alta</td>
+                            <td class="tech-growth">+18.3%</td>
+                        </tr>
+                        <tr>
+                            <td class="tech-rank">3</td>
+                            <td>React</td>
+                            <td>Alta</td>
+                            <td class="tech-growth">+15.7%</td>
+                        </tr>
+                        <tr>
+                            <td class="tech-rank">4</td>
+                            <td>Node.js</td>
+                            <td>Alta</td>
+                            <td class="tech-growth">+14.2%</td>
+                        </tr>
+                        <tr>
+                            <td class="tech-rank">5</td>
+                            <td>AWS</td>
+                            <td>Muito Alta</td>
+                            <td class="tech-growth">+22.1%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Comparação de Cursos -->
+            <div class="dashboard-card fade-in-up">
+                <div class="card-header">
+                    <span class="card-icon">🎓</span>
+                    <h2 class="card-title">Comparação de Cursos</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="coursesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Projeções Futuras -->
+            <div class="dashboard-card fade-in-up">
+                <div class="card-header">
+                    <span class="card-icon">🔮</span>
+                    <h2 class="card-title">Projeções 2025-2030</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="projectionsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Indicadores Econômicos -->
+            <div class="dashboard-card fade-in-up">
+                <div class="card-header">
+                    <span class="card-icon">📈</span>
+                    <h2 class="card-title">Indicadores Econômicos</h2>
+                </div>
+                <div class="metric-value" id="techGDP">R$ 2.1T</div>
+                <div class="metric-label">PIB do Setor Tech</div>
+                <div class="chart-container">
+                    <canvas id="economicChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notícias em Tempo Real -->
+        <div class="news-section fade-in-up">
+            <div class="card-header">
+                <span class="card-icon">📰</span>
+                <h2 class="card-title">Notícias do Setor TI</h2>
+            </div>
+            <div id="newsContainer">
+                <div class="news-item">
+                    <div class="news-title">Mercado de TI cresce 15% no Brasil em 2024</div>
+                    <div class="news-source">TechNews Brasil - Há 2 horas</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">Demanda por desenvolvedores Full Stack aumenta 25%</div>
+                    <div class="news-source">InfoMoney - Há 4 horas</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">Inteligência Artificial impulsiona contratações em TI</div>
+                    <div class="news-source">Valor Econômico - Há 6 horas</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-title">Salários em TI sobem 18% em 2024</div>
+                    <div class="news-source">Exame - Há 8 horas</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Criação de partículas de dados
+        function createDataParticles() {
+            const container = document.getElementById('dataParticles');
+            const particleCount = 100;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'data-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Atualização de dados em tempo real
+        function updateLiveData() {
+            const jobs = document.getElementById('liveJobs');
+            const salary = document.getElementById('avgSalary');
+            const growth = document.getElementById('growthRate');
+            const lastUpdate = document.getElementById('lastUpdate');
+
+            // Simula dados em tempo real
+            const baseJobs = 12847;
+            const baseSalary = 8500;
+            const baseGrowth = 15.3;
+
+            jobs.textContent = (baseJobs + Math.floor(Math.random() * 100 - 50)).toLocaleString();
+            salary.textContent = 'R$ ' + (baseSalary + Math.floor(Math.random() * 200 - 100)).toLocaleString();
+            growth.textContent = '+' + (baseGrowth + (Math.random() * 2 - 1)).toFixed(1) + '%';
+            
+            const now = new Date();
+            lastUpdate.textContent = now.toLocaleTimeString('pt-BR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+        }
+
+        // Gráfico de Empregabilidade
+        function createEmployabilityChart() {
+            const ctx = document.getElementById('employabilityChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Empregados', 'Desempregados'],
+                    datasets: [{
+                        data: [94.2, 5.8],
+                        backgroundColor: ['#00ffff', '#333333'],
+                        borderColor: ['#00ffff', '#666666'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Gráfico de Salários
+        function createSalaryChart() {
+            const ctx = document.getElementById('salaryChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Front-end', 'Back-end', 'Full Stack', 'DevOps', 'Data Science', 'Mobile'],
+                    datasets: [{
+                        label: 'Salário Médio (R$)',
+                        data: [7500, 8200, 9500, 11000, 12500, 8800],
+                        backgroundColor: 'rgba(0, 255, 255, 0.6)',
+                        borderColor: '#00ffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Gráfico de Comparação de Cursos
+        function createCoursesChart() {
+            const ctx = document.getElementById('coursesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Empregabilidade', 'Salário Inicial', 'Crescimento', 'Demanda', 'Versatilidade'],
+                    datasets: [{
+                        label: 'Sistemas de Informação',
+                        data: [94, 85, 90, 95, 88],
+                        backgroundColor: 'rgba(0, 255, 255, 0.2)',
+                        borderColor: '#00ffff',
+                        borderWidth: 2
+                    }, {
+                        label: 'Ciência da Computação',
+                        data: [88, 90, 85, 85, 82],
+                        backgroundColor: 'rgba(0, 128, 255, 0.2)',
+                        borderColor: '#0080ff',
+                        borderWidth: 2
+                    }, {
+                        label: 'Engenharia de Software',
+                        data: [85, 88, 87, 80, 85],
+                        backgroundColor: 'rgba(0, 255, 128, 0.2)',
+                        borderColor: '#00ff80',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            ticks: {
+                                color: '#ffffff',
+                                backdropColor: 'transparent'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            angleLines: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Gráfico de Projeções
+        function createProjectionsChart() {
+            const ctx = document.getElementById('projectionsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                    datasets: [{
+                        label: 'Vagas de TI (milhares)',
+                        data: [850, 980, 1150, 1350, 1580, 1850, 2150],
+                        backgroundColor: 'rgba(0, 255, 255, 0.1)',
+                        borderColor: '#00ffff',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Gráfico Econômico
+        function createEconomicChart() {
+            const ctx = document.getElementById('economicChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    datasets: [{
+                        label: 'PIB Tech (Trilhões R$)',
+                        data: [1.8, 1.85, 1.9, 1.95, 2.0, 2.05, 2.08, 2.1, 2.12, 2.15, 2.18, 2.2],
+                        backgroundColor: 'rgba(0, 255, 128, 0.1)',
+                        borderColor: '#00ff80',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Animações de entrada
+        function initAnimations() {
+            const elements = document.querySelectorAll('.fade-in-up');
+            elements.forEach((element, index) => {
+                element.style.animationDelay = (index * 0.2) + 's';
+            });
+        }
+
+        // Atualização da tabela de tecnologias
+        function updateTechTable() {
+            const technologies = [
+                { name: 'JavaScript', demand: 'Alta', growth: 12.5 },
+                { name: 'Python', demand: 'Muito Alta', growth: 18.3 },
+                { name: 'React', demand: 'Alta', growth: 15.7 },
+                { name: 'Node.js', demand: 'Alta', growth: 14.2 },
+                { name: 'AWS', demand: 'Muito Alta', growth: 22.1 }
+            ];
+
+            // Simula pequenas variações nos dados
+            technologies.forEach(tech => {
+                tech.growth += (Math.random() * 2 - 1);
+            });
+
+            const tbody = document.getElementById('techTable');
+            tbody.innerHTML = '';
+            
+            technologies.forEach((tech, index) => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td class="tech-rank">${index + 1}</td>
+                    <td>${tech.name}</td>
+                    <td>${tech.demand}</td>
+                    <td class="tech-growth ${tech.growth < 0 ? 'negative' : ''}">
+                        ${tech.growth > 0 ? '+' : ''}${tech.growth.toFixed(1)}%
+                    </td>
+                `;
+            });
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            createDataParticles();
+            initAnimations();
+            
+            // Criar gráficos
+            setTimeout(() => {
+                createEmployabilityChart();
+                createSalaryChart();
+                createCoursesChart();
+                createProjectionsChart();
+                createEconomicChart();
+            }, 1000);
+
+            // Atualizar dados a cada 5 segundos
+            updateLiveData();
+            updateTechTable();
+            setInterval(updateLiveData, 5000);
+            setInterval(updateTechTable, 10000);
+        });
+    </script>
+</body>
+</html>

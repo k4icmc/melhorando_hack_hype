@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links Úteis - HAKE HYPE</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating particles background */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 2px solid #00ffff;
+        }
+
+        .header-content {
+            /* Alterando layout para centralizar logo e posicionar botão embaixo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            /* Padronizando estilo do botão de voltar */
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .logo {
+            /* Ajustando tamanho da logo para melhor visualização */
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 4px solid #00ffff;
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        /* Main Content */
+        .main-content {
+            /* Aumentando margin-top para acomodar o novo layout do header */
+            margin-top: 140px;
+            padding: 2rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        /* Categories */
+        .category-section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: #00ffff;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+            border-color: #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .link-title {
+            font-size: 1.3rem;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .link-description {
+            color: #cccccc;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .link-url {
+            color: #0080ff;
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-all;
+            transition: color 0.3s ease;
+        }
+
+        .link-url:hover {
+            color: #00ffff;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        .edit-note {
+            background: rgba(255, 255, 0, 0.1);
+            border: 1px solid rgba(255, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #ffff99;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .header-content {
+                /* Mantendo layout vertical centralizado no mobile */
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .logo {
+                /* Tamanho otimizado da logo para mobile */
+                width: 60px;
+                height: 60px;
+            }
+            
+            .back-btn {
+                /* Ajustando botão para mobile */
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .main-content {
+                /* Ajustando espaçamento do conteúdo principal para mobile */
+                margin-top: 120px;
+                padding: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .category-section:nth-child(1) { animation-delay: 0.1s; }
+        .category-section:nth-child(2) { animation-delay: 0.2s; }
+        .category-section:nth-child(3) { animation-delay: 0.3s; }
+        .category-section:nth-child(4) { animation-delay: 0.4s; }
+        .category-section:nth-child(5) { animation-delay: 0.5s; }
+        .category-section:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%282%29-vc1HA65D8XLfpPYsX23Ii3UFKDXPaD.png" alt="HAKE HYPE Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+                <!-- COMENTÁRIO: Para alterar a logo, substitua o link acima -->
+            </div>
+            <a href="https://hack-hype.vercel.app" class="back-btn">← Voltar ao Início</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">Links Úteis</h1>
+        <p class="page-subtitle">Recursos essenciais para estudantes de Sistemas de Informação</p>
+
+        
+
+        <!-- Categoria: Aprendizado e Cursos -->
+        <section class="category-section">
+            <h2 class="category-title">📚 Aprendizado e Cursos</h2>
+            <div class="links-grid">
+                <div class="link-card" onclick="window.open('https://www.coursera.org', '_blank')">
+                    <div class="link-title">Coursera</div> <!-- título do link editável -->
+                    <div class="link-description">Cursos online de universidades renomadas mundialmente, incluindo especializações em Ciência da Computação e Tecnologia.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.coursera.org</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://www.udemy.com', '_blank')">
+                    <div class="link-title">Udemy</div> <!-- título do link editável -->
+                    <div class="link-description">Plataforma com milhares de cursos práticos de programação, desenvolvimento web, mobile e muito mais.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.udemy.com</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://www.codecademy.com', '_blank')">
+                    <div class="link-title">Codecademy</div> <!-- título do link editável -->
+                    <div class="link-description">Aprenda programação de forma interativa com exercícios práticos e projetos reais.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.codecademy.com</div> <!-- URL editável -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categoria: Documentação e Referências -->
+        <section class="category-section">
+            <h2 class="category-title">📖 Documentação e Referências</h2>
+            <div class="links-grid">
+                <div class="link-card" onclick="window.open('https://developer.mozilla.org', '_blank')">
+                    <div class="link-title">MDN Web Docs</div> <!-- título do link editável -->
+                    <div class="link-description">Documentação completa sobre tecnologias web: HTML, CSS, JavaScript e APIs modernas.</div> <!-- descrição editável -->
+                    <div class="link-url">https://developer.mozilla.org</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://stackoverflow.com', '_blank')">
+                    <div class="link-title">Stack Overflow</div> <!-- título do link editável -->
+                    <div class="link-description">A maior comunidade de desenvolvedores do mundo para tirar dúvidas e compartilhar conhecimento.</div> <!-- descrição editável -->
+                    <div class="link-url">https://stackoverflow.com</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://www.w3schools.com', '_blank')">
+                    <div class="link-title">W3Schools</div> <!-- título do link editável -->
+                    <div class="link-description">Tutoriais e referências sobre tecnologias web com exemplos práticos e exercícios.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.w3schools.com</div> <!-- URL editável -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categoria: Ferramentas de Desenvolvimento -->
+        <section class="category-section">
+            <h2 class="category-title">🛠️ Ferramentas de Desenvolvimento</h2>
+            <div class="links-grid">
+                <div class="link-card" onclick="window.open('https://github.com', '_blank')">
+                    <div class="link-title">GitHub</div> <!-- título do link editável -->
+                    <div class="link-description">Plataforma de hospedagem de código-fonte com controle de versão Git. Essencial para todo desenvolvedor.</div> <!-- descrição editável -->
+                    <div class="link-url">https://github.com</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://code.visualstudio.com', '_blank')">
+                    <div class="link-title">Visual Studio Code</div> <!-- título do link editável -->
+                    <div class="link-description">Editor de código gratuito e poderoso da Microsoft, com suporte a múltiplas linguagens.</div> <!-- descrição editável -->
+                    <div class="link-url">https://code.visualstudio.com</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://www.figma.com', '_blank')">
+                    <div class="link-title">Figma</div> <!-- título do link editável -->
+                    <div class="link-description">Ferramenta de design colaborativo para criar interfaces, protótipos e wireframes.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.figma.com</div> <!-- URL editável -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categoria: Prática e Desafios -->
+        <section class="category-section">
+            <h2 class="category-title">🎯 Prática e Desafios</h2>
+            <div class="links-grid">
+                <div class="link-card" onclick="window.open('https://www.hackerrank.com', '_blank')">
+                    <div class="link-title">HackerRank</div> <!-- título do link editável -->
+                    <div class="link-description">Plataforma com desafios de programação para praticar algoritmos e estruturas de dados.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.hackerrank.com</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://leetcode.com', '_blank')">
+                    <div class="link-title">LeetCode</div> <!-- título do link editável -->
+                    <div class="link-description">Problemas de programação para preparação em entrevistas técnicas e aprimoramento de habilidades.</div> <!-- descrição editável -->
+                    <div class="link-url">https://leetcode.com</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://www.codewars.com', '_blank')">
+                    <div class="link-title">Codewars</div> <!-- título do link editável -->
+                    <div class="link-description">Desafios de programação gamificados para melhorar suas habilidades de codificação.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.codewars.com</div> <!-- URL editável -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categoria: Notícias e Tendências -->
+        <section class="category-section">
+            <h2 class="category-title">📰 Notícias e Tendências</h2>
+            <div class="links-grid">
+                <div class="link-card" onclick="window.open('https://techcrunch.com', '_blank')">
+                    <div class="link-title">TechCrunch</div> <!-- título do link editável -->
+                    <div class="link-description">Notícias sobre startups, tecnologia e inovação no mundo dos negócios digitais.</div> <!-- descrição editável -->
+                    <div class="link-url">https://techcrunch.com</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://www.wired.com', '_blank')">
+                    <div class="link-title">Wired</div> <!-- título do link editável -->
+                    <div class="link-description">Revista focada em como a tecnologia afeta a cultura, economia e política.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.wired.com</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://dev.to', '_blank')">
+                    <div class="link-title">DEV Community</div> <!-- título do link editável -->
+                    <div class="link-description">Comunidade de desenvolvedores compartilhando artigos, tutoriais e experiências.</div> <!-- descrição editável -->
+                    <div class="link-url">https://dev.to</div> <!-- URL editável -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categoria: Recursos Brasileiros -->
+        <section class="category-section">
+            <h2 class="category-title">🇧🇷 Recursos Brasileiros</h2>
+            <div class="links-grid">
+                <div class="link-card" onclick="window.open('https://www.alura.com.br', '_blank')">
+                    <div class="link-title">Alura</div> <!-- título do link editável -->
+                    <div class="link-description">Plataforma brasileira de cursos online de tecnologia com conteúdo em português.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.alura.com.br</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://www.dio.me', '_blank')">
+                    <div class="link-title">Digital Innovation One</div> <!-- título do link editável -->
+                    <div class="link-description">Plataforma gratuita de educação em tecnologia com bootcamps e projetos práticos.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.dio.me</div> <!-- URL editável -->
+                </div>
+
+                <div class="link-card" onclick="window.open('https://www.rocketseat.com.br', '_blank')">
+                    <div class="link-title">Rocketseat</div> <!-- título do link editável -->
+                    <div class="link-description">Educação em programação focada em tecnologias modernas e mercado de trabalho.</div> <!-- descrição editável -->
+                    <div class="link-url">https://www.rocketseat.com.br</div> <!-- URL editável -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Scroll animations
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.link-card');
+            
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.4s ease';
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize animations and particles when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initScrollAnimations();
+            createParticles();
+        });
+    </script>
+</body>
+</html>

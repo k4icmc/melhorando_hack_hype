@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vídeos - HACK HYPE</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating particles background */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 2px solid #00ffff;
+            animation: slideInFromTop 0.8s ease-out;
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            /* Centralizando logo e posicionando botão embaixo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .logo {
+            /* Ajustando tamanho da logo para melhor visualização */
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #000;
+            border: 4px solid #00ffff;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        @keyframes logoGlow {
+            from {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+                transform: scale(1);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .back-btn {
+            /* Padronizando estilo do botão de voltar */
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Main Content */
+        .main-content {
+            /* Aumentando margin-top para acomodar o novo layout do header */
+            margin-top: 140px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Videos Layout - Fixed to always be vertical list regardless of zoom */
+        .videos-container {
+            /* Forçando layout vertical em lista para todos os tamanhos de tela */
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .video-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            /* Layout horizontal fixo: vídeo à esquerda, info à direita */
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .video-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+
+        .video-item:hover::before {
+            transform: scale(1);
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Video player section on the left */
+        .video-player {
+            /* Tamanho fixo do player para manter consistência */
+            flex: 0 0 400px;
+            height: 225px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            min-width: 400px; /* Garantindo largura mínima */
+        }
+
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Video info section on the right */
+        .video-info {
+            /* Flex 1 para ocupar espaço restante */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-width: 0; /* Permitindo quebra de texto */
+        }
+
+        .video-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .video-title {
+            font-size: 1.4rem;
+            color: #00ffff;
+            font-weight: bold;
+            flex: 1;
+            line-height: 1.3;
+        }
+
+        .creator-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #00ffff;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .creator-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-description {
+            color: #cccccc;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .creator-name {
+            color: #00ffff;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Responsive - Updated for consistent list layout */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.8rem 1rem;
+            }
+            
+            .nav-container {
+                /* Mantendo layout vertical centralizado no mobile */
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+                text-align: center;
+            }
+            
+            .logo {
+                /* Tamanho otimizado da logo para mobile */
+                width: 60px;
+                height: 60px;
+                font-size: 1.2rem;
+            }
+            
+            .back-btn {
+                /* Ajustando botão para mobile */
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .main-content {
+                /* Ajustando espaçamento do conteúdo principal para mobile */
+                margin-top: 120px;
+                padding: 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem; /* Ajustando tamanho da fonte e margin para mobile */
+                margin-bottom: 2rem;
+                margin-top: 1rem;
+            }
+            
+            .videos-container {
+                /* Single column on mobile for better viewing */
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .video-item {
+                /* Layout vertical no mobile para melhor visualização */
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+            
+            .video-player {
+                /* Player ocupa largura total no mobile */
+                flex: none;
+                width: 100%;
+                height: 200px;
+                min-width: unset;
+            }
+            
+            .video-title {
+                font-size: 1.2rem;
+            }
+            
+            .creator-avatar {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .video-player {
+                /* Ajuste para tablets mantendo layout horizontal */
+                flex: 0 0 350px;
+                height: 200px;
+                min-width: 350px;
+            }
+            
+            .video-title {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Removendo media query que forçava layout em colunas no desktop */
+        @media (min-width: 1025px) {
+            .videos-container {
+                /* Mantendo layout vertical em lista sempre */
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .video-player {
+                /* Tamanho padrão para desktop */
+                flex: 0 0 400px;
+                height: 225px;
+                min-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Floating particles  -->
+    <div class="floating-particles" id="particles"></div>
+
+     <!-- Header  -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%282%29-d9Bg0W7LuBEmV6eEAN7LLlLwGoFNiT.png" alt="HACK HYPE Logo">
+                <!-- COMENTÁRIO: Para alterar a logo, substitua o link acima -->
+            </div>
+            <a href="index.html" class="back-btn">← Voltar ao Painel</a>
+        </div>
+    </header>
+
+     <!-- Main Content  -->
+    <main class="main-content">
+        <h1 class="page-title">🎥 Biblioteca de Vídeos</h1>
+        
+         
+
+
+
+
+
+
+
+
+        <!--adicionando videos titulos e descrições aqui⬇️-->
+
+        <div class="videos-container" id="videosContainer">
+            <!-- Adicionando os 20 vídeos do YouTube com descrições de SI e imagens dos membros -->
+
+
+            
+            <!-- Vídeo 1 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/XqZsoesa55" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Fundamentos de Algoritmos e Estruturas de Dados</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/kaic%282%29-s8anZRhGU82FcdWbzkJ4BsYXBRLRpA.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Aprenda os conceitos fundamentais de algoritmos e estruturas de dados essenciais para qualquer desenvolvedor. Uma base sólida para sua carreira em Sistemas de Informação.</div>
+
+                    <div class="creator-name">KAIC MARÇAL</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Vídeo 2 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/kJQP7kiw5F" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Introdução ao Desenvolvimento Web Moderno</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/mical%282%29-ikJsbzYmoPyygfRGcvtQP4PvTksGRg.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Descubra as tecnologias mais utilizadas no desenvolvimento web atual. HTML5, CSS3, JavaScript e frameworks modernos explicados de forma prática.</div>
+
+                    <div class="creator-name">MICAL LEITE</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <!-- Vídeo 3 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/e_04ZrNroT" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Banco de Dados: Do Básico ao Avançado</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/icaro%282%29-lIHSkNeFs8dmeGyDTli1kQGLa1Qazv.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Domine os conceitos de banco de dados relacionais e NoSQL. Aprenda SQL, modelagem de dados e otimização de consultas para sistemas robustos.</div>
+
+                    <div class="creator-name">ICARO RIBEIRO</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <!-- Vídeo 4 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/WRVsOCh907" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Metodologias Ágeis na Prática</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/rian-camilo%282%29-dCJXOFQkissPLn2kjfMErxCL4fufPq.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Entenda como aplicar Scrum, Kanban e outras metodologias ágeis em projetos reais. Gestão eficiente de equipes e entregas contínuas.</div>
+
+                    <div class="creator-name">RIHAN CAMILO</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 5 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/JGwWNGJdvx" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Programação Orientada a Objetos com Java</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/enzo%282%29-hWw2JrtRnwoOYIOrgA2yKzheBbPWc1.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Aprenda os pilares da POO: encapsulamento, herança, polimorfismo e abstração. Desenvolva aplicações Java robustas e escaláveis.</div>
+
+                    <div class="creator-name">ENZO VIEIRA</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 6 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/RgKAFK5dj" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Segurança da Informação e Ethical Hacking</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/RYAN-GABRIEL-RODRIGUES-FLORENCIO%282%29-nIGb9JQkXQJyzR8T3eFQrrgnHN5a82.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Proteja sistemas e dados contra ameaças cibernéticas. Técnicas de pentesting, criptografia e boas práticas de segurança.</div>
+
+                    <div class="creator-name">RYAN GABRIEL</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 7 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/F4tHL8reN" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Análise de Dados com Python e Machine Learning</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/Matheus-Alvarenga-de-Amaral%282%29-Xwk37Ha4D8ohQWJNJPPqdvhXK3GLCh.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Transforme dados em insights valiosos usando Python, pandas, numpy e algoritmos de machine learning. Business Intelligence na prática.</div>
+
+                    <div class="creator-name">MATHEUS ALVARENGA</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 8 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/9bZkp7q19" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">UX/UI Design para Desenvolvedores</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/Arthur-Andr-de-Mendon-a-Assun-o%282%29-Pc0Exw5FGVmLDt9JfTz0O2g0CmikB3.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Crie interfaces intuitivas e atrativas. Princípios de design, prototipagem, usabilidade e ferramentas como Figma e Adobe XD.</div>
+
+                    <div class="creator-name">ARTHUR ANDRÉ</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 9 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/2n4enj6YM" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Desenvolvimento Mobile com React Native</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/Fernando-Henrique-de-Amorim%282%29-sOmuByNFxJEekDYpDuw7OXJyaQFnJ5.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Desenvolva aplicativos móveis multiplataforma com React Native. Uma única base de código para Android e iOS.</div>
+
+                    <div class="creator-name">FERNANDO HENRIQUE</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 10 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/pRpeEdMm" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Arquitetura de Software e Design Patterns</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/Kau-Vin-cius-Cardoso-Guimar-es%282%29-IZRVSbnpW1UYNHOHixplSIze2kFBSy.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Aprenda padrões de projeto essenciais e arquiteturas de software escaláveis. Clean Architecture, SOLID e boas práticas de desenvolvimento.</div>
+
+                    <div class="creator-name">KAUÃ VINÍCIUS</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <!-- Vídeo 11 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/CevxZvSJL" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">DevOps e Cloud Computing</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/BRENO-ARAUJO-OLIVEIRA-JACINTHO%282%29-sGDsgH2XHqAhjbre4RVHlvstURRJy1.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Automatize deploys e gerencie infraestrutura na nuvem. Docker, Kubernetes, AWS e práticas de CI/CD para desenvolvimento moderno.</div>
+
+                    <div class="creator-name">BRENO ARAUJO</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 12 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/lp-EO5I6" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">APIs RESTful e Microserviços</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/MARCO-ARNOLD%282%29-qw8ni5W0pC7MzB1vZ2QFj3BlTmY5ZO.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Construa APIs robustas e escaláveis. Aprenda REST, GraphQL, documentação com Swagger e arquitetura de microserviços.</div>
+
+                    <div class="creator-name">MARCO ANTONIO</div> <!--nome do criador do video-->
+                </div> 
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 13 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/FzG4uDg" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Gestão de Projetos de TI</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://i.ibb.co/RTkk6v8b/LUIZ-EDUARDI-DE-ALMEIDA.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Gerencie projetos de tecnologia com eficiência. PMI, PMP, análise de riscos e comunicação com stakeholders.</div>
+
+                    <div class="creator-name">LUIZ EDUARDO</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 14 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/0KSOMA3Q" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Inteligência Artificial e Deep Learning</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/kaic%282%29-s8anZRhGU82FcdWbzkJ4BsYXBRLRpA.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Explore o mundo da IA com redes neurais, TensorFlow e PyTorch. Aplicações práticas de machine learning em sistemas reais.</div>
+
+                    <div class="creator-name">KAIC MARÇAL</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 15 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/c_a3IQFX" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Blockchain e Criptomoedas</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/mical%282%29-ikJsbzYmoPyygfRGcvtQP4PvTksGRg.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Entenda a tecnologia por trás das criptomoedas. Smart contracts, DeFi e aplicações práticas do blockchain em sistemas corporativos.</div>
+
+                    <div class="creator-name">MICAL LEITE</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 16 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/YqeW9_5k" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Testes Automatizados e TDD</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/icaro%282%29-lIHSkNeFs8dmeGyDTli1kQGLa1Qazv.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Garanta a qualidade do código com testes unitários, integração e TDD. Jest, JUnit e ferramentas de automação de testes.</div>
+
+                    <div class="creator-name">ICARO RIBEIRO</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 17 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/NUsoVlDF" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Big Data e Analytics</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/rian-camilo%282%29-dCJXOFQkissPLn2kjfMErxCL4fufPq.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Processe grandes volumes de dados com Hadoop, Spark e ferramentas de analytics. Transforme dados em vantagem competitiva.</div>
+
+                    <div class="creator-name">RIHAN CAMILO</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 18 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/aJOTlE1K" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Internet das Coisas (IoT)</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/enzo%282%29-hWw2JrtRnwoOYIOrgA2yKzheBbPWc1.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Conecte dispositivos e sensores à internet. Arduino, Raspberry Pi e protocolos de comunicação para sistemas IoT inteligentes.</div>
+
+                    <div class="creator-name">ENZO VIEIRA</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Vídeo 19 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/RBumgq5y" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Carreira em Tecnologia: Dicas e Estratégias</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/RYAN-GABRIEL-RODRIGUES-FLORENCIO%282%29-nIGb9JQkXQJyzR8T3eFQrrgnHN5a82.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Construa uma carreira sólida em TI. Portfolio, networking, entrevistas técnicas e crescimento profissional na área de tecnologia.</div>
+
+                    <div class="creator-name">RYAN GABRIEL</div> <!--nome do criador do video-->
+                </div>
+            </div>
+
+
+
+
+            
+
+            <!-- Vídeo 20 -->
+            <div class="video-item">
+                <div class="video-player">
+                    <iframe src="https://www.youtube.com/embed/2Vv-BfVo" allowfullscreen></iframe> <!--adicione aqui o link do video no youtube-->
+                </div>
+                <div class="video-info">
+                    <div class="video-header">
+                        <div class="video-title">Sistemas Distribuídos e Escalabilidade</div> <!--adicione aqui o titulo do video-->
+                        <div class="creator-avatar">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/Matheus-Alvarenga-de-Amaral%282%29-Xwk37Ha4D8ohQWJNJPPqdvhXK3GLCh.jpg"> <!--imagem do criador do video-->
+                        </div>
+                    </div>
+                    <!--descrição do video⬇️-->
+                    <div class="video-description">Projete sistemas que suportam milhões de usuários. Load balancing, cache, replicação e arquiteturas distribuídas robustas.</div>
+
+                    <div class="creator-name">MATHEUS ALVARENGA</div> <!--nome do criador do video-->
+                </div>
+            </div>
+        </div>
+
+<!--videos daqui pra cima ⬆️-->
+
+
+
+
+
+
+
+
+    </main>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Animation for video items - Updated for new layout
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            const items = document.querySelectorAll('.video-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('fade-in');
+                }, index * 100);
+            });
+        });
+
+        // Smooth scrolling
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>

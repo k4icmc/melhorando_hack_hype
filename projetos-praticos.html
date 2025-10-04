@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos Práticos - HAKE HYPE</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating particles background */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        /* Animation code for floating particles */
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 2px solid #00ffff;
+        }
+
+        .header-content {
+            /* Alterando layout para centralizar logo e posicionar botão embaixo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        /* Logo movida para o lado esquerdo com quadrado neon e tamanho padrão */
+        .logo {
+            /* Ajustando tamanho da logo para melhor visualização */
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            border: 4px solid #00ffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        @keyframes logoGlow {
+            from {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+                transform: scale(1);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        /* Botão de voltar movido para o lado direito com tamanho padrão */
+        .back-btn {
+            /* Padronizando estilo do botão de voltar */
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Main Content */
+        .main-content {
+            /* Aumentando margin-top para acomodar o novo layout do header */
+            margin-top: 140px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(0, 0, 0, 0.9); /* Aumentei a opacidade de 0.8 para 0.9 */
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .project-title {
+            color: #00ffff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-demo {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 1px solid #333;
+        }
+
+        /* Specific Project Styles */
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            max-width: 250px;
+        }
+
+        .calc-display {
+            grid-column: span 4;
+            background: #000;
+            color: #00ffff;
+            padding: 1rem;
+            text-align: right;
+            font-size: 1.2rem;
+            border: 1px solid #333;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .calc-btn {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 3px;
+        }
+
+        .calc-btn:hover {
+            background: #00ffff;
+            color: #000;
+        }
+
+        .color-picker {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .todo-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 5px;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .todo-list {
+            max-height: 150px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .todo-item {
+            background: #333;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 0.25rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .btn-small {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        .counter-display {
+            font-size: 3rem;
+            color: #00ffff;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+
+        .timer-display {
+            font-size: 2rem;
+            color: #00ffff;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .password-output {
+            background: #333;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            color: #00ffff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .header-content {
+                /* Mantendo layout vertical centralizado no mobile */
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+
+            .logo {
+                /* Tamanho otimizado da logo para mobile */
+                width: 60px;
+                height: 60px;
+            }
+
+            .back-btn {
+                /* Ajustando botão para mobile */
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .project-card {
+                padding: 1.5rem;
+            }
+
+            .main-content {
+                /* Ajustando espaçamento do conteúdo principal para mobile */
+                margin-top: 120px;
+                padding: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
+        .project-card:nth-child(7) { animation-delay: 0.7s; }
+        .project-card:nth-child(8) { animation-delay: 0.8s; }
+        .project-card:nth-child(9) { animation-delay: 0.9s; }
+        .project-card:nth-child(10) { animation-delay: 1.0s; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%282%29-vc1HA65D8XLfpPYsX23Ii3UFKDXPaD.png" alt="HAKE HYPE Logo">
+            </div>
+            <a href="https://hack-hype.vercel.app" class="back-btn">← Voltar ao Início</a>
+        </div>
+    </header>
+
+    <!-- Floating particles -->
+    <div class="floating-particles" id="particles"></div>
+
+    <main class="main-content">
+        <h1 class="page-title">Projetos Práticos</h1>
+        <p class="page-subtitle">10 projetos funcionais para praticar programação</p>
+
+        <div class="projects-grid">
+           <div class="project-card">
+                <h3 class="project-title">🧮 Calculadora</h3>
+                <p class="project-description">Uma calculadora funcional com operações básicas</p>
+                <div class="project-demo">
+                    <div class="calculator">
+                        <div class="calc-display" id="calcDisplay">0</div>
+                        <button class="calc-btn" onclick="clearCalc()">C</button>
+                        <button class="calc-btn" onclick="appendToCalc('/')">/</button>
+                        <button class="calc-btn" onclick="appendToCalc('*')">*</button>
+                        <button class="calc-btn" onclick="deleteLast()">←</button>
+                        <button class="calc-btn" onclick="appendToCalc('7')">7</button>
+                        <button class="calc-btn" onclick="appendToCalc('8')">8</button>
+                        <button class="calc-btn" onclick="appendToCalc('9')">9</button>
+                        <button class="calc-btn" onclick="appendToCalc('-')">-</button>
+                        <button class="calc-btn" onclick="appendToCalc('4')">4</button>
+                        <button class="calc-btn" onclick="appendToCalc('5')">5</button>
+                        <button class="calc-btn" onclick="appendToCalc('6')">6</button>
+                        <button class="calc-btn" onclick="appendToCalc('+')">+</button>
+                        <button class="calc-btn" onclick="appendToCalc('1')">1</button>
+                        <button class="calc-btn" onclick="appendToCalc('2')">2</button>
+                        <button class="calc-btn" onclick="appendToCalc('3')">3</button>
+                        <button class="calc-btn" onclick="calculate()" style="grid-row: span 2; background: #00ffff; color: #000;">=</button>
+                        <button class="calc-btn" onclick="appendToCalc('0')" style="grid-column: span 2;">0</button>
+                        <button class="calc-btn" onclick="appendToCalc('.')">.</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">🔢 Contador</h3>
+                <p class="project-description">Contador simples com incremento e decremento</p>
+                <div class="project-demo">
+                    <div class="counter-display" id="counter">0</div>
+                    <button class="btn" onclick="increment()">+1</button>
+                    <button class="btn" onclick="decrement()">-1</button>
+                    <button class="btn" onclick="resetCounter()">Reset</button>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">🎨 Gerador de Cores</h3>
+                <p class="project-description">Gera cores aleatórias em hexadecimal</p>
+                <div class="project-demo">
+                    <div class="color-picker" id="colorDisplay" style="background: #ff6b6b;"></div>
+                    <p id="colorCode">#ff6b6b</p>
+                    <button class="btn" onclick="generateColor()">Nova Cor</button>
+                    <button class="btn" onclick="copyColor()">Copiar Código</button>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">📝 Lista de Tarefas</h3>
+                <p class="project-description">Adicione e remova tarefas da sua lista</p>
+                <div class="project-demo">
+                    <input type="text" class="todo-input" id="todoInput" placeholder="Digite uma tarefa...">
+                    <button class="btn" onclick="addTodo()">Adicionar</button>
+                    <div class="todo-list" id="todoList"></div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">⏱️ Cronômetro</h3>
+                <p class="project-description">Cronômetro funcional com start, pause e reset</p>
+                <div class="project-demo">
+                    <div class="timer-display" id="timerDisplay">00:00:00</div>
+                    <button class="btn" onclick="startTimer()">Iniciar</button>
+                    <button class="btn" onclick="pauseTimer()">Pausar</button>
+                    <button class="btn" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">🔐 Gerador de Senhas</h3>
+                <p class="project-description">Gera senhas seguras com diferentes opções</p>
+                <div class="project-demo">
+                    <div class="password-output" id="passwordOutput">Clique para gerar</div>
+                    <button class="btn" onclick="generatePassword(8)">8 caracteres</button>
+                    <button class="btn" onclick="generatePassword(12)">12 caracteres</button>
+                    <button class="btn" onclick="generatePassword(16)">16 caracteres</button>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">🌡️ Conversor de Temperatura</h3>
+                <p class="project-description">Converte entre Celsius, Fahrenheit e Kelvin</p>
+                <div class="project-demo">
+                    <input type="number" class="todo-input" id="tempInput" placeholder="Digite a temperatura">
+                    <button class="btn" onclick="convertTemp('celsius')">°C para °F</button>
+                    <button class="btn" onclick="convertTemp('fahrenheit')">°F para °C</button>
+                    <div id="tempResult" style="margin-top: 1rem; color: #00ffff; font-size: 1.2rem;"></div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">⚖️ Calculadora de IMC</h3>
+                <p class="project-description">Calcula o Índice de Massa Corporal</p>
+                <div class="project-demo">
+                    <input type="number" class="todo-input" id="weightInput" placeholder="Peso (kg)" style="margin-bottom: 0.5rem;">
+                    <input type="number" class="todo-input" id="heightInput" placeholder="Altura (m)" style="margin-bottom: 1rem;">
+                    <button class="btn" onclick="calculateIMC()">Calcular IMC</button>
+                    <div id="imcResult" style="margin-top: 1rem; color: #00ffff; text-align: center;"></div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">🎯 Jogo de Adivinhação</h3>
+                <p class="project-description">Adivinhe o número entre 1 e 100</p>
+                <div class="project-demo">
+                    <input type="number" class="todo-input" id="guessInput" placeholder="Digite um número (1-100)">
+                    <button class="btn" onclick="makeGuess()">Tentar</button>
+                    <button class="btn" onclick="newGame()">Novo Jogo</button>
+                    <div id="guessResult" style="margin-top: 1rem; color: #00ffff; text-align: center;"></div>
+                    <div id="attempts" style="color: #ccc; margin-top: 0.5rem;">Tentativas: 0</div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">🕐 Relógio Digital</h3>
+                <p class="project-description">Relógio digital com data e hora atual</p>
+                <div class="project-demo">
+                    <div class="timer-display" id="clockDisplay">00:00:00</div>
+                    <div id="dateDisplay" style="color: #ccc; margin-top: 1rem;">01/01/2024</div>
+                    <button class="btn" onclick="toggleClock()">Iniciar/Parar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+        });
+
+        
+        // Projeto 1: Calculadora
+        let calcDisplay = '0';
+
+        function appendToCalc(value) {
+            if (calcDisplay === '0' && value !== '.') {
+                calcDisplay = value;
+            } else {
+                calcDisplay += value;
+            }
+            document.getElementById('calcDisplay').textContent = calcDisplay;
+        }
+
+        function clearCalc() {
+            calcDisplay = '0';
+            document.getElementById('calcDisplay').textContent = calcDisplay;
+        }
+
+        function deleteLast() {
+            if (calcDisplay.length > 1) {
+                calcDisplay = calcDisplay.slice(0, -1);
+            } else {
+                calcDisplay = '0';
+            }
+            document.getElementById('calcDisplay').textContent = calcDisplay;
+        }
+
+        function calculate() {
+            try {
+                const result = eval(calcDisplay);
+                calcDisplay = result.toString();
+                document.getElementById('calcDisplay').textContent = calcDisplay;
+            } catch (error) {
+                calcDisplay = 'Erro';
+                document.getElementById('calcDisplay').textContent = calcDisplay;
+            }
+        }
+
+        // Projeto 2: Contador
+        let count = 0;
+
+        function increment() {
+            count++;
+            document.getElementById('counter').textContent = count;
+        }
+
+        function decrement() {
+            count--;
+            document.getElementById('counter').textContent = count;
+        }
+
+        function resetCounter() {
+            count = 0;
+            document.getElementById('counter').textContent = count;
+        }
+
+        // Projeto 3: Gerador de Cores
+        function generateColor() {
+            const color = '#' + Math.floor(Math.random()*16777215).toString(16);
+            document.getElementById('colorDisplay').style.background = color;
+            document.getElementById('colorCode').textContent = color;
+        }
+
+        function copyColor() {
+            const color = document.getElementById('colorCode').textContent;
+            navigator.clipboard.writeText(color);
+            alert('Cor copiada: ' + color);
+        }
+
+        // Projeto 4: Lista de Tarefas
+        let todos = [];
+
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const text = input.value.trim();
+            if (text) {
+                todos.push(text);
+                input.value = '';
+                renderTodos();
+            }
+        }
+
+        function removeTodo(index) {
+            todos.splice(index, 1);
+            renderTodos();
+        }
+
+        function renderTodos() {
+            const list = document.getElementById('todoList');
+            list.innerHTML = '';
+            todos.forEach((todo, index) => {
+                const item = document.createElement('div');
+                item.className = 'todo-item';
+                item.innerHTML = `
+                    <span>${todo}</span>
+                    <button class="btn btn-small" onclick="removeTodo(${index})">×</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // Projeto 5: Cronômetro
+        let timerInterval = null;
+        let timerSeconds = 0;
+
+        function startTimer() {
+            if (!timerInterval) {
+                timerInterval = setInterval(() => {
+                    timerSeconds++;
+                    updateTimerDisplay();
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerSeconds = 0;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const hours = Math.floor(timerSeconds / 3600);
+            const minutes = Math.floor((timerSeconds % 3600) / 60);
+            const seconds = timerSeconds % 60;
+            const display = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timerDisplay').textContent = display;
+        }
+
+        // Projeto 6: Gerador de Senhas
+        function generatePassword(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('passwordOutput').textContent = password;
+        }
+
+        // Projeto 7: Conversor de Temperatura
+        function convertTemp(from) {
+            const input = document.getElementById('tempInput').value;
+            const temp = parseFloat(input);
+            const result = document.getElementById('tempResult');
+            
+            if (isNaN(temp)) {
+                result.textContent = 'Digite um número válido';
+                return;
+            }
+
+            if (from === 'celsius') {
+                const fahrenheit = (temp * 9/5) + 32;
+                result.textContent = `${temp}°C = ${fahrenheit.toFixed(2)}°F`;
+            } else {
+                const celsius = (temp - 32) * 5/9;
+                result.textContent = `${temp}°F = ${celsius.toFixed(2)}°C`;
+            }
+        }
+
+        // Projeto 8: Calculadora de IMC
+        function calculateIMC() {
+            const weight = parseFloat(document.getElementById('weightInput').value);
+            const height = parseFloat(document.getElementById('heightInput').value);
+            const result = document.getElementById('imcResult');
+
+            if (isNaN(weight) || isNaN(height) || height <= 0) {
+                result.textContent = 'Digite valores válidos';
+                return;
+            }
+
+            const imc = weight / (height * height);
+            let category = '';
+
+            if (imc < 18.5) category = 'Abaixo do peso';
+            else if (imc < 25) category = 'Peso normal';
+            else if (imc < 30) category = 'Sobrepeso';
+            else category = 'Obesidade';
+
+            result.innerHTML = `IMC: ${imc.toFixed(2)}<br>Categoria: ${category}`;
+        }
+
+        // Projeto 9: Jogo de Adivinhação
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function makeGuess() {
+            const guess = parseInt(document.getElementById('guessInput').value);
+            const result = document.getElementById('guessResult');
+            const attemptsDisplay = document.getElementById('attempts');
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                result.textContent = 'Digite um número entre 1 e 100';
+                return;
+            }
+
+            attempts++;
+            attemptsDisplay.textContent = `Tentativas: ${attempts}`;
+
+            if (guess === randomNumber) {
+                result.textContent = `Parabéns! Você acertou em ${attempts} tentativas!`;
+            } else if (guess < randomNumber) {
+                result.textContent = 'Muito baixo! Tente um número maior.';
+            } else {
+                result.textContent = 'Muito alto! Tente um número menor.';
+            }
+        }
+
+        function newGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('guessInput').value = '';
+            document.getElementById('guessResult').textContent = '';
+            document.getElementById('attempts').textContent = 'Tentativas: 0';
+        }
+
+        // Projeto 10: Relógio Digital
+        let clockInterval = null;
+
+        function toggleClock() {
+            if (clockInterval) {
+                clearInterval(clockInterval);
+                clockInterval = null;
+            } else {
+                updateClock();
+                clockInterval = setInterval(updateClock, 1000);
+            }
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString();
+            const date = now.toLocaleDateString('pt-BR');
+            
+            document.getElementById('clockDisplay').textContent = time;
+            document.getElementById('dateDisplay').textContent = date;
+        }
+
+        // Inicializar relógio ao carregar a página
+        window.addEventListener('load', () => {
+            updateClock();
+            clockInterval = setInterval(updateClock, 1000);
+        });
+    </script>
+</body>
+</html>

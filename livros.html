@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livros - Sistemas de Informação</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #00ffff;
+            animation: slideInFromTop 0.8s ease-out;
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            /* Alterando layout para centralizar logo e posicionar botão embaixo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .logo {
+            /* Ajustando tamanho da logo para melhor visualização */
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #000;
+            border: 4px solid #00ffff;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        .back-btn {
+            /* Padronizando botão de voltar com configurações exatas do curiosidades.html */
+            padding: 1rem 2rem; /* modificando tamanho do botão */
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            /* Aumentando margin-top para acomodar o novo layout do header */
+            margin-top: 140px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            color: #00ffff;
+            text-shadow: 0 0 20px #00ffff;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        /* Books Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-cover {
+            width: 150px;
+            height: 200px;
+            margin: 0 auto 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-title {
+            font-size: 1.2rem;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .book-author {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #00ffff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.2);
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        .modal-body {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .modal-cover {
+            width: 180px;
+            height: 240px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-info {
+            flex: 1;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-author {
+            color: #cccccc;
+            margin-bottom: 1rem;
+        }
+
+        .modal-description {
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+        }
+
+        .download-btn {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .nav-container {
+                /* Mantendo layout vertical centralizado no mobile */
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .logo {
+                /* Tamanho otimizado da logo para mobile */
+                width: 60px;
+                height: 60px;
+                font-size: 0.9rem;
+            }
+            
+            .back-btn {
+                /* Ajustando botão para mobile */
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            /* Ajustando espaçamento do conteúdo principal para mobile */
+            .main-content {
+                margin-top: 120px;
+                padding: 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+                line-height: 1.2;
+            }
+            
+            /* Enhanced mobile book grid with better spacing */
+            .books-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .book-card {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+            
+            .book-cover {
+                width: 100px; /* Optimized cover size for mobile */
+                height: 140px;
+                margin-bottom: 0.8rem;
+            }
+            
+            .book-title {
+                font-size: 0.9rem;
+                line-height: 1.3;
+                margin-bottom: 0.3rem;
+            }
+            
+            .book-author {
+                font-size: 0.75rem;
+            }
+            
+            /* Enhanced mobile modal with better touch interactions */
+            .modal-content {
+                width: 95%;
+                max-width: none;
+                margin: 1rem;
+                padding: 1.5rem;
+                max-height: 85vh; /* Reduced for better mobile viewing */
+                border-radius: 15px;
+            }
+            
+            .modal-body {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .modal-cover {
+                width: 120px; /* Optimized modal cover size */
+                height: 160px;
+                margin: 0 auto;
+            }
+            
+            .modal-title {
+                font-size: 1.2rem;
+                line-height: 1.3;
+            }
+            
+            .modal-description {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                text-align: left; /* Better readability for descriptions */
+            }
+            
+            .download-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%; /* Full width button for better mobile UX */
+                text-align: center;
+            }
+        }
+        
+        /* Enhanced tablet responsiveness */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .books-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .modal-content {
+                max-width: 500px;
+            }
+            
+            .logo {
+                /* Tamanho da logo para tablet */
+                width: 70px;
+                height: 70px;
+            }
+            
+            /* Ajustando margin-top para tablet */
+            .main-content {
+                margin-top: 130px;
+            }
+        }
+        
+        /* Large screen optimizations */
+        @media (min-width: 1200px) {
+            .books-grid {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 1200px;
+                margin: 0 auto 3rem auto;
+            }
+        }
+        
+        /* Enhanced extra small screens support */
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0;
+                gap: 0.6rem;
+            }
+            
+            .logo {
+                /* Logo ainda menor para telas muito pequenas */
+                width: 50px;
+                height: 50px;
+            }
+            
+            .back-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            /* Ajustando espaçamento para telas muito pequenas */
+            .main-content {
+                margin-top: 110px;
+            }
+            
+            .page-title {
+                font-size: 1.6rem;
+            }
+            
+            .modal-content {
+                padding: 1rem;
+                margin: 0.5rem;
+            }
+            
+            .modal-cover {
+                width: 100px;
+                height: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Padronizando estrutura do header com curiosidades.html -->
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%282%29-vc1HA65D8XLfpPYsX23Ii3UFKDXPaD.png" alt="HACK HYPE Logo">
+                <!-- COMENTÁRIO: Para alterar a logo, substitua o link acima -->
+            </div>
+            <a href="index.html" class="back-btn">← Voltar ao Início</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">📚 Biblioteca de Sistemas de Informação</h1>
+        
+        <div class="books-grid" id="booksGrid">
+            <!-- Livro 1 -->
+            <div class="book-card" onclick="openModal('book1')">
+                <div class="book-cover">
+                    <!-- Para trocar capa: substitua o link aqui -->
+                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRbRLUinhu-QLFMg6QgzeIQxrQKgZeALZHTE1Mkrg4HSfzqb14W" alt="Capa do livro Código Limpo"> <!-- link da capa -->
+                </div>
+                <!-- Para trocar título: substitua o nome aqui -->
+                <div class="book-title">Código Limpo</div> <!-- nome do livro -->
+                <div class="book-author">Robert C. Martin</div> <!-- Para trocar autor: substitua o nome aqui -->
+            </div>
+
+            <!-- Livro 2 -->
+            <div class="book-card" onclick="openModal('book2')">
+                <div class="book-cover">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ09Aqg5BoajkZpTaR5F8cbL0DS4IO0zqIYlQ&s" alt="Capa do livro"> <!-- Para trocar capa: substitua o link aqui -->
+                </div>
+                <div class="book-title">Python do Zero</div> <!-- Para trocar título: substitua o nome aqui -->
+                <div class="book-author">Fernando Feltrin</div> <!-- Para trocar autor: substitua o nome aqui -->
+            </div>
+
+            <!-- Livro 3 -->
+            <div class="book-card" onclick="openModal('book3')">
+                <div class="book-cover">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/61hewOW%2B8zL._UF1000%2C1000_QL80_%281%29-GOtqTkBVzcJvYSRD2unRVjk0UHP4z8.jpg" alt="Capa do livro"> <!-- Para trocar capa: substitua o link aqui -->
+                </div>
+                <div class="book-title">O Programador Pragmático</div> <!-- Para trocar título: substitua o nome aqui -->
+                <div class="book-author">Andrew Hunt e David Thomas</div> <!-- Para trocar autor: substitua o nome aqui -->
+            </div>
+
+            <!-- Livro 4 -->
+            <div class="book-card" onclick="openModal('book4')">
+                <div class="book-cover">
+                    <!-- Para trocar capa: substitua o link aqui -->
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/capa-ampliada-9788575225639%282%29-on3JD1kagTddMCMNXtjxjQdjyg13AT.jpg" alt="Capa do livro"> <!-- link da capa -->
+                </div>
+                <!-- Para trocar título: substitua o nome aqui -->
+                <div class="book-title">Entendendo Algoritmos: Um Guia Ilustrado para Programadores</div> <!-- nome do livro -->
+                <!-- Para trocar autor: substitua o nome aqui -->
+                <div class="book-author">Aditya Y. Bhargava</div>
+            </div>
+
+            <!-- Livro 5 -->
+            <div class="book-card" onclick="openModal('book5')">
+                <div class="book-cover">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/8c5cs55%282%29-Hxgo4zHIPDamZ0ErdIuJJPyms78U89.png" alt="Capa do livro"> <!-- Para trocar capa: substitua o link aqui -->
+                </div>
+                <div class="book-title">Programação em Banco de Dados</div> <!-- Para trocar título: substitua o nome aqui -->
+                <div class="book-author">Sergio Eduardo Nunes, Ricardo Alexandre Plati Moura</div> <!-- Para trocar autor: substitua o nome aqui -->
+            </div>
+
+            <!-- Livro 6 -->
+            <div class="book-card" onclick="openModal('book6')">
+                <div class="book-cover">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/91rF%2BVvvFJL._UF350%2C350_QL50_%281%29-J37YsHusTdS5TQFl1A5vudGRFNYlrQ.jpg" alt="Capa do livro"> <!-- Para trocar capa: substitua o link aqui -->
+                </div>
+                <div class="book-title">Linux a Bíblia</div> <!-- Para trocar título: substitua o nome aqui -->
+                <div class="book-author">Christopher Negus</div> <!-- Para trocar autor: substitua o nome aqui -->
+            </div>
+
+            <!-- Livro 7 -->
+            <div class="book-card" onclick="openModal('book7')">
+                <div class="book-cover">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/61AsAsgdzUL%282%29-0z5P8KnIVmuIDb1OHibaVcBQMe7XwN.jpg" alt="Capa do livro"> <!-- Para trocar capa: substitua o link aqui -->
+                </div>
+                <div class="book-title">Algoritmos e Estruturas de Dados</div> <!-- Para trocar título: substitua o nome aqui -->
+                <div class="book-author">Thomas Cormen</div> <!-- Para trocar autor: substitua o nome aqui -->
+            </div>
+
+            <!-- Livro 8 -->
+            <div class="book-card" onclick="openModal('book8')">
+                <div class="book-cover">
+                    <img src="https://photos.enjoei.com.br/public/300x300/czM6Ly9waG90b3MuZW5qb2VpLmNvbS5ici9wcm9kdWN0cy8zODQzNzI3OC9lZmUyNDg2OTBkMzQ3MDFjNTcxMjc4MzVjYjE0YmNkMC5qcGc" alt="Capa do livro"> <!-- Para trocar capa: substitua o link aqui -->
+                </div>
+                <div class="book-title">Fortaleza Digital</div> <!-- Para trocar título: substitua o nome aqui -->
+                <div class="book-author">Dan Brown</div> <!-- Para trocar autor: substitua o nome aqui -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal" id="bookModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Título do Livro</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-cover">
+                    <img id="modalCover" src="/placeholder.svg" alt="Capa do livro">
+                </div>
+                <div class="modal-info">
+                    <div class="modal-title" id="modalBookTitle">Título</div>
+                    <div class="modal-author" id="modalAuthor">Autor</div>
+                    <div class="modal-description" id="modalDescription">Descrição do livro...</div>
+                    <a href="#" id="downloadLink" class="download-btn" download>📥 Download do Livro</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados dos livros
+        const booksData = {
+            book1: {
+                title: "Código Limpo", // Para trocar título: substitua o nome aqui
+                author: "Robert C. Martin", // Para trocar autor: substitua o nome aqui
+                cover: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRbRLUinhu-QLFMg6QgzeIQxrQKgZeALZHTE1Mkrg4HSfzqb14W", // Para trocar capa: substitua o link aqui
+                description: "Um dos livros mais importantes para desenvolvedores, 'Código Limpo' ensina as melhores práticas para escrever código legível, manutenível e eficiente. Robert C. Martin compartilha décadas de experiência em desenvolvimento de software, apresentando princípios fundamentais que todo programador deveria conhecer. Essencial para quem deseja se tornar um desenvolvedor profissional.",
+                downloadLink: "https://mega.nz/file/vAUSHA7I#oyzW1kgtpnz9Ru0xWABlXnt2qnwN-pFlC7MdpRwX3BY" // Para trocar link de download: substitua o link aqui
+            },
+            book2: {
+                title: "Livro do Fernando Feltrin", // Para trocar título: substitua o nome aqui
+                author: "Fernando Feltrin", // Para trocar autor: substitua o nome aqui
+                cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ09Aqg5BoajkZpTaR5F8cbL0DS4IO0zqIYlQ&s", // Para trocar capa: substitua o link aqui
+                description: "Obra especializada do autor Fernando Feltrin, abordando conceitos fundamentais e práticas avançadas na área de Sistemas de Informação. Um recurso valioso para estudantes e profissionais que buscam aprofundar seus conhecimentos na área.",
+                downloadLink: "https://mega.nz/file/GNFBQIIZ#8K3ZqY1XWOm5yCtKLinsnfO4UMq-BDSBXjHdu4PBclc" // Para trocar link de download: substitua o link aqui
+            },
+            book3: {
+                title: "O Programador Pragmático", // Para trocar título: substitua o nome aqui
+                author: "Andrew Hunt e David Thomas", // Para trocar autor: substitua o nome aqui
+                cover: "https://m.media-amazon.com/images/I/61hewOW+8zL._UF1000,1000_QL80_.jpg", // Para trocar capa: substitua o link aqui
+                description: "Um dos livros mais influentes para desenvolvedores de software, 'O Programador Pragmático' apresenta técnicas práticas e filosofias que transformam programadores iniciantes em profissionais experientes. Os autores compartilham insights valiosos sobre como pensar sobre problemas, escrever código flexível e se adaptar às mudanças tecnológicas. Essencial para qualquer desenvolvedor que busca excelência técnica.",
+                downloadLink: "https://mega.nz/file/XMsCGRgZ#jZ2KMPIccb8obUQztVBMO_Jy2pcQPhzCrHj8l-24hGw" // Para trocar link de download: substitua o link aqui
+            },
+            book4: {
+                title: "Entendendo Algoritmos: Um Guia Ilustrado para Programadores", // Para trocar título: substitua o nome aqui
+                author: "Aditya Y. Bhargava", // Para trocar autor: substitua o nome aqui
+                cover: "https://s3.novatec.com.br/capas-ampliadas/capa-ampliada-9788575225639.jpg", // Para trocar capa: substitua o link aqui
+                description: "Um guia visual e acessível para entender algoritmos fundamentais. Aditya Bhargava usa ilustrações e exemplos práticos para explicar conceitos complexos como busca binária, algoritmos de ordenação, hash tables, grafos e programação dinâmica. Perfeito para iniciantes que querem dominar algoritmos de forma intuitiva e divertida.",
+                downloadLink: "https://mega.nz/file/qc9UQLjC#ZxR7WVdgsQ7GEnhWne3ShKCojduK9im0TZT2Jev3vrc" // Para trocar link de download: substitua o link aqui
+            },
+            book5: {
+                title: "Programação em banco de dados", // Para trocar título: substitua o nome aqui
+                author: "Sergio Eduardo Nunes, Ricardo Alexandre Plati Moura", // Para trocar autor: substitua o nome aqui
+                cover: "https://img2.doceru.com/image/m/8c5cs55.png", // Para trocar capa: substitua o link aqui
+                description: "Este livro aborda a programação em bancos de dados, uma competência essencial para profissionais da área de Tecnologia da Informação e Comunicação, como administradores de banco de dados, programadores e cientistas de dados.",
+                downloadLink: "https://mega.nz/file/SNkhDAgJ#8uxUzepFG3IFv8EKLwNqOFWAq2bjk_JyGrFPmaUH0e8" // Para trocar link de download: substitua o link aqui
+            },
+            book6: {
+                title: "Linux a Bíblia", // Para trocar título: substitua o nome aqui
+                author: "Christopher Negus", // Para trocar autor: substitua o nome aqui
+                cover: "https://m.media-amazon.com/images/I/91rF+VvvFJL._UF350,350_QL50_.jpg", // Para trocar capa: substitua o link aqui
+                description: "O guia definitivo para dominar o Linux, cobrindo desde conceitos básicos até administração avançada de sistemas. Inclui tutoriais práticos, dicas de configuração e exemplos reais para usuários de todos os níveis.",
+                downloadLink: "https://mega.nz/file/2VExlD5a#aSdUkTx9mmBYbL2vUcGeKjborM6B9qWGEKpofKptvuM" // Para trocar link de download: substitua o link aqui
+            },
+            book7: {
+                title: "Controlando versões com Git e Github", // Para trocar título: substitua o nome aqui
+                author: "Alexandre Aquiles, Rodrigo Ferreira", // Para trocar autor: substitua o nome aqui
+                cover: "https://m.media-amazon.com/images/I/61AsAsgdzUL.jpg", // Para trocar capa: substitua o link aqui
+                description: "Este guia prático é ideal para programadores que buscam dominar sistemas de controle de versão, com foco especial em Git e GitHub. Ele desmistifica conceitos como histórico de código e colaboração em equipe, guiando o leitor desde a instalação e configuração do Git até o uso avançado de repositórios locais e remotos.",
+                downloadLink: "https://mega.nz/file/DE1X1JQR#sDCplqKCKOYE45Tj94bfPwTcr-jfyugVuSNtQe2-ZCE" // Para trocar link de download: substitua o link aqui
+            },
+            book8: {
+                title: "Fortaleza Digital", // Para trocar título: substitua o nome aqui
+                author: "Dan Brown", // Para trocar autor: substitua o nome aqui
+                cover: "https://photos.enjoei.com.br/public/300x300/czM6Ly9waG90b3MuZW5qb2VpLmNvbS5ici9wcm9kdWN0cy8zODQzNzI3OC9lZmUyNDg2OTBkMzQ3MDFjNTcxMjc4MzVjYjE0YmNkMC5qcGc", // Para trocar capa: substitua o link aqui
+                description: "Em Fortaleza Digital, Dan Brown nos transporta para o coração da ultra-secreta e poderosa Agência de Segurança Nacional (NSA) dos Estados Unidos. O thriller mergulha no intrigante universo dos serviços de informação e da criptografia, onde um brilhante matemático da NSA, David Becker, se vê envolvido em uma corrida contra o tempo.",
+                downloadLink: "https://mega.nz/file/udF0hAiA#JFwTf0upANY7SogNOrwhMbz_2zdsGVaN4B75TZTpcNc" // Para trocar link de download: substitua o link aqui
+            }
+        };
+
+        // Função para abrir modal
+        function openModal(bookId) {
+            const book = booksData[bookId];
+            const modal = document.getElementById('bookModal');
+            
+            document.getElementById('modalTitle').textContent = book.title;
+            document.getElementById('modalBookTitle').textContent = book.title;
+            document.getElementById('modalAuthor').textContent = book.author;
+            document.getElementById('modalCover').src = book.cover;
+            document.getElementById('modalDescription').textContent = book.description;
+            document.getElementById('downloadLink').href = book.downloadLink;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Função para fechar modal
+        function closeModal() {
+            const modal = document.getElementById('bookModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fechar modal clicando fora
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Animação de entrada dos cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.book-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('fade-in');
+                }, index * 100);
+            });
+        });
+
+        // Fechar modal com ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

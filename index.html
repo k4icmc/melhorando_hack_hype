@@ -1,0 +1,2284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACK HYPE - Painel Principal</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Adicionando partículas flutuantes de fundo */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #00ffff;
+            /* Reduzindo tempo de animação do header de 0.8s para 0.3s */
+            animation: slideInFromTop 0.3s ease-out;
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            width: 100px; /* Aumentado de 60px para 70px - tamanho da logo ajustável aqui */
+            height: 70px; /* Aumentado de 60px para 70px - tamanho da logo ajustável aqui */
+            /* Removido border-radius: 50% para eliminar o círculo */
+            border-radius: 12px; /* Adicionado border-radius suave */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #000;
+            /* Added logo image with cyan outline effect */
+            border: 1px solid #00ffff;
+            animation: logoGlow 5s ease-in-out infinite alternate;
+        }
+
+        .logo img {
+            width: 100px;
+            height: 105px;
+            object-fit: cover;
+            border-radius: 19px; /* Ajustado para acompanhar o container */
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        @keyframes logoGlow {
+            from {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+                transform: scale(1);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Adicionando efeito de onda nos botões do menu */
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .nav-item:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .nav-item:hover {
+            color: #00ffff;
+            transform: translateY(-2px);
+        }
+
+        /* Adicionando estilos para o botão de feedback */
+        .feedback-btn {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            border-radius: 20px;
+            padding: 8px 16px !important;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .feedback-btn:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-section {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .content-section.active {
+            display: block;
+            /* Reduzindo tempo de animação de 0.6s para 0.3s */
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Home Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0 2rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            /* Reduzindo tempo de animação do título de 1.2s para 0.4s */
+            animation: fadeInTitle 0.4s ease-out;
+        }
+
+        @keyframes fadeInTitle {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #cccccc;
+            /* Reduzindo delay de 1.5s para 0.2s e duração de 1s para 0.5s */
+            animation: fadeInUp 0.5s ease 0.2s both;
+        }
+
+        /* Vídeo de Apresentação */
+        .presentation-video-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .video-title {
+            color: #00ffff;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        /* Nosso Time Section */
+        .team-section {
+            margin: 4rem 0;
+        }
+
+        .team-toggle-btn {
+            display: block;
+            width: 300px;
+            margin: 0 auto 2rem auto;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Adicionando efeito de brilho deslizante no botão */
+        .team-toggle-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .team-toggle-btn:hover::after {
+            left: 100%;
+        }
+
+        .team-toggle-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+        }
+
+        .team-btn-text {
+            margin-right: 1rem;
+        }
+
+        .team-btn-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .team-btn-arrow.rotated {
+            transform: rotate(180deg);
+        }
+
+        .team-container {
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .team-container.show {
+            animation: slideDown 0.5s ease forwards;
+        }
+
+        .team-container.hide {
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                max-height: 1000px;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 1;
+                max-height: 1000px;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                max-height: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About, Contact, Questions Sections */
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            margin: 2rem 0;
+            /* Adicionando animação de borda pulsante */
+            animation: borderPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% {
+                border-color: rgba(0, 255, 255, 0.3);
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+            }
+            50% {
+                border-color: rgba(0, 255, 255, 0.6);
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            }
+        }
+
+        .info-box h2 {
+            color: #00ffff;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .info-box p {
+            line-height: 1.6;
+            color: #cccccc;
+            margin-bottom: 1rem;
+        }
+
+        /* Shortcuts Section */
+        .shortcuts-section {
+            margin: 3rem 0 4rem 0;
+        }
+
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .shortcut-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Adicionando efeito de partículas nos cards */
+        .shortcut-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+
+        .shortcut-card:hover::before {
+            transform: scale(1);
+        }
+
+        .shortcut-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.4);
+            border-color: #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .shortcut-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            /* Adicionando animação de rotação no hover */
+            transition: transform 0.3s ease;
+        }
+
+        .shortcut-card:hover .shortcut-icon {
+            transform: rotateY(360deg);
+        }
+
+        .shortcut-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .shortcut-desc {
+            font-size: 0.9rem;
+            color: #cccccc;
+            line-height: 1.4;
+        }
+
+        /* Team Members */
+        /* Melhorado grid dos membros para evitar cortes */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            /* Altura fixa para evitar cortes e garantir uniformidade */
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* Adicionando efeito hover nos cards dos membros */
+        .team-member::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .team-member:hover::after {
+            left: 100%;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+            border-color: #00ffff;
+        }
+
+        .member-photo {
+            width: 92px;
+            height: 92px;
+            border-radius: 12px;
+            margin: 0 auto 1rem auto;
+            border: 3px solid #00ffff;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover .member-photo {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 9px;
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            font-size: 1rem;
+            color: #ffffff;
+            /* Removed margin-bottom to simplify card */
+            margin-bottom: 0;
+            font-weight: 600;
+        }
+
+        /* Removed member-description from cards - only shows in modal */
+
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(0, 255, 255, 0.6);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: rgba(0, 255, 255, 0.1);
+            border: none;
+            padding: 1.5rem;
+            text-align: left;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+        }
+
+        .faq-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            color: #00ffff;
+        }
+
+        /* Removendo estilos do accordion e adicionando estilos do popup */
+        /* Modal/Popup styles */
+        .faq-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .faq-modal-content {
+            background: linear-gradient(135deg, rgba(0, 20, 40, 0.95), rgba(0, 40, 80, 0.95));
+            /* Ajustando posicionamento para desktop e mobile */
+            margin: 15vh auto 0;
+            padding: 2rem;
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 15px;
+            width: 85%;
+            max-width: 650px;
+            max-height: 65vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .faq-modal-header {
+            color: #00ffff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+            line-height: 1.4;
+        }
+
+        .faq-modal-body {
+            color: #ffffff;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: justify;
+            margin-bottom: 0;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            /* Limitando altura das respostas a 5 linhas com scroll */
+            max-height: 8.5rem; /* Aproximadamente 5 linhas (1.7 line-height * 5) */
+            overflow-y: auto;
+            padding-right: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 255, 255, 0.5) rgba(0, 40, 80, 0.3);
+        }
+
+        /* Estilizando scrollbar para webkit browsers */
+        .faq-modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .faq-modal-body::-webkit-scrollbar-track {
+            background: rgba(0, 40, 80, 0.3);
+            border-radius: 3px;
+        }
+
+        .faq-modal-body::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 255, 0.5);
+            border-radius: 3px;
+        }
+
+        .faq-modal-body::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 255, 0.7);
+        }
+
+        /* Reposicionando botão X para ficar sempre visível e acessível */
+        .faq-close {
+            position: fixed;
+            bottom: 12vh;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #00ffff;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 20, 40, 0.95);
+            border: 3px solid rgba(0, 255, 255, 0.6);
+            z-index: 1001;
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.4);
+        }
+
+        .faq-close:hover {
+            background: rgba(0, 255, 255, 0.2);
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.6);
+            border-color: rgba(0, 255, 255, 0.8);
+        }
+
+        /* Melhorando responsividade mobile */
+        @media (max-width: 768px) {
+            .faq-modal-content {
+                margin: 20vh auto 0;
+                width: 92%;
+                padding: 1.5rem;
+                max-height: 55vh;
+                border-radius: 12px;
+            }
+            
+            .faq-modal-header {
+                font-size: 1.1rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .faq-modal-body {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                /* Ajustando altura para mobile (5 linhas com line-height 1.6) */
+                max-height: 8rem;
+            }
+
+        }
+
+        /* Adicionando responsividade para telas muito pequenas */
+        @media (max-width: 480px) {
+            .faq-modal-content {
+                margin: 25vh auto 0;
+                width: 95%;
+                padding: 1.2rem;
+                max-height: 50vh;
+            }
+            
+            .faq-modal-header {
+                font-size: 1rem;
+                /* Continuando com o código existente */
+            }
+            
+            .faq-modal-body {
+                /* Mantendo altura limitada para telas pequenas */
+                max-height: 7.5rem;
+            }
+
+        }
+
+        /* Responsive */
+        /* Melhorando responsividade com breakpoints padronizados */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.8rem 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .logo {
+                width: 50px;
+                height: 50px;
+                font-size: 0.9rem;
+            }
+            
+            .nav-menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .nav-item {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .main-content {
+                margin-top: 140px;
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+            
+            .hero p {
+                font-size: 0.9rem;
+                margin: 1rem 0 2rem 0;
+            }
+
+            .presentation-video-container {
+                margin: 30px auto;
+                padding: 0 15px;
+            }
+            
+            .video-title {
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+            }
+            
+            .about-section {
+                margin-top: 40px;
+            }
+
+            .presentation-video-container .video-wrapper {
+                padding-bottom: 56.25%;
+            }
+
+            .shortcuts-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .shortcut-card {
+                padding: 1.2rem 0.8rem;
+            }
+            
+            .shortcut-card h3 {
+                font-size: 0.9rem;
+            }
+            
+            .shortcut-card p {
+                font-size: 0.7rem;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .team-member {
+                height: 240px;
+                padding: 1.2rem;
+            }
+            
+            .member-photo {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .info-box {
+                padding: 1.2rem;
+                margin: 0.8rem 0;
+            }
+            
+            .faq-question {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+        }
+
+        @media (max-width: 480px) {
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .team-member {
+                height: 220px;
+                padding: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .presentation-video-container {
+                margin: 20px auto;
+                padding: 0 10px;
+            }
+            
+            .video-title {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .shortcuts-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        /* Large screen optimizations */
+        @media (min-width: 1400px) {
+            .shortcuts-grid {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 1200px;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 1200px;
+            }
+        }
+
+        /* Adding modal styles for team member details */
+        .member-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            backdrop-filter: blur(10px);
+        }
+
+        .member-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .member-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .member-close-btn {
+            background: none;
+            border: none;
+            color: #00ffff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .member-close-btn:hover {
+            transform: scale(1.2);
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        .member-modal-body {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .member-modal-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            /* Fixed image container to prevent cropping */
+            border: 2px solid #00ffff;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .member-modal-photo img {
+            width: 100%;
+            height: 100%;
+            /* Changed from cover to contain to show full image without cropping */
+            object-fit: contain;
+            object-position: center;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .member-modal-info {
+            flex: 1;
+        }
+
+        .member-modal-name {
+            font-size: 1.8rem;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .member-modal-role {
+            color: #cccccc;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .member-modal-description {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #e0e0e0;
+        }
+
+        .member-modal-skills {
+            margin-bottom: 1.5rem;
+        }
+
+        .member-modal-skills h4 {
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-modal-skills ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .member-modal-skills li {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            margin: 0.3rem 0.3rem 0.3rem 0;
+            border-radius: 15px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .member-modal-body {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .member-modal-photo {
+                width: 150px;
+                height: 150px;
+                margin: 0 auto;
+                /* Ensuring mobile modal photo also shows full image */
+                border: 2px solid #00ffff;
+            }
+            
+            .member-modal-name {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Modificando estilos para pop-up de membros ao invés de expansão */
+        .team-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            backdrop-filter: blur(10px);
+        }
+
+        .team-popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 1200px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .team-popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .team-popup-title {
+            font-size: 2.5rem;
+            color: #00ffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .team-close-btn {
+            background: none;
+            border: none;
+            color: #00ffff;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .team-close-btn:hover {
+            transform: scale(1.2);
+            text-shadow: 0 0 15px #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .team-popup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .team-popup-member {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .team-popup-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+            border-color: #00ffff;
+        }
+
+        .team-popup-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            margin: 0 auto 1rem auto;
+            border: 2px solid #00ffff;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+        }
+
+        .team-popup-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .team-popup-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-popup-role {
+            font-size: 0.9rem;
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .team-popup-content {
+                width: 98%;
+                padding: 1.5rem;
+                max-height: 95vh;
+            }
+            
+            .team-popup-title {
+                font-size: 2rem;
+            }
+            
+            .team-popup-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            
+            .team-close-btn {
+                font-size: 2.5rem;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Adicionando estilos para o div de vídeo de apresentação */
+        /* Movendo vídeo de apresentação para o lado esquerdo */
+        .presentation-video {
+            /* Mudando de position fixed para absolute para não acompanhar scroll */
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            /* Removendo transições e animações */
+            cursor: move;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .presentation-video:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            /* Removendo transform scale */
+        }
+
+        /* Adicionando estado de arraste */
+        .presentation-video.dragging {
+            /* Removendo transições e transforms */
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
+        }
+
+        .video-close-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff0040;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            /* Aumentando tamanho do botão de 25px para 50px (2x maior) */
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            /* Aumentando fonte de 16px para 24px para acompanhar o tamanho */
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Adicionando padding para aumentar área clicável */
+            padding: 10px;
+            /* Adicionando z-index para garantir que fique acima de outros elementos */
+            z-index: 1000;
+            /* Removendo todas as animações e transições */
+            /* Adicionando box-sizing para garantir dimensões corretas */
+            box-sizing: border-box;
+            /* Garantindo que o botão seja clicável exatamente onde aparece */
+            pointer-events: auto;
+            /* Removendo padding que pode causar desalinhamento */
+            padding: 0;
+            /* Centralizando o conteúdo perfeitamente */
+            line-height: 1;
+        }
+
+        .video-close-btn:hover {
+            background: #ff3366;
+            /* Removendo todas as animações hover */
+        }
+
+        /* Responsividade para o vídeo de apresentação */
+        @media (max-width: 768px) {
+            .presentation-video {
+                /* Mantendo posição consistente no mobile também no canto superior esquerdo */
+                position: absolute;
+                top: 120px;
+                left: 20px;
+                /* Garantindo que o container não interfira no posicionamento do botão */
+                overflow: visible;
+            }
+            
+            .presentation-video iframe {
+                width: 250px;
+                height: 140px;
+            }
+
+            /* Ajustando especificamente o botão no mobile */
+            .video-close-btn {
+                /* Posicionamento mais preciso no mobile */
+                top: -15px;
+                right: -15px;
+                /* Mantendo tamanho consistente */
+                width: 50px;
+                height: 50px;
+                /* Garantindo que o touch target seja exato */
+                touch-action: manipulation;
+                /* Removendo qualquer margem ou padding que possa desalinhar */
+                margin: 0;
+                padding: 0;
+                /* Garantindo z-index alto para mobile */
+                z-index: 1002;
+            }
+        }
+
+        /* Adicionando estilos para barra de contatos inferior */
+        /* Modificando barra de contatos para aparecer apenas no scroll */
+        .contact-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 15px 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: all 0.8s ease;
+        }
+
+        .contact-bar.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-icon {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.8s ease;
+            color: #000;
+            font-size: 20px;
+        }
+
+        .contact-icon:hover {
+            transform: scale(1,1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Adicionando estilos para seção sobre integrada */
+        .about-section {
+            margin-top: 60px;
+            clear: both;
+            padding: 2rem;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .about-section h2 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .about-section p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        /* Responsividade para mobile */
+        @media (max-width: 768px) {
+            .about-section {
+                padding: 1rem;
+                margin-top: 40px;
+            }
+
+            .about-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Adicionando partículas flutuantes -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Replaced text logo with image logo -->
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%283%29%281%29%281%29%282%29%281%29%281%29%281%29-TeLPV3cK1QwHKUOtLSkwPG1VYqteuu.png" alt="HACK HYPE Logo">
+                <!-- COMENTÁRIO: Para alterar a logo, substitua o link acima -->
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="showSection('home')">HOME</li>
+                <!-- Removidos botões SOBRE e CONTATO do menu -->
+                <li class="nav-item" onclick="showSection('perguntas')">PERGUNTAS</li>
+                <!-- Botão feedback mantido conforme solicitado -->
+                <li class="nav-item" onclick="window.open('https://ayadlljq.formester.com/f/srOu3CGD7', '_blank')">FEEDBACK</li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="content-section active">
+            <div class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">HACK HYPE</h1>
+                <p class="hero-subtitle">Hackeando Limites, Hypando Possibilidades!</p>
+                
+
+
+
+
+
+
+
+                <!-- Adicionando vídeo de apresentação centralizado -->
+                <div class="presentation-video-container">
+                    
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/dQw4w9WgXc" 
+                            title="Vídeo de Apresentação"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                
+                <!-- Adicionando seção sobre integrada abaixo da frase principal -->
+                <div class="about-section">
+                    <h2>Sobre</h2>
+                    <p><strong>Formação Completa e Inovadora:</strong> O curso de Sistemas de Informação forma profissionais capazes de analisar, projetar, implementar e gerenciar sistemas de informação em organizações de diversos setores. Nossa abordagem combina conhecimentos técnicos sólidos com visão estratégica de negócios.</p>
+                    
+                    <p><strong>Grade Curricular Abrangente:</strong> O currículo inclui disciplinas como Programação (Java, Python, JavaScript), Banco de Dados, Engenharia de Software, Redes de Computadores, Segurança da Informação, Gestão de Projetos, Análise de Sistemas, Inteligência Artificial, Machine Learning e muito mais.</p>
+                    
+                    <p><strong>Metodologia de Ensino:</strong> Utilizamos metodologias ativas de aprendizagem, projetos práticos em parceria com empresas, laboratórios equipados com tecnologia de ponta, e um corpo docente formado por mestres e doutores com experiência no mercado.</p>
+                    
+                    <p><strong>Áreas de Atuação:</strong> Nossos egressos trabalham como Desenvolvedores Full Stack, Analistas de Sistemas, Gerentes de Projetos de TI, Consultores em Tecnologia, Arquitetos de Software, Especialistas em Segurança da Informação, Analistas de Dados, Product Owners, e muito mais.</p>
+                </div>
+            </div>
+
+            <!-- Shortcuts Section -->
+            <div class="shortcuts-section">
+                <h2 class="section-title">ATALHOS RÁPIDOS</h2>
+                <div class="shortcuts-grid">
+                    <a href="videos.html" class="shortcut-card">
+                        <span class="shortcut-icon">🎥</span>
+                        <div class="shortcut-title">Vídeos</div>
+                        <div class="shortcut-desc">Tutoriais e aulas em vídeo</div>
+                    </a>
+                    <a href="livros.html" class="shortcut-card">
+                        <span class="shortcut-icon">📚</span>
+                        <div class="shortcut-title">Livros</div>
+                        <div class="shortcut-desc">Bibliografia recomendada</div>
+                    </a>
+                    <a href="codigos-ajuda.html" class="shortcut-card">
+                        <span class="shortcut-icon">💻</span>
+                        <div class="shortcut-title">Códigos para Ajuda</div>
+                        <div class="shortcut-desc">Exemplos e soluções práticas</div>
+                    </a>
+                    <a href="curiosidades.html" class="shortcut-card">
+                        <span class="shortcut-icon">🔍</span>
+                        <div class="shortcut-title">Curiosidades</div>
+                        <div class="shortcut-desc">Fatos interessantes da área</div>
+                    </a>
+                    <!-- Removidos os atalhos "Mercado de Trabalho" e "Estatísticas" -->
+                    <a href="por-onde-comecar.html" class="shortcut-card"> <!-- Atualizando link para a nova página -->
+                        <span class="shortcut-icon">🚀</span>
+                        <div class="shortcut-title">Por Onde Começar</div>
+                        <div class="shortcut-desc">Guia para iniciantes</div>
+                    </a>
+                    <!-- Adicionando botão para o Centro de Inteligência -->
+                    <a href="centro-inteligencia.html" class="shortcut-card">
+                        <span class="shortcut-icon">🧠</span>
+                        <h3 class="shortcut-title">Centro de Inteligência TI</h3>
+                        <p class="shortcut-desc">Dashboard em tempo real com dados do mercado de TI</p>
+                    </a>
+                    <!-- Adicionando botão para o Centro de IAs -->
+                    <a href="centro-ias.html" class="shortcut-card">
+                        <span class="shortcut-icon">🤖</span>
+                        <div class="shortcut-title">Centro de IAs</div>
+                        <div class="shortcut-desc">60+ Inteligências Artificiais organizadas</div>
+                    </a>
+                    
+                    <a href="ferramentas.html" class="shortcut-card">
+                        <span class="shortcut-icon">🛠️</span>
+                        <div class="shortcut-title">Ferramentas</div>
+                        <div class="shortcut-desc">Software essencial para desenvolvimento</div>
+                    </a>
+                    <a href="projetos-praticos.html" class="shortcut-card"> <!-- removido target="_blank" para abrir na mesma página -->
+                        <span class="shortcut-icon">🎯</span>
+                        <div class="shortcut-title">Projetos Práticos</div>
+                        <div class="shortcut-desc">Exercícios e desafios</div>
+                    </a>
+                    <a href="links-uteis.html" class="shortcut-card"> <!-- removido target="_blank" para abrir na mesma página -->
+                        <span class="shortcut-icon">🌐</span>
+                        <div class="shortcut-title">Links Úteis</div>
+                        <div class="shortcut-desc">Sites e recursos externos</div>
+                    </a>
+                    <!-- Adicionando botão para o Dashboard Financeiro -->
+                    <a href="dashboard-financeiro.html" class="shortcut-card">
+                        <span class="shortcut-icon">📈</span>
+                        <div class="shortcut-title">Dashboard Financeiro</div>
+                        <div class="shortcut-desc">Cotações em tempo real de moedas e criptomoedas</div>
+                    </a>
+                     <!-- Adicionando botão para o Marketplace Tech -->
+                    <a href="marketplace.html" class="shortcut-card">
+                        <span class="shortcut-icon">🛒</span>
+                        <div class="shortcut-title">Marketplace Tech</div>
+                        <div class="shortcut-desc">60+ produtos de tecnologia com preços em tempo real</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nosso Time -->
+            <!-- Modificando seção de time para abrir pop-up ao invés de expandir -->
+            <div class="team-section">
+                <button class="team-toggle-btn" onclick="openTeamPopup()">
+                    <span class="team-btn-text">NOSSO TIME</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Sobre Section -->
+        <section id="sobre" class="content-section">
+            <div class="info-box">
+                <!-- Expandindo conteúdo da seção sobre com informações detalhadas -->
+                <h2>Sobre o Curso de Sistemas de Informação</h2>
+                <p><strong>Formação Completa e Inovadora:</strong> O curso de Sistemas de Informação forma profissionais capazes de analisar, projetar, implementar e gerenciar sistemas de informação em organizações de diversos setores. Nossa abordagem combina conhecimentos técnicos sólidos com visão estratégica de negócios.</p>
+                
+                <p><strong>Grade Curricular Abrangente:</strong> O currículo inclui disciplinas como Programação (Java, Python, JavaScript), Banco de Dados, Engenharia de Software, Redes de Computadores, Segurança da Informação, Gestão de Projetos, Análise de Sistemas, Inteligência Artificial, Machine Learning e muito mais.</p>
+                
+                <p><strong>Metodologia de Ensino:</strong> Utilizamos metodologias ativas de aprendizagem, projetos práticos em parceria com empresas, laboratórios equipados com tecnologia de ponta, e um corpo docente formado por mestres e doutores com experiência no mercado.</p>
+                
+                <p><strong>Áreas de Atuação:</strong> Nossos egressos trabalham como Desenvolvedores Full Stack, Analistas de Sistemas, Gerentes de Projetos de TI, Consultores em Tecnologia, Arquitetos de Software, Especialistas em Segurança da Informação, Analistas de Dados, Product Owners, e muito mais.</p>
+                
+                <p><strong>Diferenciais do Curso:</strong> Parcerias com grandes empresas de tecnologia, programa de estágios estruturado, incubadora de startups, eventos técnicos regulares, certificações internacionais, e índice de empregabilidade de 95% em até 6 meses após a formatura.</p>
+                
+                <p><strong>Infraestrutura:</strong> Campus moderno com laboratórios de última geração, biblioteca especializada, auditórios equipados, espaços de coworking para projetos estudantis, e acesso a plataformas de desenvolvimento em nuvem.</p>
+            </div>
+        </section>
+
+        <!-- Contato Section -->
+        <section id="contato" class="content-section">
+            <div class="info-box">
+                <!-- Modificando seção de contato para incluir apenas Instagram e Forms -->
+                <h2>Entre em Contato</h2>
+                <p style="margin-bottom: 30px; color: #00ffff; font-size: 18px;">Conecte-se conosco através dos nossos canais oficiais:</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 25px; align-items: center;">
+                    <!-- Instagram -->
+                    <div style="background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border: 2px solid #00ffff; padding: 20px; border-radius: 15px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);">
+                        <h3 style="color: #00ffff; margin-bottom: 10px; font-size: 20px;">📸 Instagram</h3>
+                        <p style="color: #cccccc; margin-bottom: 15px; font-size: 14px;">Siga-nos para conteúdos exclusivos sobre Sistemas de Informação</p>
+                        <a href="https://www.instagram.com/h4ck_hype?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
+                           target="_blank" 
+                           style="background: #00ffff; color: #1a1a1a; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; display: inline-block; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);">
+                            @h4ck_hype
+                        </a>
+                    </div>
+
+                    <!-- Forms -->
+                    <div style="background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border: 2px solid #00ffff; padding: 20px; border-radius: 15px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);">
+                        <h3 style="color: #00ffff; margin-bottom: 10px; font-size: 20px;">📝 Formulário de Contato</h3>
+                        <p style="color: #cccccc; margin-bottom: 15px; font-size: 14px;">Envie suas dúvidas, sugestões ou feedback diretamente para nós</p>
+                        <a href="https://ayadlljq.formester.com/f/srOu3CGD7" 
+                           target="_blank" 
+                           style="background: #00ffff; color: #1a1a1a; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; display: inline-block; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);">
+                            Preencher Formulário
+                        </a>
+                    </div>
+                </div>
+
+                <p style="margin-top: 30px; color: #888; font-size: 14px; text-align: center;">
+                    💡 <strong>Dica:</strong> Respondemos mais rapidamente pelo Instagram! Para dúvidas detalhadas, use o formulário.
+                </p>
+            </div>
+        </section>
+
+        <!-- Perguntas Section -->
+        <section id="perguntas" class="content-section">
+            <div class="info-box">
+                <!-- Modificando sistema de FAQ para usar popups -->
+                <h2>Perguntas Frequentes</h2>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="openFAQModal(1)">
+                        <span>Qual a duração do curso e como é estruturado?</span>
+                        <span class="faq-arrow">❓</span>
+                    </button>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="openFAQModal(2)">
+                        <span>Quais são os pré-requisitos e processo seletivo?</span>
+                        <span class="faq-arrow">❓</span>
+                    </button>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="openFAQModal(3)">
+                        <span>O curso é reconhecido e qual a avaliação do MEC?</span>
+                        <span class="faq-arrow">❓</span>
+                    </button>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="openFAQModal(4)">
+                        <span>Como funcionam os estágios e oportunidades de emprego?</span>
+                        <span class="faq-arrow">❓</span>
+                    </button>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="openFAQModal(5)">
+                        <span>Qual o perfil salarial e mercado de trabalho?</span>
+                        <span class="faq-arrow">❓</span>
+                    </button>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="openFAQModal(6)">
+                        <span>Quais tecnologias e linguagens são ensinadas?</span>
+                        <span class="faq-arrow">❓</span>
+                    </button>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="openFAQModal(7)">
+                        <span>Há possibilidade de intercâmbio e certificações?</span>
+                        <span class="faq-arrow">❓</span>
+                    </button>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="openFAQModal(8)">
+                        <span>Como é a infraestrutura e recursos disponíveis?</span>
+                        <span class="faq-arrow">❓</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adicionando modais para cada pergunta -->
+        <!-- FAQ Modals -->
+        <!-- Adicionando pergunta em cada modal -->
+        <div id="faqModal1" class="faq-modal">
+            <div class="faq-modal-content">
+                <div class="faq-modal-header">Qual a duração do curso e como é estruturado?</div>
+                <div class="faq-modal-body">
+                    O curso tem duração de 4 anos (8 semestres) com carga horária total de 3.200 horas. É estruturado em ciclos: Básico (1º-2º semestre), Intermediário (3º-5º semestre) e Avançado (6º-8º semestre). Inclui estágio obrigatório de 400 horas e TCC (Trabalho de Conclusão de Curso).
+                </div>
+                <span class="faq-close" onclick="closeFAQModal(1)">&times;</span>
+            </div>
+        </div>
+
+        <div id="faqModal2" class="faq-modal">
+            <div class="faq-modal-content">
+                <div class="faq-modal-header">Quais são os pré-requisitos e processo seletivo?</div>
+                <div class="faq-modal-body">
+                    Pré-requisitos: Ensino médio completo. O processo seletivo inclui prova de conhecimentos gerais, redação, e entrevista. Oferecemos também ingresso via ENEM com nota mínima de 500 pontos. Há bolsas de estudo para estudantes de baixa renda e programas de financiamento estudantil.
+                </div>
+                <span class="faq-close" onclick="closeFAQModal(2)">&times;</span>
+            </div>
+        </div>
+
+        <div id="faqModal3" class="faq-modal">
+            <div class="faq-modal-content">
+                <div class="faq-modal-header">O curso é reconhecido e qual a avaliação do MEC?</div>
+                <div class="faq-modal-body">
+                    Sim, nosso curso possui reconhecimento do MEC com conceito 5 (nota máxima). Somos credenciados pelo INEP e participamos regularmente do ENADE. A instituição possui selo de qualidade ISO 9001 e é membro da Associação Brasileira de Mantenedoras de Ensino Superior (ABMES).
+                </div>
+                <span class="faq-close" onclick="closeFAQModal(3)">&times;</span>
+            </div>
+        </div>
+
+        <div id="faqModal4" class="faq-modal">
+            <div class="faq-modal-content">
+                <div class="faq-modal-header">Como funcionam os estágios e oportunidades de emprego?</div>
+                <div class="faq-modal-body">
+                    Temos parcerias com mais de 200 empresas incluindo Google, Microsoft, IBM, Accenture, e startups locais. Oferecemos estágios remunerados a partir do 3º semestre, programa de trainee exclusivo, e centro de carreiras com orientação profissional. Taxa de empregabilidade: 95% em até 6 meses após formatura.
+                </div>
+                <span class="faq-close" onclick="closeFAQModal(4)">&times;</span>
+            </div>
+        </div>
+
+        <div id="faqModal5" class="faq-modal">
+            <div class="faq-modal-content">
+                <div class="faq-modal-header">Qual o perfil salarial e mercado de trabalho?</div>
+                <div class="faq-modal-body">
+                    O mercado de TI cresce 15% ao ano no Brasil. Salários iniciais: R$ 3.500-5.000 (júnior), R$ 6.000-10.000 (pleno), R$ 12.000+ (sênior). Áreas em alta: Inteligência Artificial, Cybersecurity, Cloud Computing, DevOps. Possibilidade de trabalho remoto e internacional.
+                </div>
+                <span class="faq-close" onclick="closeFAQModal(5)">&times;</span>
+            </div>
+        </div>
+
+        <div id="faqModal6" class="faq-modal">
+            <div class="faq-modal-content">
+                <div class="faq-modal-header">Quais tecnologias e linguagens são ensinadas?</div>
+                <div class="faq-modal-body">
+                    Linguagens: Java, Python, JavaScript, C#, SQL, HTML/CSS. Frameworks: React, Angular, Spring Boot, Django, .NET. Bancos: MySQL, PostgreSQL, MongoDB. Cloud: AWS, Azure, Google Cloud. Ferramentas: Git, Docker, Kubernetes, Jenkins. Metodologias: Scrum, Kanban, DevOps.
+                </div>
+                <span class="faq-close" onclick="closeFAQModal(6)">&times;</span>
+            </div>
+        </div>
+
+        <div id="faqModal7" class="faq-modal">
+            <div class="faq-modal-content">
+                <div class="faq-modal-header">Há possibilidade de intercâmbio e certificações?</div>
+                <div class="faq-modal-body">
+                    Sim! Parcerias com universidades nos EUA, Canadá, Alemanha e Portugal. Programa de dupla diplomação disponível. Certificações oferecidas: AWS Cloud Practitioner, Microsoft Azure, Google Cloud, Oracle, Cisco, CompTIA. Preparação inclusa no currículo sem custo adicional.
+                </div>
+                <span class="faq-close" onclick="closeFAQModal(7)">&times;</span>
+            </div>
+        </div>
+
+        <div id="faqModal8" class="faq-modal">
+            <div class="faq-modal-content">
+                <div class="faq-modal-header">Como é a infraestrutura e recursos disponíveis?</div>
+                <div class="faq-modal-body">
+                    Campus de 15.000m² com 12 laboratórios de informática, biblioteca com 50.000 volumes, auditórios para 500 pessoas, espaços maker, incubadora de startups, datacenter próprio, WiFi 6 em todo campus, e acesso gratuito a plataformas como GitHub Pro, JetBrains, Adobe Creative Suite.
+                </div>
+                <span class="faq-close" onclick="closeFAQModal(8)">&times;</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Adicionando barra de contatos inferior com ícone de usuário -->
+    <div class="contact-bar">
+        <button class="contact-icon" onclick="showSection('contato')" title="Contatos">
+            👤
+        </button>
+    </div>
+
+    <!-- Adding member modal -->
+    <div class="member-modal" id="memberModal">
+        <div class="member-modal-content">
+            <div class="member-modal-header">
+                <h2 id="memberModalTitle">Detalhes do Membro</h2>
+                <button class="member-close-btn" onclick="closeMemberModal()">&times;</button>
+            </div>
+            <div class="member-modal-body">
+                <div class="member-modal-photo">
+                    <img id="memberModalPhoto" src="/placeholder.svg" alt="Foto do membro">
+                </div>
+                <div class="member-modal-info">
+                    <div class="member-modal-name" id="memberModalName">Nome</div>
+                    <div class="member-modal-role" id="memberModalRole">Função</div>
+                    <div class="member-modal-description" id="memberModalDescription">Descrição detalhada...</div>
+                    <div class="member-modal-skills">
+                        <h4>Habilidades:</h4>
+                        <ul id="memberModalSkills">
+                            <li>Habilidade 1</li>
+                            <li>Habilidade 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adicionando pop-up de membros -->
+    <div class="team-popup" id="teamPopup">
+        <div class="team-popup-content">
+            <div class="team-popup-header">
+                <h2 class="team-popup-title">NOSSO TIME</h2>
+                <button class="team-close-btn" onclick="closeTeamPopup()">&times;</button>
+            </div>
+
+
+
+            <!--membros com nomes e funções-->
+            <div class="team-popup-grid">
+                <!-- MEMBRO 1: KAIC MARÇAL -->
+                <div class="team-popup-member" onclick="openMemberModal('kaic')">
+                    <div class="team-popup-photo">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/kaic%283%29%281%29%281%29%282%29%281%29%281%29%281%29-C4NHFlfGF8YekVJKouCO8FnQYmj6yy.jpg" alt="Kaic Marçal">  <!-- Para trocar imagem: substitua o link aqui -->
+                    </div>
+                    <div class="team-popup-name">KAIC MARÇAL</div>
+                    <div class="team-popup-role">Desenvolvedor Full-Stack</div>
+                </div>
+
+                <!-- MEMBRO 2: MICAL LEITE -->
+                <div class="team-popup-member" onclick="openMemberModal('mical')">
+                    <div class="team-popup-photo">
+                        <img src="https://i.ibb.co/vgsLjMF/mical.jpg" alt="Mical Leite">  <!-- Para trocar imagem: substitua o link aqui -->
+                    </div>
+                    <div class="team-popup-name">MICAL LEITE</div>
+                    <div class="team-popup-role">Gerente de Projetos</div>
+                </div>
+
+                <!-- MEMBRO 3: ICARO RIBEIRO BORGES FONSECA -->
+                <div class="team-popup-member" onclick="openMemberModal('icaro')">
+                    <div class="team-popup-photo">
+                        <img src="https://i.ibb.co/Rp1VDzRQ/icaro.jpg" alt="Icaro Ribeiro Borges Fonseca">  <!-- Para trocar imagem: substitua o link aqui -->
+                    </div>
+                    <div class="team-popup-name">ICARO RIBEIRO</div>
+                    <div class="team-popup-role">Desenvolvedor Front-End</div>
+                </div>
+
+                <!-- MEMBRO 4: RIHAN CAMILO -->
+                <div class="team-popup-member" onclick="openMemberModal('rihan')">
+                    <div class="team-popup-photo">
+                        <img src="https://i.ibb.co/zhbBWq1M/rian-camilo.jpg" alt="Rihan Camilo">  <!-- Para trocar imagem: substitua o link aqui -->
+                    </div>
+                    <div class="team-popup-name">RIHAN CAMILO</div>
+                    <div class="team-popup-role">Analista de Sistenmas</div>
+                </div>
+
+                <!-- MEMBRO 5: ENZO VIEIRA -->
+                <div class="team-popup-member" onclick="openMemberModal('enzo')">
+                    <div class="team-popup-photo">
+                        <img src="https://i.ibb.co/k69Nks26/enzo.jpg" >
+                    </div>
+                    <div class="team-popup-name">ENZO VIEIRA</div>
+                    <div class="team-popup-role">Desenvolvedor Back-end</div>
+                </div>
+
+                <!-- MEMBRO 6: RYAN GABRIEL RODRIGUES FLORENCIO -->
+                <div class="team-popup-member" onclick="openMemberModal('ryan')">
+                    <div class="team-popup-photo">
+                        <img src="https://i.ibb.co/YBy3RpKc/RYAN-GABRIEL-RODRIGUES-FLORENCIO.jpg" alt="Ryan Gabriel Rodrigues Florencio">  <!-- Adicionada foto real do Ryan -->
+                    </div>
+                    <div class="team-popup-name">RYAN GABRIEL</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-role">Desenvolvedor Back-end</div>  <!-- Função definida -->
+                </div>
+
+                <!-- MEMBRO 7: MATHEUS ALVARENGA DE AMARAL -->
+                <div class="team-popup-member" onclick="openMemberModal('matheus')">
+                    <div class="team-popup-photo">
+                        <img src="https://i.ibb.co/GQXpB3PP/Matheus-Alvarenga-de-Amaral.jpg" alt="Matheus Alvarenga de Amaral">  <!-- Adicionada foto real do Matheus -->
+                    </div>
+                    <div class="team-popup-name">MATHEUS ALVARENGA</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-role">Analista de Dados</div>  <!-- Função definida -->
+                </div>
+
+                <!-- MEMBRO 8: ARTHUR ANDRÉ DE MENDONÇA ASSUNÇÃO -->
+                <div class="team-popup-member" onclick="openMemberModal('arthur')">
+                    <div class="team-popup-photo">
+                        <img src="https://i.ibb.co/4g2H5tmv/Arthur-Andr-de-Mendon-a-Assun-o.jpg" alt="Arthur André">  <!-- Adicionada foto real do Arthur -->
+                    </div>
+                    <div class="team-popup-name">ARTHUR ANDRÉ</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-role">Designer UX/UI</div>  <!-- Função definida -->
+                </div>
+
+                <!-- MEMBRO 9: FERNANDO HENRIQUE DE AMORIM -->
+                <div class="team-popup-member" onclick="openMemberModal('fernando')">
+                    <div class="team-popup-photo">
+                        <img src="https://i.ibb.co/1fwgKgR4/Fernando-Henrique-de-Amorim.jpg" alt="Fernando Henrique de Amorim">  <!-- Adicionada foto real do Fernando -->
+                    </div>
+                    <div class="team-popup-name">FERNANDO HENRIQUE</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-role">Desenvolvedor Mobile</div>  <!-- Função definida -->
+                </div>
+
+                <!-- MEMBRO 10: KAUÃ VINÍCIUS CARDOSO GUIMARÃES -->
+                <div class="team-popup-member" onclick="openMemberModal('kaua')">
+                    <div class="team-popup-photo">
+                        <img src="https://i.ibb.co/zTKGnw3n/Kau-Vin-cius-Cardoso-Guimar-es.jpg" alt="Kauã Vinícius Cardoso Guimarães">  <!-- Adicionada foto real do Kauã -->
+                    </div>
+                    <div class="team-popup-name">KAUÃ VINÍCIUS</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-role">Especialista em Segurança</div>  <!-- Função definida -->
+                </div>
+
+                <!-- MEMBRO 11: BRENO ARAUJO OLIVEIRA JACINTHO -->
+                <div class="team-popup-member" onclick="openMemberModal('breno')">
+                    <div class="team-popup-photo">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/BRENO-ARAUJO-OLIVEIRA-JACINTHO%283%29%281%29%281%29%283%29%281%29%281%29%281%29-ahMkkjxurYfZHJFKVniXVHBpOikUF9.jpg" alt="Breno Araujo Oliveira Jacintho">  <!-- Adicionada foto real do Breno -->
+                    </div>
+                    <div class="team-popup-name">BRENO ARAUJO</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-role">Administrador de Banco de Dados</div>  <!-- Função definida -->
+                </div>
+
+                <!-- MEMBRO 12: MARCO ANTONIO ARNOLD -->
+                <div class="team-popup-member" onclick="openMemberModal('marco')">
+                    <div class="team-popup-photo">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/MARCO-ARNOLD%286%29%281%29%281%29%281%29-o6Q4JYzWcgXF3l33jfJKX28JhcYiVR.jpg" alt="Marco Antonio Arnold">  <!-- Added Marco's real photo -->
+                    </div>
+                    <div class="team-popup-name">MARCO ANTONIO ARNOLD</div>  <!-- Added Marco's real name -->
+                    <div class="team-popup-role">Desenvolvedor Frontend</div>  <!-- Added Marco's role -->
+                </div>
+
+                <!-- MEMBRO 13: LUIZ EDUARDO PAULINO DE ALMEIDA -->
+                <div class="team-popup-member" onclick="openMemberModal('luiz')">
+                    <div class="team-popup-photo">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/LUIZ-EDUARDI-DE-ALMEIDA%288%29%281%29%281%29%281%29-kuVDK9ZL3jNmx9jQ0VgooVrQUqgRvt.jpg" alt="Luiz Eduardo Paulino de Almeida">  <!-- Added Luiz's real photo -->
+                    </div>
+                    <div class="team-popup-name">LUIZ EDUARDO</div>  <!-- Added Luiz's real name -->
+                    <div class="team-popup-role">Analista de Sistemas</div>  <!-- Added Luiz's role -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const contactBar = document.querySelector('.contact-bar');
+            const scrollHeight = document.documentElement.scrollHeight;
+            const scrollTop = document.documentElement.scrollTop;
+            const clientHeight = document.documentElement.clientHeight;
+            
+            // Mostrar botão quando estiver próximo do final da página (90% do scroll)
+            if (scrollTop + clientHeight >= scrollHeight * 0.9) {
+                contactBar.classList.add('visible');
+            } else {
+                contactBar.classList.remove('visible');
+            }
+        });
+
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function showSection(sectionId) {
+            // Remove active class from all sections and nav items
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to selected section and nav item
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.team-member, .info-box, .shortcut-card');
+            
+            // Configurar estado inicial dos elementos
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                /* Reduzindo tempo de transição de 0.4s para 0.2s */
+                element.style.transition = 'all 0.2s ease';
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        // Elemento entrando na viewport - animar para aparecer
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            // Observar todos os elementos
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        function openTeamPopup() {
+            const popup = document.getElementById('teamPopup');
+            popup.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTeamPopup() {
+            const popup = document.getElementById('teamPopup');
+            popup.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close team popup when clicking outside
+        window.addEventListener('click', function(event) {
+            const popup = document.getElementById('teamPopup');
+            if (event.target === popup) {
+                closeTeamPopup();
+            }
+        });
+
+        // Close team popup with ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeTeamPopup();
+            }
+        });
+
+        function openFAQModal(faqNumber) {
+            const modal = document.getElementById(`faqModal${faqNumber}`);
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Previne scroll do body
+        }
+
+        function closeFAQModal(faqNumber) {
+            const modal = document.getElementById(`faqModal${faqNumber}`);
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restaura scroll do body
+        }
+
+        // Fechar modal clicando fora dele
+        window.onclick = function(event) {
+            if (event.target.classList.contains('faq-modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Fechar modal com tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.faq-modal');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+        });
+
+        function toggleFAQ(faqNumber) {
+            const answer = document.getElementById(`answer${faqNumber}`);
+            const arrow = document.getElementById(`arrow${faqNumber}`);
+            
+            if (answer.classList.contains('show')) {
+                // Fechar FAQ
+                answer.classList.remove('show');
+                arrow.classList.remove('rotated');
+            } else {
+                // Abrir FAQ
+                answer.classList.add('show');
+                arrow.classList.add('rotated');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initScrollAnimations();
+        });
+        
+        window.addEventListener('resize', () => {
+            setTimeout(initScrollAnimations, 100);
+        });
+
+        const membersData = {
+            kaic: {
+                name: "KAIC MARÇAL COSTA",
+                role: "Desenvolvedor FULL-STACK",
+                photo: "https://i.ibb.co/2Y1Mn4Yy/kaic.jpg",
+                description: "Desenvolvedor experiente com foco em tecnologias web modernas. Especialista em JavaScript, React, Node.js e desenvolvimento full-stack. Apaixonado por criar soluções inovadoras e eficientes.",
+                skills: ["JavaScript", "React", "Node.js", "Python", "Github", "c++", "node.js"]
+            },
+            mical: {
+                name: "MICAL LEITE",
+                role: "Gerente de Projetos",
+                photo: "https://i.ibb.co/vgsLjMF/mical.jpg",
+                description: "Analista de sistemas com vasta experiência em modelagem de processos e arquitetura de software. Especialista em análise de requisitos e design de sistemas complexos.",
+                skills: ["UML", "Análise de Requisitos", "SQL", "Java", "Arquitetura de Software", "Scrum"]
+            },
+            icaro: {
+                name: "ICARO RIBEIRO BORGES FONSECA",
+                role: "Desenvolvedor Front-End",
+                photo: "https://i.ibb.co/Rp1VDzRQ/icaro.jpg",
+                description: "Desenvolvedor full-stack com expertise em desenvolvimento web completo. Domina tanto tecnologias front-end quanto back-end, criando aplicações robustas e escaláveis.",
+                skills: ["HTML/CSS", "JavaScript", "PHP", "MySQL", "Laravel", "Vue.js"]
+            },
+            rihan: {
+                name: "RIHAN CAMILO",
+                role: "Analista de Sistemas",
+                photo: "https://i.ibb.co/zhbBWq1M/rian-camilo.jpg",
+                description: "Gerente de projetos certificado PMP com experiência em coordenação de equipes de desenvolvimento. Especialista em metodologias ágeis e gestão de projetos de TI.",
+                skills: ["Scrum", "Kanban", "PMP", "Jira", "Gestão de Equipes", "Planejamento Estratégico"]
+            },
+            enzo: {
+                name: "ENZO VIEIRA",
+                role: "Desenvolvedor Back-end",
+                photo: "https://i.ibb.co/k69Nks26/enzo.jpg",
+                description: "Desenvolvedor Front-end especializado em React, Vue.js e design responsivo. Apaixonado por criar interfaces de usuário intuitivas e acessíveis.",
+                skills: ["HTML/CSS", "JavaScript", "React", "Vue.js", "UI/UX", "Responsive Design"]
+            },
+            ryan: {
+                name: "RYAN GABRIEL RODRIGUES FLORENCIO",  // Dados reais do Ryan
+                role: "Desenvolvedor Back-end",
+                photo: "https://i.ibb.co/YBy3RpKc/RYAN-GABRIEL-RODRIGUES-FLORENCIO.jpg",
+                description: "Especialista em desenvolvimento backend com foco em APIs robustas e arquitetura de sistemas escaláveis.",
+                skills: ["Node.js", "Python", "PostgreSQL"]
+            },
+            matheus: {
+                name: "MATHEUS ALVARENGA DE AMARAL",  // Dados reais do Matheus
+                role: "Analista de Dados",
+                photo: "https://i.ibb.co/GQXpB3PP/Matheus-Alvarenga-de-Amaral.jpg",
+                description: "Especialista em análise de dados e business intelligence, transformando dados em insights valiosos para o negócio.",
+                skills: ["Python", "SQL", "Power BI"]
+            },
+            arthur: {
+                name: "ARTHUR ANDRÉ DE MENDONÇA ASSUNÇÃO",  // Dados reais do Arthur
+                role: "Designer UX/UI",
+                photo: "https://i.ibb.co/4g2H5tmv/Arthur-Andr-de-Mendon-a-Assun-o.jpg",
+                description: "Designer focado em experiência do usuário e interfaces intuitivas, criando soluções visuais impactantes.",
+                skills: ["Figma", "Adobe XD", "Prototipagem"]
+            },
+            fernando: {
+                name: "FERNANDO HENRIQUE DE AMORIM",  // Dados reais do Fernando
+                role: "Desenvolvedor Mobile",
+                photo: "https://i.ibb.co/1fwgKgR4/Fernando-Henrique-de-Amorim.jpg",
+                description: "Desenvolvedor especializado em aplicações móveis nativas e híbridas para Android e iOS.",
+                skills: ["React Native", "Flutter", "Kotlin"]
+            },
+            kaua: {
+                name: "KAUÃ VINÍCIUS CARDOSO GUIMARÃES",  // Dados reais do Kauã
+                role: "Especialista em Segurança",
+                photo: "https://i.ibb.co/zTKGnw3n/Kau-Vin-cius-Cardoso-Guimar-es.jpg",
+                description: "Especialista em segurança da informação e ethical hacking, garantindo a proteção de sistemas e dados.",
+                skills: ["Pentesting", "Criptografia", "Firewall"]
+            },
+            breno: {
+                name: "BRENO ARAUJO OLIVEIRA JACINTHO",  // Dados reais do Breno
+                role: "Administrador de Banco de Dados",
+                photo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/BRENO-ARAUJO-OLIVEIRA-JACINTHO%283%29%281%29%281%29-UKdIvoX7ReJXL8n39Sy5i5Pfzto1SO.jpg",
+                description: "Administrador de banco de dados com expertise em otimização de performance e arquitetura de dados.",
+                skills: ["MySQL", "MongoDB", "Oracle"]
+            },
+            marco: {
+                name: "MARCO ANTONIO ARNOLD",  // Added Marco's data
+                role: "Desenvolvedor Frontend",
+                photo: "https://i.ibb.co/0p70SKCL/MARCO-ARNOLD.jpg",
+                description: "Desenvolvedor frontend especializado em criar interfaces modernas e responsivas. Focado em experiência do usuário e performance de aplicações web.",
+                skills: ["HTML/CSS", "JavaScript", "React", "Vue.js", "Sass", "Webpack"]
+            },
+            luiz: {
+                name: "LUIZ EDUARDO PAULINO DE ALMEIDA",  // Added Luiz's data
+                role: "Analista de Sistemas",
+                photo: "https://i.ibb.co/RTkk6v8b/LUIZ-EDUARDI-DE-ALMEIDA.jpg",
+                description: "Analista de sistemas com experiência em levantamento de requisitos e modelagem de processos. Especialista em documentação técnica e análise de negócios.",
+                skills: ["Análise de Requisitos", "UML", "SQL", "Business Intelligence", "Documentação Técnica", "Processos de Negócio"]
+            }
+        };
+
+        function openMemberModal(memberId) {
+            const member = membersData[memberId];
+            const modal = document.getElementById('memberModal');
+            
+            document.getElementById('memberModalName').textContent = member.name;
+            document.getElementById('memberModalRole').textContent = member.role;
+            document.getElementById('memberModalPhoto').src = member.photo;
+            document.getElementById('memberModalDescription').textContent = member.description;
+            
+            const skillsList = document.getElementById('memberModalSkills');
+            skillsList.innerHTML = '';
+            member.skills.forEach(skill => {
+                const li = document.createElement('li');
+                li.textContent = skill;
+                skillsList.appendChild(li);
+            });
+            
+            document.getElementById('teamPopup').style.display = 'none';
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMemberModal() {
+            const modal = document.getElementById('memberModal');
+            modal.style.display = 'none';
+            document.getElementById('teamPopup').style.display = 'block';
+        }
+
+        
+        // Close member modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('memberModal');
+            const teamPopup = document.getElementById('teamPopup');
+            
+            if (event.target === modal) {
+                closeMemberModal();
+            } else if (event.target === teamPopup) {
+                closeTeamPopup();
+            }
+        });
+
+        // Close modals with ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const memberModal = document.getElementById('memberModal');
+                const teamPopup = document.getElementById('teamPopup');
+                
+                if (memberModal.style.display === 'block') {
+                    closeMemberModal();
+                } else if (teamPopup.style.display === 'block') {
+                    closeTeamPopup();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

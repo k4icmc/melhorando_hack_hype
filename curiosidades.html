@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACK HYPE - Curiosidades</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/W4j1VK9n/logo-hack-hype-Photoroom.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Partículas flutuantes de fundo */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgb(8 78 120 / 32%);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #00ffff;
+            animation: slideInFromTop 0.8s ease-out;
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #000;
+            border: 4px solid #00ffff;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            filter: drop-shadow(0 0 3px #00ffff);
+        }
+
+        .back-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1.1rem;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #0080ff, #00ffff);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 140px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInTitle 1.2s ease-out;
+        }
+
+        @keyframes fadeInTitle {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Curiosidades Grid */
+        .curiosidades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .curiosidade-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: borderPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% {
+                border-color: rgba(0, 255, 255, 0.3);
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+            }
+            50% {
+                border-color: rgba(0, 255, 255, 0.6);
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            }
+        }
+
+        .curiosidade-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+
+        .curiosidade-card:hover::before {
+            transform: scale(1);
+        }
+
+        .curiosidade-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.4);
+            border-color: #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .curiosidade-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .curiosidade-card:hover .curiosidade-icon {
+            transform: rotateY(360deg);
+        }
+
+        .curiosidade-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .curiosidade-text {
+            line-height: 1.6;
+            color: #e0e0e0;
+            text-align: justify;
+        }
+
+        .curiosidade-highlight {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        /* Seção de estatísticas */
+        .stats-section {
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .stats-title {
+            font-size: 2.5rem;
+            color: #00ffff;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid #00ffff;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.8rem 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+                font-size: 0.9rem;
+            }
+            
+            .back-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .main-content {
+                margin-top: 120px;
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .curiosidades-grid {
+                gap: 1rem;
+            }
+
+            .curiosidade-card {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .curiosidades-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .curiosidades-grid {
+                gap: 1rem;
+            }
+
+            .curiosidade-card {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Animações de scroll */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas flutuantes -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logo-hack-hype-Photoroom%282%29-vc1HA65D8XLfpPYsX23Ii3UFKDXPaD.png" alt="HACK HYPE Logo">
+                <!-- COMENTÁRIO: Para alterar a logo, substitua o link acima -->
+            </div>
+            <a href="https://hack-hype.vercel.app" class="back-btn">← Voltar ao Início</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">CURIOSIDADES TECH</h1>
+        <p class="page-subtitle">Fatos fascinantes do mundo da tecnologia e sistemas de informação</p>
+
+        <!-- Grid de Curiosidades -->
+        <div class="curiosidades-grid">
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">🌐</span>
+                <h3 class="curiosidade-title">A Internet Pesa Quanto?</h3>
+                <p class="curiosidade-text">
+                    Segundo estimativas científicas, toda a internet pesa aproximadamente <span class="curiosidade-highlight">50 gramas</span> - o peso de um morango! 
+                    Isso considerando o peso dos elétrons em movimento que carregam as informações através dos servidores e cabos ao redor do mundo.
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">💾</span>
+                <h3 class="curiosidade-title">O Primeiro Bug da História</h3>
+                <p class="curiosidade-text">
+                    O termo "bug" foi criado em <span class="curiosidade-highlight">1947</span> pela programadora Grace Hopper, quando ela encontrou 
+                    uma mariposa real presa nos relés do computador Harvard Mark II, causando mau funcionamento. 
+                    Ela literalmente removeu o "bug" e colou-o no livro de registros.
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">🔐</span>
+                <h3 class="curiosidade-title">Senhas Mais Usadas</h3>
+                <p class="curiosidade-text">
+                    As senhas mais comuns no mundo são <span class="curiosidade-highlight">"123456", "password" e "123456789"</span>. 
+                    Essas três representam mais de 10% de todas as senhas usadas globalmente. 
+                    Uma senha forte levaria trilhões de anos para ser quebrada por força bruta.
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">📱</span>
+                <h3 class="curiosidade-title">Poder de Processamento</h3>
+                <p class="curiosidade-text">
+                    Um smartphone moderno tem mais poder de processamento que todos os computadores da NASA usados para 
+                    levar o homem à lua em <span class="curiosidade-highlight">1969</span>. O Apollo 11 tinha apenas 4KB de RAM, 
+                    enquanto um iPhone básico tem mais de 1 milhão de vezes essa capacidade.
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">⚡</span>
+                <h3 class="curiosidade-title">Velocidade da Luz vs Internet</h3>
+                <p class="curiosidade-text">
+                    A informação na internet viaja a aproximadamente <span class="curiosidade-highlight">70% da velocidade da luz</span> 
+                    através de cabos de fibra óptica. Isso significa que um sinal pode dar a volta ao mundo em cerca de 
+                    133 milissegundos - mais rápido que um piscar de olhos!
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">🎮</span>
+                <h3 class="curiosidade-title">Primeiro Videogame</h3>
+                <p class="curiosidade-text">
+                    O primeiro videogame da história foi <span class="curiosidade-highlight">"Tennis for Two"</span> criado em 1958 
+                    por William Higinbotham em um osciloscópio. Ele foi desenvolvido em apenas algumas horas para entreter 
+                    visitantes em um laboratório de física nuclear.
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">🤖</span>
+                <h3 class="curiosidade-title">Inteligência Artificial</h3>
+                <p class="curiosidade-text">
+                    O termo "Inteligência Artificial" foi cunhado em <span class="curiosidade-highlight">1956</span> por John McCarthy. 
+                    Hoje, algoritmos de IA processam mais de <span class="curiosidade-highlight">5 bilhões</span> de pesquisas no Google diariamente 
+                    e tomam decisões em milissegundos.
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">💻</span>
+                <h3 class="curiosidade-title">Primeiro Computador</h3>
+                <p class="curiosidade-text">
+                    O ENIAC (1946), considerado o primeiro computador eletrônico, pesava <span class="curiosidade-highlight">30 toneladas</span>, 
+                    ocupava 167m² e consumia 150kW de energia - suficiente para abastecer uma pequena cidade. 
+                    Hoje, um smartwatch tem mais poder computacional.
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">📊</span>
+                <h3 class="curiosidade-title">Big Data em Números</h3>
+                <p class="curiosidade-text">
+                    A cada minuto são criados <span class="curiosidade-highlight">2,5 quintilhões de bytes</span> de dados no mundo. 
+                    Isso equivale a 90% de todos os dados existentes terem sido criados apenas nos últimos 2 anos. 
+                    O YouTube recebe 500 horas de vídeo por minuto!
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">🔍</span>
+                <h3 class="curiosidade-title">Algoritmos do Google</h3>
+                <p class="curiosidade-text">
+                    O Google usa mais de <span class="curiosidade-highlight">200 fatores</span> diferentes para ranquear páginas web. 
+                    O algoritmo PageRank original foi nomeado em homenagem ao co-fundador Larry Page, não às "páginas" web. 
+                    O Google processa mais de 40.000 pesquisas por segundo.
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">🌍</span>
+                <h3 class="curiosidade-title">Cabos Submarinos</h3>
+                <p class="curiosidade-text">
+                    Mais de <span class="curiosidade-highlight">99% do tráfego internacional</span> de internet passa por cabos submarinos. 
+                    Existem mais de 400 cabos no fundo dos oceanos, totalizando mais de 1,3 milhão de quilômetros - 
+                    suficiente para dar 32 voltas ao redor da Terra!
+                </p>
+            </div>
+
+            <div class="curiosidade-card scroll-reveal">
+                <span class="curiosidade-icon">💡</span>
+                <h3 class="curiosidade-title">Lei de Moore</h3>
+                <p class="curiosidade-text">
+                    A Lei de Moore prevê que o número de transistores em um chip dobra a cada <span class="curiosidade-highlight">2 anos</span>. 
+                    Formulada em 1965, ela se manteve verdadeira por mais de 50 anos. Um processador moderno contém 
+                    mais de 50 bilhões de transistores!
+                </p>
+            </div>
+        </div>
+
+        <!-- Seção de Estatísticas -->
+        <section class="stats-section">
+            <h2 class="stats-title">ESTATÍSTICAS IMPRESSIONANTES</h2>
+            <div class="stats-grid">
+                <div class="stat-card scroll-reveal">
+                    <div class="stat-number">4.9B</div>
+                    <div class="stat-label">Usuários de Internet</div>
+                </div>
+                <div class="stat-card scroll-reveal">
+                    <div class="stat-number">2.8B</div>
+                    <div class="stat-label">Usuários de Redes Sociais</div>
+                </div>
+                <div class="stat-card scroll-reveal">
+                    <div class="stat-number">6.8B</div>
+                    <div class="stat-label">Smartphones no Mundo</div>
+                </div>
+                <div class="stat-card scroll-reveal">
+                    <div class="stat-number">500H</div>
+                    <div class="stat-label">Vídeos no YouTube/min</div>
+                </div>
+                <div class="stat-card scroll-reveal">
+                    <div class="stat-number">319B</div>
+                    <div class="stat-label">E-mails Enviados/dia</div>
+                </div>
+                <div class="stat-card scroll-reveal">
+                    <div class="stat-number">95M</div>
+                    <div class="stat-label">Posts no Instagram/dia</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.scroll-reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initScrollAnimations();
+        });
+    </script>
+</body>
+</html>
