@@ -132,49 +132,6 @@
             gap: 2rem;
         }
 
-        /* Adicionando estilos para botões de login e cadastro */
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .btn-login, .btn-cadastro {
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            border: 2px solid #00ffff;
-        }
-
-        .btn-login {
-            background: transparent;
-            color: #00ffff;
-        }
-
-        .btn-login:hover {
-            background: #00ffff;
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .btn-cadastro {
-            background: linear-gradient(45deg, #00ffff, #0080ff);
-            color: #000;
-            border: none;
-        }
-
-        .btn-cadastro:hover {
-            background: linear-gradient(45deg, #0080ff, #00ffff);
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
         .nav-item {
             cursor: pointer;
             padding: 0.8rem 1.5rem;
@@ -883,20 +840,6 @@
                 gap: 0.5rem;
             }
             
-            /* Responsividade para botões de autenticação */
-            .auth-buttons {
-                flex-direction: column;
-                gap: 0.5rem;
-                width: 100%;
-            }
-
-            .btn-login, .btn-cadastro {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-                width: 100%;
-                text-align: center;
-            }
-            
             .nav-item {
                 padding: 0.5rem 0.8rem;
                 font-size: 0.8rem;
@@ -1523,12 +1466,8 @@
                 <li class="nav-item" onclick="showSection('perguntas')">PERGUNTAS</li>
                 <!-- Botão feedback mantido conforme solicitado -->
                 <li class="nav-item" onclick="window.open('https://ayadlljq.formester.com/f/srOu3CGD7', '_blank')">FEEDBACK</li>
+                <!-- <li class="nav-item" onclick="window.open('LINK AQUI')">CADASTRO</li> -->
             </ul>
-            <!-- Adicionando botões de login e cadastro -->
-            <div class="auth-buttons">
-                <a href="php/login.php" class="btn-login">Login</a>
-                <a href="php/cadastro.php" class="btn-cadastro">Cadastro</a>
-            </div>
         </nav>
     </header>
 
@@ -1921,7 +1860,7 @@
                     <div class="team-popup-photo">
                         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/kaic%283%29%281%29%281%29%282%29%281%29%281%29%281%29-C4NHFlfGF8YekVJKouCO8FnQYmj6yy.jpg" alt="Kaic Marçal">  <!-- Para trocar imagem: substitua o link aqui -->
                     </div>
-                    <div class="team-popup-name">KAIC MARÇAL COSTA</div>
+                    <div class="team-popup-name">KAIC MARÇAL</div>
                     <div class="team-popup-role">Desenvolvedor Full-Stack</div>
                 </div>
 
@@ -1931,7 +1870,7 @@
                         <img src="https://i.ibb.co/vgsLjMF/mical.jpg" alt="Mical Leite">  <!-- Para trocar imagem: substitua o link aqui -->
                     </div>
                     <div class="team-popup-name">MICAL LEITE</div>
-                    <div class="team-popup-role">Analista de Sistemas</div>
+                    <div class="team-popup-role">Gerente de Projetos</div>
                 </div>
 
                 <!-- MEMBRO 3: ICARO RIBEIRO BORGES FONSECA -->
@@ -1939,7 +1878,7 @@
                     <div class="team-popup-photo">
                         <img src="https://i.ibb.co/Rp1VDzRQ/icaro.jpg" alt="Icaro Ribeiro Borges Fonseca">  <!-- Para trocar imagem: substitua o link aqui -->
                     </div>
-                    <div class="team-popup-name">ICARO RIBEIRO BORGES FONSECA</div>
+                    <div class="team-popup-name">ICARO RIBEIRO</div>
                     <div class="team-popup-role">Desenvolvedor Front-End</div>
                 </div>
 
@@ -1949,7 +1888,7 @@
                         <img src="https://i.ibb.co/zhbBWq1M/rian-camilo.jpg" alt="Rihan Camilo">  <!-- Para trocar imagem: substitua o link aqui -->
                     </div>
                     <div class="team-popup-name">RIHAN CAMILO</div>
-                    <div class="team-popup-role">Gerente de Projetos</div>
+                    <div class="team-popup-role">Analista de Sistenmas</div>
                 </div>
 
                 <!-- MEMBRO 5: ENZO VIEIRA -->
@@ -1958,7 +1897,7 @@
                         <img src="https://i.ibb.co/k69Nks26/enzo.jpg" >
                     </div>
                     <div class="team-popup-name">ENZO VIEIRA</div>
-                    <div class="team-popup-role">Desenvolvedor Front-end</div>
+                    <div class="team-popup-role">Desenvolvedor Back-end</div>
                 </div>
 
                 <!-- MEMBRO 6: RYAN GABRIEL RODRIGUES FLORENCIO -->
@@ -1966,7 +1905,7 @@
                     <div class="team-popup-photo">
                         <img src="https://i.ibb.co/YBy3RpKc/RYAN-GABRIEL-RODRIGUES-FLORENCIO.jpg" alt="Ryan Gabriel Rodrigues Florencio">  <!-- Adicionada foto real do Ryan -->
                     </div>
-                    <div class="team-popup-name">RYAN GABRIEL RODRIGUES FLORENCIO</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-name">RYAN GABRIEL</div>  <!-- Nome real do membro -->
                     <div class="team-popup-role">Desenvolvedor Back-end</div>  <!-- Função definida -->
                 </div>
 
@@ -1975,16 +1914,16 @@
                     <div class="team-popup-photo">
                         <img src="https://i.ibb.co/GQXpB3PP/Matheus-Alvarenga-de-Amaral.jpg" alt="Matheus Alvarenga de Amaral">  <!-- Adicionada foto real do Matheus -->
                     </div>
-                    <div class="team-popup-name">MATHEUS ALVARENGA DE AMARAL</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-name">MATHEUS ALVARENGA</div>  <!-- Nome real do membro -->
                     <div class="team-popup-role">Analista de Dados</div>  <!-- Função definida -->
                 </div>
 
-                <!-- MEMBRO 8: ARTHUR ANDRÉ DE MENDONÇA ASSUNÇÃO -->
-                <div class="team-popup-member" onclick="openMemberModal('arthur')">
+                <!-- MEMBRO 8: NAELLY CARDOSO -->
+                <div class="team-popup-member" onclick="openMemberModal('naelly')">
                     <div class="team-popup-photo">
-                        <img src="https://i.ibb.co/4g2H5tmv/Arthur-Andr-de-Mendon-a-Assun-o.jpg" alt="Arthur André">  <!-- Adicionada foto real do Arthur -->
+                        <img src="https://i.ibb.co/yFhRQcwX/naelly.jpg" alt="NAELLY CARDOSO">  <!-- Adicionada foto real DA NAELLY -->
                     </div>
-                    <div class="team-popup-name">ARTHUR ANDRÉ DE MENDONÇA ASSUNÇÃO</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-name">NAELLY CARDOSO</div>  <!-- Nome real do membro -->
                     <div class="team-popup-role">Designer UX/UI</div>  <!-- Função definida -->
                 </div>
 
@@ -1993,7 +1932,7 @@
                     <div class="team-popup-photo">
                         <img src="https://i.ibb.co/1fwgKgR4/Fernando-Henrique-de-Amorim.jpg" alt="Fernando Henrique de Amorim">  <!-- Adicionada foto real do Fernando -->
                     </div>
-                    <div class="team-popup-name">FERNANDO HENRIQUE DE AMORIM</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-name">FERNANDO HENRIQUE</div>  <!-- Nome real do membro -->
                     <div class="team-popup-role">Desenvolvedor Mobile</div>  <!-- Função definida -->
                 </div>
 
@@ -2002,35 +1941,28 @@
                     <div class="team-popup-photo">
                         <img src="https://i.ibb.co/zTKGnw3n/Kau-Vin-cius-Cardoso-Guimar-es.jpg" alt="Kauã Vinícius Cardoso Guimarães">  <!-- Adicionada foto real do Kauã -->
                     </div>
-                    <div class="team-popup-name">KAUÃ VINÍCIUS CARDOSO GUIMARÃES</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-name">KAUÃ VINÍCIUS</div>  <!-- Nome real do membro -->
                     <div class="team-popup-role">Especialista em Segurança</div>  <!-- Função definida -->
                 </div>
 
                 <!-- MEMBRO 11: BRENO ARAUJO OLIVEIRA JACINTHO -->
                 <div class="team-popup-member" onclick="openMemberModal('breno')">
                     <div class="team-popup-photo">
-                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/BRENO-ARAUJO-OLIVEIRA-JACINTHO%283%29%281%29%281%29-UKdIvoX7ReJXL8n39Sy5i5Pfzto1SO.jpg" alt="Breno Araujo Oliveira Jacintho">  <!-- Adicionada foto real do Breno -->
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/BRENO-ARAUJO-OLIVEIRA-JACINTHO%283%29%281%29%281%29%283%29%281%29%281%29%281%29-ahMkkjxurYfZHJFKVniXVHBpOikUF9.jpg" alt="Breno Araujo Oliveira Jacintho">  <!-- Adicionada foto real do Breno -->
                     </div>
-                    <div class="team-popup-name">BRENO ARAUJO OLIVEIRA JACINTHO</div>  <!-- Nome real do membro -->
+                    <div class="team-popup-name">BRENO ARAUJO</div>  <!-- Nome real do membro -->
                     <div class="team-popup-role">Administrador de Banco de Dados</div>  <!-- Função definida -->
                 </div>
 
                 <!-- MEMBRO 12: MARCO ANTONIO ARNOLD -->
                 <div class="team-popup-member" onclick="openMemberModal('marco')">
                     <div class="team-popup-photo">
-                        <img src="https://i.ibb.co/0p70SKCL/MARCO-ARNOLD.jpg" alt="Marco Antonio Arnold">  <!-- Added Marco's real photo -->
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/MARCO-ARNOLD%286%29%281%29%281%29%281%29-o6Q4JYzWcgXF3l33jfJKX28JhcYiVR.jpg" alt="Marco Antonio Arnold">  <!-- Added Marco's real photo -->
                     </div>
                     <div class="team-popup-name">MARCO ANTONIO ARNOLD</div>  <!-- Added Marco's real name -->
                     <div class="team-popup-role">Desenvolvedor Frontend</div>  <!-- Added Marco's role -->
                 </div>
 
-                <!-- MEMBRO 13: LUIZ EDUARDO PAULINO DE ALMEIDA -->
-                <div class="team-popup-member" onclick="openMemberModal('luiz')">
-                    <div class="team-popup-photo">
-                        <img src="https://i.ibb.co/RTkk6v8b/LUIZ-EDUARDI-DE-ALMEIDA.jpg" alt="Luiz Eduardo Paulino de Almeida">  <!-- Added Luiz's real photo -->
-                    </div>
-                    <div class="team-popup-name">LUIZ EDUARDO PAULINO DE ALMEIDA</div>  <!-- Added Luiz's real name -->
-                    <div class="team-popup-role">Analista de Sistemas</div>  <!-- Added Luiz's role -->
                 </div>
             </div>
         </div>
@@ -2203,7 +2135,7 @@
             },
             mical: {
                 name: "MICAL LEITE",
-                role: "Analista de Sistemas",
+                role: "Gerente de Projetos",
                 photo: "https://i.ibb.co/vgsLjMF/mical.jpg",
                 description: "Analista de sistemas com vasta experiência em modelagem de processos e arquitetura de software. Especialista em análise de requisitos e design de sistemas complexos.",
                 skills: ["UML", "Análise de Requisitos", "SQL", "Java", "Arquitetura de Software", "Scrum"]
@@ -2217,14 +2149,14 @@
             },
             rihan: {
                 name: "RIHAN CAMILO",
-                role: "Gerente de Projetos",
+                role: "Analista de Sistemas",
                 photo: "https://i.ibb.co/zhbBWq1M/rian-camilo.jpg",
                 description: "Gerente de projetos certificado PMP com experiência em coordenação de equipes de desenvolvimento. Especialista em metodologias ágeis e gestão de projetos de TI.",
                 skills: ["Scrum", "Kanban", "PMP", "Jira", "Gestão de Equipes", "Planejamento Estratégico"]
             },
             enzo: {
                 name: "ENZO VIEIRA",
-                role: "Desenvolvedor Front-end",
+                role: "Desenvolvedor Back-end",
                 photo: "https://i.ibb.co/k69Nks26/enzo.jpg",
                 description: "Desenvolvedor Front-end especializado em React, Vue.js e design responsivo. Apaixonado por criar interfaces de usuário intuitivas e acessíveis.",
                 skills: ["HTML/CSS", "JavaScript", "React", "Vue.js", "UI/UX", "Responsive Design"]
@@ -2243,10 +2175,10 @@
                 description: "Especialista em análise de dados e business intelligence, transformando dados em insights valiosos para o negócio.",
                 skills: ["Python", "SQL", "Power BI"]
             },
-            arthur: {
-                name: "ARTHUR ANDRÉ DE MENDONÇA ASSUNÇÃO",  // Dados reais do Arthur
+            naelly: {
+                name: "Naelly Cardoso",  // Dados reais do naelly
                 role: "Designer UX/UI",
-                photo: "https://i.ibb.co/4g2H5tmv/Arthur-Andr-de-Mendon-a-Assun-o.jpg",
+                photo: "https://i.ibb.co/yFhRQcwX/naelly.jpg",
                 description: "Designer focado em experiência do usuário e interfaces intuitivas, criando soluções visuais impactantes.",
                 skills: ["Figma", "Adobe XD", "Prototipagem"]
             },
@@ -2278,13 +2210,7 @@
                 description: "Desenvolvedor frontend especializado em criar interfaces modernas e responsivas. Focado em experiência do usuário e performance de aplicações web.",
                 skills: ["HTML/CSS", "JavaScript", "React", "Vue.js", "Sass", "Webpack"]
             },
-            luiz: {
-                name: "LUIZ EDUARDO PAULINO DE ALMEIDA",  // Added Luiz's data
-                role: "Analista de Sistemas",
-                photo: "https://i.ibb.co/RTkk6v8b/LUIZ-EDUARDI-DE-ALMEIDA.jpg",
-                description: "Analista de sistemas com experiência em levantamento de requisitos e modelagem de processos. Especialista em documentação técnica e análise de negócios.",
-                skills: ["Análise de Requisitos", "UML", "SQL", "Business Intelligence", "Documentação Técnica", "Processos de Negócio"]
-            }
+           
         };
 
         function openMemberModal(memberId) {
